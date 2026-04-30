@@ -33,7 +33,7 @@ With this clever algorithm, I have unlocked many words and by the end of age 3, 
 
 But, curious people will know that the curiosity is a never-ending kind of pleasure. One day, knowing that I read stuff, my aunt gave me my cousins' old encyclopedias:
 
-<center>{{< img src="/posts/bio/encyclopedia.jpg" align="img-center" >}}</center>
+<center>{{< img src="/bio/encyclopedia.jpg" align="img-center" >}}</center>
 <center>Bilgi Dünyasına Yolculuk (A journey to the World of Knowledge), a very, VERY tempting name for a curious mind back at that time</center>
 <br>
 
@@ -43,7 +43,7 @@ Like many individuals out there who put effort into things and start overcoming 
 Humans went to the Moon, humans built the radio, humans built ships and discovered the buoyant forces... Crazy, crazy stuff! One crazy thing for me was that all these things being found and experienced, but the real temptation lurking in the convolutions of my brain was the *idea of building these things myself and experiencing it myself*. Just as learning how to read these wiggly-squiggly images called the texts *unlocked* me new opportunities, building these things could do the same, if not more! I greatly remember seeing a picture of Uncle Scrooge McDuck in one of these encyclopedias, getting ready to dive in a pool of gold coins:
 
 
-<center>{{< img src="/posts/bio/scrooge.jpg" align="img-center" >}}</center>
+<center>{{< img src="/bio/scrooge.jpg" align="img-center" >}}</center>
 <center>Scrooge McDuck, The guy made me dream that I can become rich and swim in pool of gold if I can just learn how to mine and extract gold using these encyclopedias</center>
 <br>
 
