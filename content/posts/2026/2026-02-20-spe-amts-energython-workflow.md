@@ -12,7 +12,7 @@ menu:
     weight: -100
 ---
 
-_If you are just skimming the blog for my projects, you can jump to [here](#blog-special-demo-model) for an interactive demo of this work._
+_If you are just skimming the blog for my projects, you can jump to [here](#blog-special-interactive-model) for an interactive demo of this work._
 
 A couple of months ago, I have seen a VERY interesting competition going on: [SPE AMTS Energython](https://jpt.spe.org/spe-asset-management-technical-section-to-host-energy-economics-symposium). This competition was about designing a gas power plant to power a 10-20 MW datacenter from ground up, calculate things like CAPEX, OPEX, NPV etc., and present it to a group of judges to "sell" your ideas - pretty much like a "Shark Tank". Importantly, this was a US-wide competition, and the first 2 winning teams were said to be going to compete in the global competition afterwards, in October. 
 
