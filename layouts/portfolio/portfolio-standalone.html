@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fehmi Ozbayrak | Energy Systems Engineer</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+                    colors: { primary: '#2980b9', secondary: '#0f172a', muted: '#f8fafc', slateDark: '#020617' }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* =====================================================
+           BASE LAYOUT
+           ===================================================== */
+        body, html { width: 100%; height: 100%; overflow: hidden; background-color: #020617; }
+        #slide-track { display: flex; width: 500vw; height: 100vh; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+        .slide { width: 100vw; height: 100vh; overflow-y: auto; overflow-x: hidden; position: relative; scroll-behavior: smooth; }
+        .slide::-webkit-scrollbar { width: 6px; }
+        .slide::-webkit-scrollbar-track { background: transparent; }
+        .slide::-webkit-scrollbar-thumb { background: rgba(156, 163, 175, 0.5); border-radius: 10px; }
+
+        /* =====================================================
+           ACT HEADER (the "01 / Doctoral Research" block)
+           ===================================================== */
+        .act-shell { max-width: 1200px; margin: 0 auto; padding: 8rem 1.5rem 12rem; }
+        @media (min-width: 1024px) { .act-shell { padding-left: 3rem; padding-right: 3rem; } }
+        .act-header { border-bottom: 2px solid #e5e7eb; margin-bottom: 4rem; padding-bottom: 1.5rem; }
+        .act-eyebrow { font-size: 1.5rem; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; }
+        .act-thesis { font-size: 1.125rem; color: #6b7280; font-style: italic; line-height: 1.625; min-height: 60px; font-family: 'JetBrains Mono', monospace; }
+
+        /* =====================================================
+           CARD COMPONENT — semantic shorthand for project cards
+           ===================================================== */
+        .card { margin-bottom: 8rem; }
+        .card-header { width: 100%; margin-bottom: 2.5rem; text-align: center; }
+        .card-title { font-size: 2.25rem; font-weight: 800; color: #0f172a; margin-bottom: 1rem; line-height: 1.1; }
+        @media (min-width: 768px) { .card-title { font-size: 3rem; } }
+        .card-subtitle { font-size: 1.25rem; color: #6b7280; }
+
+        /* Optional metadata row under the subtitle: tools, methods, frameworks.
+           Each tag is a small outlined chip — present enough to read as an
+           object, quiet enough not to compete with the subtitle. */
+        .card-tags {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+        .card-tags > span {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: #94a3b8;
+            letter-spacing: 0.02em;
+            padding: 0.25rem 0.625rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.5);
+            white-space: nowrap;
+        }
+
+        /* The "stage" — the visual hero block at the top of each card */
+        .card-stage {
+            width: 100%;
+            height: 500px;
+            background-color: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            overflow: hidden;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        @media (min-width: 1024px) { .card-stage { height: 700px; } }
+
+        /* Stage variants */
+        .card-stage-video { background-color: #020617; aspect-ratio: 16 / 9; height: auto; }
+        .card-stage-image { display: flex; align-items: center; justify-content: center; }
+        .card-stage-image > img { width: 100%; height: 100%; object-fit: contain; position: relative; z-index: 10; }
+        .card-stage-video > video { width: 100%; height: 100%; position: relative; z-index: 10; }
+
+        /* Loading spinner shown before iframe mounts */
+        .card-stage-loader { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #9ca3af; }
+        .card-stage-loader > div {
+            animation: spin 1s linear infinite;
+            border-radius: 9999px;
+            height: 2rem; width: 2rem;
+            border-top: 2px solid #2980b9; border-bottom: 2px solid #2980b9;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* The prose body of the card */
+        .card-prose { width: 100%; font-size: 1.125rem; color: #374151; line-height: 1.625; }
+        .card-prose > p + p { margin-top: 1.5rem; }
+
+        /* Footer with action button */
+        .card-footer { margin-top: 2.5rem; text-align: center; }
+        .card-button {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-size: 1rem; font-weight: 500;
+            color: #fff; background-color: #2980b9;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            transition: background-color 0.2s;
+        }
+        .card-button:hover { background-color: #1d5d8a; }
+        .card-button > svg { width: 1.25rem; height: 1.25rem; margin-right: 0.5rem; }
+
+        /* Inline links inside prose */
+        .link { color: #2980b9; font-weight: 700; transition: all 0.2s; }
+        .link:hover { text-decoration: underline; }
+
+        /* The dotted-underline tooltip trigger.
+           Class is namespaced (`tt-trigger`) to avoid colliding with the
+           native HTML Popover API and any framework that treats `popover`
+           specially. */
+        .tt-trigger {
+            color: #2980b9; font-weight: 700;
+            border-bottom: 2px dotted #2980b9;
+            cursor: pointer;
+        }
+
+        /* =====================================================
+           HERO TYPEWRITER
+           ===================================================== */
+        .cursor-blink { animation: blink 1s step-end infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* Hero coloring — applied once, after the hero line finishes typing.
+           Uses the same red/green palette as the Sierra demo's IRR/NPV
+           indicators, for a consistent visual vocabulary across the site:
+           red = problem domain, green = good outcome.
+           Slightly raised alpha so they read clearly against #020617 slate. */
+        .hero-pole-bad   { color: #e57373; font-weight: 500; }
+        .hero-pole-good  { color: #6fbf73; font-weight: 500; }
+        .hero-bridge {
+            background: linear-gradient(90deg, #e57373 0%, #6fbf73 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+            font-weight: 500;
+        }
+
+        /* Act-description coloring — same red/green semantics as the hero, but
+           tuned for the light gray-50 background of the act slides. We use
+           darker hues (closer to the Sierra demo's KPI palette) so contrast
+           against the light background stays readable. */
+        .act-pole-bad    { color: #c0392b; font-weight: 500; }
+        .act-pole-good   { color: #27ae60; font-weight: 500; }
+
+        /* =====================================================
+           TOOLTIP & MODAL TRANSITIONS
+           ===================================================== */
+        .tooltip-visible { opacity: 1; transform: scale(1) translateY(0); }
+        .tooltip-hidden  { opacity: 0; transform: scale(0.95) translateY(10px); pointer-events: none; }
+        .modal-active   { opacity: 1; pointer-events: auto; }
+        .modal-inactive { opacity: 0; pointer-events: none; }
+
+        /* =====================================================
+           SCROLL HINT (lifted out of slides — see JS section 3)
+           Lives at the page root so transform-on-track doesn't
+           break its `position: fixed`.
+           ===================================================== */
+        @keyframes subtleBounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(5px); } }
+        #scroll-hint {
+            position: fixed; bottom: 2rem; left: 50%;
+            transform: translateX(-50%);
+            color: #9ca3af;
+            display: flex; flex-direction: column; align-items: center;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            animation: subtleBounce 2s infinite ease-in-out;
+            z-index: 40;
+        }
+        #scroll-hint.is-visible { opacity: 1; }
+        #scroll-hint span { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.25rem; }
+        #scroll-hint svg { width: 1.5rem; height: 1.5rem; }
+
+        /* =====================================================
+           CONTACT SLIDE (the closing bookend, mirrors slide 0)
+           ===================================================== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        @media (max-width: 640px) { .contact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; } }
+        .contact-cell {
+            display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+            color: #94a3b8;
+            transition: transform 0.25s ease, color 0.25s ease;
+            text-decoration: none;
+        }
+        .contact-cell:hover { transform: translateY(-4px); color: #2980b9; }
+        .contact-cell svg { width: 2.5rem; height: 2.5rem; }
+        .contact-cell-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            letter-spacing: 0.02em;
+        }
+        .contact-signoff {
+            font-family: 'JetBrains Mono', monospace;
+            color: #2980b9;
+            font-size: 1.125rem;
+            letter-spacing: 0.05em;
+            margin-top: 4rem;
+            opacity: 0.85;
+        }
+        .contact-colophon {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: #475569;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-top: 1.5rem;
+        }
+    </style>
+</head>
+<body class="text-gray-800 font-sans relative">
+
+    <!-- GLOBAL TOOLTIP COLLIDER -->
+    <div id="global-tooltip" class="fixed z-[9900] tooltip-hidden transition-all duration-200 ease-out origin-bottom pointer-events-none drop-shadow-2xl cursor-pointer hover:ring-4 ring-primary/30 rounded-xl"></div>
+
+    <!-- FULLSCREEN LIGHTBOX MODAL -->
+    <div id="global-modal" class="fixed inset-0 z-[10000] modal-inactive transition-opacity duration-300 bg-slateDark/90 backdrop-blur-sm flex items-center justify-center p-4 md:p-8">
+        <div class="relative w-full h-full max-w-7xl flex flex-col items-center justify-center">
+            <button id="modal-close" class="absolute top-2 right-2 md:-top-4 md:-right-4 w-10 h-10 bg-white text-secondary rounded-full shadow-xl flex items-center justify-center hover:bg-gray-200 transition z-50">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div id="modal-content" class="w-full max-h-full flex items-center justify-center overflow-auto rounded-xl"></div>
+        </div>
+    </div>
+
+    <!-- GLOBAL NAVIGATION (ARROWS) -->
+    <div class="fixed inset-0 pointer-events-none z-50 flex items-center justify-between px-4 md:px-8">
+        <button id="nav-left" class="pointer-events-auto w-12 h-12 md:w-16 md:h-16 flex items-center justify-center rounded-full backdrop-blur-sm shadow-lg transition-all opacity-0 translate-x-4 duration-300">
+            <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </button>
+        <button id="nav-right" class="pointer-events-auto w-12 h-12 md:w-16 md:h-16 flex items-center justify-center rounded-full backdrop-blur-sm shadow-lg transition-all duration-300">
+            <svg class="w-6 h-6 md:w-8 md:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        </button>
+    </div>
+
+    <!-- DOT PROGRESS NAV -->
+    <div class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 flex gap-3 pointer-events-none bg-secondary/50 px-4 py-2 rounded-full backdrop-blur-md border border-white/10">
+        <div class="nav-dot w-2 h-2 rounded-full bg-white transition-all duration-300"></div>
+        <div class="nav-dot w-2 h-2 rounded-full bg-white/30 transition-all duration-300"></div>
+        <div class="nav-dot w-2 h-2 rounded-full bg-white/30 transition-all duration-300"></div>
+        <div class="nav-dot w-2 h-2 rounded-full bg-white/30 transition-all duration-300"></div>
+        <div class="nav-dot w-2 h-2 rounded-full bg-white/30 transition-all duration-300"></div>
+    </div>
+
+    <!-- GLOBAL SCROLL HINT (lives outside the transform'd track) -->
+    <div id="scroll-hint">
+        <span>Scroll for more</span>
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+    </div>
+
+    <!-- THE SLIDER TRACK -->
+    <div id="slide-track">
+
+        <!-- SLIDE 0: TITLE CARD -->
+        <section class="slide bg-slateDark flex flex-col items-center justify-center relative" id="act-0">
+            <div class="max-w-5xl px-8 text-center z-10">
+                <h1 class="text-6xl md:text-8xl font-extrabold text-white tracking-tight mb-4 drop-shadow-lg">Fehmi Ozbayrak</h1>
+                <h2 class="text-2xl md:text-4xl font-semibold text-primary tracking-wide mb-12">Energy Systems Engineer</h2>
+                <div class="h-[120px] md:h-[100px] flex flex-col items-center justify-start gap-2">
+                    <p class="text-lg md:text-2xl text-gray-400 font-light font-mono max-w-3xl leading-relaxed">
+                        <span id="desc-act-0" data-text="I build pipelines that turn complexity into decisions humans can act on."></span><span class="cursor-blink text-primary">|</span>
+                    </p>
+                    <p id="hero-progress"
+                       class="text-sm md:text-base font-mono text-gray-500 opacity-0 transition-opacity duration-300"
+                       aria-hidden="true">[░░░░░░░░░░░░░░░░░░░░] 0%</p>
+                </div>
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent pointer-events-none"></div>
+        </section>
+
+        <!-- SLIDE 1: ACT I -->
+        <section class="slide bg-gray-50 relative" id="act-1">
+            <div class="act-shell">
+                <div class="act-header">
+                    <h2 class="act-eyebrow">01 / Doctoral Research</h2>
+                    <p class="act-thesis">
+                        <span id="desc-act-1" data-text="I characterize and quantify the risks of human-induced geohazards through coupled-process numerical and data-driven models."></span><span class="cursor-blink text-gray-400">|</span>
+                    </p>
+                </div>
+                {{ partial "portfolio/card_induced_fracturing.html" . }}
+                {{ partial "portfolio/card_basin.html" . }}
+                {{ partial "portfolio/card_strain.html" . }}
+            </div>
+        </section>
+
+        <!-- SLIDE 2: ACT II -->
+        <section class="slide bg-gray-50 relative" id="act-2">
+            <div class="act-shell">
+                <div class="act-header">
+                    <h2 class="act-eyebrow">02 / Energy Systems in Practice</h2>
+                    <p class="act-thesis">
+                        <span id="desc-act-2" data-text="I engineer end-to-end pipelines that turn open-ended energy questions into technical and commercial decisions."></span><span class="cursor-blink text-gray-400">|</span>
+                    </p>
+                </div>
+                {{ partial "portfolio/card_sierra.html" . }}
+                {{ partial "portfolio/card_nevada.html" . }}
+            </div>
+        </section>
+
+        <!-- SLIDE 3: ACT III -->
+        <section class="slide bg-gray-50 relative" id="act-3">
+            <div class="act-shell">
+                <div class="act-header">
+                    <h2 class="act-eyebrow">03 / Sprints</h2>
+                    <p class="act-thesis">
+                        <span id="desc-act-3" data-text="I answer severe time constraints with robust workflows."></span><span class="cursor-blink text-gray-400">|</span>
+                    </p>
+                </div>
+                {{ partial "portfolio/card_forge.html" . }}
+                {{ partial "portfolio/card_hackathon.html" . }}
+            </div>
+        </section>
+
+        <!-- SLIDE 4: CONTACT (closing bookend — mirrors slide 0) -->
+        <section class="slide bg-slateDark flex flex-col items-center justify-center relative" id="act-4">
+            <div class="max-w-5xl px-8 text-center z-10">
+                <h2 class="text-4xl md:text-6xl font-extrabold text-white tracking-tight mb-4">Let's talk.</h2>
+                <p class="text-lg md:text-xl text-gray-400 font-light font-mono max-w-2xl mx-auto leading-relaxed">
+                    <span id="desc-act-4" data-text="// reach out — I read everything."></span><span class="cursor-blink text-primary">|</span>
+                </p>
+
+                <div class="contact-grid">
+                    <a href="mailto:ozbayrakfehmi@gmail.com" class="contact-cell" aria-label="Email">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l9 6 9-6M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                        <span class="contact-cell-label">Email</span>
+                    </a>
+                    <a href="linkedin.com/in/fozbayrak" target="_blank" rel="noopener noreferrer" class="contact-cell" aria-label="LinkedIn">
+                        <svg fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.21 0 22.23 0z"></path>
+                        </svg>
+                        <span class="contact-cell-label">LinkedIn</span>
+                    </a>
+                    <a href="https://github.com/fozba/" target="_blank" rel="noopener noreferrer" class="contact-cell" aria-label="GitHub">
+                        <svg fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58 0-.29-.01-1.04-.02-2.05-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.21.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.5 1 .11-.78.42-1.31.76-1.61-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.11-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 016 0c2.29-1.55 3.3-1.23 3.3-1.23.65 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.62-5.49 5.92.43.37.81 1.1.81 2.22 0 1.6-.01 2.89-.01 3.29 0 .32.22.7.83.58A12 12 0 0024 12c0-6.63-5.37-12-12-12z"></path>
+                        </svg>
+                        <span class="contact-cell-label">GitHub</span>
+                    </a>
+                    <a href="https://scholar.google.com/citations?user=NdarxTgAAAAJ" target="_blank" rel="noopener noreferrer" class="contact-cell" aria-label="Google Scholar">
+                        <svg fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 100 14 7 7 0 000-14z"></path>
+                        </svg>
+                        <span class="contact-cell-label">Scholar</span>
+                    </a>
+                </div>
+
+                <p class="contact-signoff">// end of stack</p>
+                <p class="contact-colophon">Fehmi Ozbayrak</p>
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-tl from-primary/10 to-transparent pointer-events-none"></div>
+        </section>
+
+    </div>
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            /* ===== 1. SLIDER STATE ===== */
+            const track = document.getElementById('slide-track');
+            const btnLeft = document.getElementById('nav-left');
+            const btnRight = document.getElementById('nav-right');
+            const dots = document.querySelectorAll('.nav-dot');
+            const slides = document.querySelectorAll('.slide');
+            const totalSlides = slides.length;
+            let currentSlide = 0;
+
+            /* ===== 2. TYPEWRITER ENGINE =====
+               Time-driven, not count-driven. Each animation frame computes
+               how many characters SHOULD be visible based on elapsed
+               wall-clock time (chars = elapsed_ms / msPerChar), then writes
+               them all in one shot. If the main thread blocks for, say,
+               200ms while an iframe loads Plotly, the next frame catches up
+               by typing 6+ characters at once. The typewriter never visibly
+               freezes — it just briefly speeds up after pressure clears.
+
+               This is how the underlying problem is "solved": we stop
+               assuming each character gets its own undisturbed timeslice
+               and instead track real time. */
+            // Color segments for the act typewriters. Each slide's text gets
+            // split into a sequence of (text, class) segments; the typewriter
+            // reveals characters across them in order, with classes applied
+            // from the first character of each colored word. The same hue
+            // language as the hero: red = problem, green = capability/outcome.
+            //
+            // Markers MUST be ordered as they appear in the data-text. If
+            // a marker isn't found, it's silently skipped — easy to re-edit
+            // sentences without breaking the build.
+            const SLIDE_COLOR_SEGMENTS = {
+                0: [
+                    { word: 'complexity', cls: 'hero-pole-bad' },
+                    { word: 'into',       cls: 'hero-bridge'   },
+                    { word: 'decisions',  cls: 'hero-pole-good'},
+                ],
+                1: [
+                    { word: 'human-induced geohazards', cls: 'act-pole-bad' },
+                    { word: 'coupled-process numerical and data-driven models', cls: 'act-pole-good' },
+                ],
+                2: [
+                    { word: 'open-ended energy questions', cls: 'act-pole-bad' },
+                    { word: 'technical and commercial decisions', cls: 'act-pole-good' },
+                ],
+                3: [
+                    { word: 'severe time constraints', cls: 'act-pole-bad' },
+                    { word: 'robust workflows',        cls: 'act-pole-good' },
+                ],
+            };
+
+            // Split a string into segments based on a markers array.
+            // Returns [{text, cls}] in order.
+            function buildSegments(text, markers) {
+                const segs = [];
+                let cursor = 0;
+                for (const m of markers) {
+                    const idx = text.indexOf(m.word, cursor);
+                    if (idx < 0) continue;
+                    if (idx > cursor) segs.push({ text: text.slice(cursor, idx), cls: null });
+                    segs.push({ text: m.word, cls: m.cls });
+                    cursor = idx + m.word.length;
+                }
+                if (cursor < text.length) segs.push({ text: text.slice(cursor), cls: null });
+                return segs;
+            }
+
+            // Type a segmented structure into a host element. Pre-creates the
+            // span scaffold, then reveals characters across segments per
+            // animation frame. Returns a Promise that resolves on completion.
+            function typeSegmentsInto(hostEl, segments, speed = 35) {
+                hostEl.innerHTML = '';
+                const nodes = segments.map(seg => {
+                    const span = document.createElement('span');
+                    if (seg.cls) span.className = seg.cls;
+                    hostEl.appendChild(span);
+                    return span;
+                });
+                const total = segments.reduce((s, seg) => s + seg.text.length, 0);
+
+                return new Promise((resolve) => {
+                    const start = performance.now();
+                    let lastShown = 0;
+                    function frame(now) {
+                        const target = Math.min(total, Math.floor((now - start) / speed));
+                        if (target > lastShown) {
+                            let remaining = target;
+                            for (let i = 0; i < segments.length; i++) {
+                                const segLen = segments[i].text.length;
+                                const take = Math.min(remaining, segLen);
+                                nodes[i].textContent = segments[i].text.slice(0, take);
+                                remaining -= take;
+                                if (remaining <= 0) {
+                                    for (let j = i + 1; j < nodes.length; j++) nodes[j].textContent = '';
+                                    break;
+                                }
+                            }
+                            lastShown = target;
+                        }
+                        if (target < total) requestAnimationFrame(frame);
+                        else resolve();
+                    }
+                    requestAnimationFrame(frame);
+                });
+            }
+
+            const typedSlides = new Array(totalSlides).fill(false);
+            function triggerTypewriter(slideIndex, speed = 35, onDone) {
+                if (typedSlides[slideIndex]) { if (onDone) onDone(); return; }
+                const el = document.getElementById(`desc-act-${slideIndex}`);
+                if (!el) { if (onDone) onDone(); return; }
+                const text = el.getAttribute('data-text');
+                if (!text) { if (onDone) onDone(); return; }
+
+                typedSlides[slideIndex] = true;
+
+                // If this slide has a color-segment definition, use the
+                // segmented typewriter so colored phrases appear in their
+                // final color from the first character.
+                const markers = SLIDE_COLOR_SEGMENTS[slideIndex];
+                if (markers && markers.length) {
+                    const segments = buildSegments(text, markers);
+                    typeSegmentsInto(el, segments, speed).then(() => { if (onDone) onDone(); });
+                    return;
+                }
+
+                // Plain typewriter (no coloring) — kept for any slide without
+                // segment definitions, so adding new slides Just Works.
+                el.textContent = '';
+                const start = performance.now();
+                const total = text.length;
+                let lastShown = 0;
+                function frame(now) {
+                    const target = Math.min(total, Math.floor((now - start) / speed));
+                    if (target > lastShown) {
+                        el.textContent = text.slice(0, target);
+                        lastShown = target;
+                    }
+                    if (target < total) requestAnimationFrame(frame);
+                    else if (onDone) onDone();
+                }
+                requestAnimationFrame(frame);
+            }
+
+            // Reverse typewriter — erases an element's textContent character
+            // by character, time-driven so it cannot freeze under main-thread
+            // pressure (same rationale as triggerTypewriter). Returns a
+            // Promise that resolves when erasure completes.
+            function reverseTypewriter(el, speed = 25) {
+                return new Promise((resolve) => {
+                    const start = performance.now();
+                    const initial = el.textContent;
+                    const total = initial.length;
+                    let lastShown = total;
+                    function frame(now) {
+                        const elapsed = now - start;
+                        const remaining = Math.max(0, total - Math.floor(elapsed / speed));
+                        if (remaining < lastShown) {
+                            el.textContent = initial.slice(0, remaining);
+                            lastShown = remaining;
+                        }
+                        if (remaining > 0) requestAnimationFrame(frame);
+                        else resolve();
+                    }
+                    requestAnimationFrame(frame);
+                });
+            }
+
+            // Promise-ified version of triggerTypewriter for ceremony
+            // sequencing. Doesn't touch the typedSlides guard — that's only
+            // for slide-description typing, not the hero ceremony.
+            function typeIntoElement(el, text, speed = 35) {
+                return new Promise((resolve) => {
+                    el.textContent = '';
+                    const start = performance.now();
+                    const total = text.length;
+                    let lastShown = 0;
+                    function frame(now) {
+                        const elapsed = now - start;
+                        const target = Math.min(total, Math.floor(elapsed / speed));
+                        if (target > lastShown) {
+                            el.textContent = text.slice(0, target);
+                            lastShown = target;
+                        }
+                        if (target < total) requestAnimationFrame(frame);
+                        else resolve();
+                    }
+                    requestAnimationFrame(frame);
+                });
+            }
+
+            // Note: the typewriter is no longer fired on `window.load` here.
+            // updateSlider(true) at the bottom of this script owns initial
+            // typing, so we keep one source of truth for the typing →
+            // mount chain.
+
+            /* ===== 3. SLIDER NAVIGATION ===== */
+            function updateSlider(isInit = false) {
+                track.style.transform = `translateX(-${currentSlide * 100}vw)`;
+                history.replaceState(null, null, `#act-${currentSlide}`);
+
+                btnLeft.style.opacity = currentSlide === 0 ? '0' : '1';
+                btnLeft.style.transform = currentSlide === 0 ? 'translateX(1rem)' : 'translateX(0)';
+                btnLeft.style.pointerEvents = currentSlide === 0 ? 'none' : 'auto';
+
+                btnRight.style.opacity = currentSlide === totalSlides - 1 ? '0' : (navReady ? '1' : '0.3');
+                btnRight.style.transform = currentSlide === totalSlides - 1 ? 'translateX(-1rem)' : 'translateX(0)';
+                btnRight.style.pointerEvents = currentSlide === totalSlides - 1 ? 'none' : 'auto';
+
+                // Arrow color theme: light arrows on dark slides (title + contact), dark on the act slides
+                const isDarkSlide = currentSlide === 0 || currentSlide === totalSlides - 1;
+                [btnLeft, btnRight].forEach(btn => {
+                    if (isDarkSlide) {
+                        btn.className = btn.className.replace(/text-secondary bg-black\/5 hover:bg-black\/10/g, '');
+                        btn.classList.add('text-white', 'bg-white/10', 'hover:bg-white/90', 'hover:text-secondary');
+                    } else {
+                        btn.className = btn.className.replace(/text-white bg-white\/10 hover:bg-white\/90 hover:text-secondary/g, '');
+                        btn.classList.add('text-secondary', 'bg-black/5', 'hover:bg-black/10');
+                    }
+                });
+
+                dots.forEach((dot, index) => {
+                    if (index === currentSlide) {
+                        dot.classList.remove('bg-white/30', 'w-2', 'h-2');
+                        dot.classList.add('bg-primary', 'w-6', 'h-3');
+                    } else {
+                        dot.classList.remove('bg-primary', 'w-6', 'h-3');
+                        dot.classList.add('bg-white/30', 'w-2', 'h-2');
+                    }
+                });
+
+                updateScrollHint();
+
+                // ----- Mount sequence -----
+                // Iframes are mounted by the EAGER PRELOAD pass that runs
+                // shortly after page load (see section 5b). By the time the
+                // user navigates anywhere, those iframes are already mounted
+                // and (mostly) loaded — so navigation is buttery.
+                //
+                // The defensive call below catches the rare race where the
+                // user navigates away from the title slide BEFORE the eager
+                // pass has reached this slide. We mount any stages that the
+                // eager pass missed, one-per-rAF.
+                //
+                // Typewriter is fired immediately and runs concurrently with
+                // everything else. Because it's now time-driven (rAF, not
+                // setTimeout), it cannot freeze under main-thread pressure —
+                // it just briefly catches up by typing multiple characters
+                // per frame after the pressure clears.
+
+                const arrived = slides[currentSlide];
+                if (arrived) {
+                    const pending = Array.from(arrived.querySelectorAll('.card-stage[data-iframe-src]:not([data-loaded])'));
+                    const mountNext = () => {
+                        const next = pending.shift();
+                        if (!next) return;
+                        mountStage(next);
+                        if (pending.length) requestAnimationFrame(mountNext);
+                    };
+                    mountNext();
+                }
+
+                // Trigger typewriter (concurrent with the slide transition).
+                if (!isInit) {
+                    triggerTypewriter(currentSlide, 35);
+                } else {
+                    setTimeout(() => triggerTypewriter(currentSlide, 45), 400);
+                }
+            }
+
+            // Navigation is gated until the hero ceremony completes (i.e.
+            // until all iframes are loaded). This prevents the user from
+            // navigating to a slide whose iframe is still loading, which
+            // would put main-thread pressure on the slide's typewriter.
+            // The right arrow is dimmed during this period as a visual cue.
+            // Navigation gate. Stays false until the hero ceremony resolves
+            // (i.e. all iframes have finished loading). The handler that
+            // flips this to true is attached AFTER the heroCeremony block
+            // is defined further down — declaring it here would TDZ.
+            let navReady = false;
+
+            btnRight.addEventListener('click', () => { if (navReady && currentSlide < totalSlides - 1) { currentSlide++; updateSlider(); } });
+            btnLeft.addEventListener('click',  () => { if (navReady && currentSlide > 0)               { currentSlide--; updateSlider(); } });
+            document.addEventListener('keydown', (e) => {
+                if (document.getElementById('global-modal').classList.contains('modal-active')) return;
+                if (!navReady) return;
+                if (e.key === 'ArrowRight' && currentSlide < totalSlides - 1) { currentSlide++; updateSlider(); }
+                if (e.key === 'ArrowLeft'  && currentSlide > 0)               { currentSlide--; updateSlider(); }
+            });
+
+            const hash = window.location.hash;
+            if (hash && hash.startsWith('#act-')) {
+                const requestedSlide = parseInt(hash.replace('#act-', ''));
+                if (!isNaN(requestedSlide) && requestedSlide >= 0 && requestedSlide < totalSlides) currentSlide = requestedSlide;
+            }
+            // NOTE: updateSlider(true) is deliberately deferred to the bottom of
+            // this script — it depends on updateScrollHint and mountStage, which
+            // are defined further down. Calling it here would throw a TDZ error
+            // on the `const scrollHint` reference, halting the rest of the script.
+
+            /* ===== 4. GLOBAL SCROLL HINT =====
+               Hint is shown when:
+                 (a) the active slide is scrollable AND
+                 (b) the active slide is scrolled near the top.
+               Scroll hint lives at the page root (not inside a slide) because
+               `position: fixed` does not work as expected inside a transform'd
+               ancestor — it'd compute against the track, not the viewport.
+            */
+            const scrollHint = document.getElementById('scroll-hint');
+            function updateScrollHint() {
+                const active = slides[currentSlide];
+                if (!active) { scrollHint.classList.remove('is-visible'); return; }
+                const isScrollable = active.scrollHeight > active.clientHeight + 5;
+                const nearTop = active.scrollTop < 50;
+                const isContentSlide = currentSlide > 0 && currentSlide < totalSlides - 1; // hide on title + contact slides
+                if (isContentSlide && isScrollable && nearTop) scrollHint.classList.add('is-visible');
+                else scrollHint.classList.remove('is-visible');
+            }
+            slides.forEach(s => s.addEventListener('scroll', updateScrollHint, { passive: true }));
+            window.addEventListener('resize', updateScrollHint);
+            window.addEventListener('load', updateScrollHint);
+
+            /* ===== 5. SMART MOUNT (iframes for stages) =====
+               Inject a spinner + iframe into a stage. When the iframe fires
+               `load`, fade it in and hide the spinner. A 10s safety timeout
+               makes sure the spinner can't get permanently stuck if `load`
+               never fires (e.g. CSP issues, sandboxed origin, broken path).
+
+               Mounting is triggered by the EAGER PRELOAD pass below, which
+               runs shortly after DOMContentLoaded and walks every slide's
+               stages one-per-rAF so they're ready before any navigation.
+               updateSlider's own mount call acts as a fallback in case any
+               stage missed the eager pass.
+
+               No IntersectionObserver: in the slide architecture, visibility
+               doesn't change without a navigation, so an observer would just
+               race with our explicit mount logic. */
+            function mountStage(stage) {
+                const src = stage.getAttribute('data-iframe-src');
+                if (!src || stage.hasAttribute('data-loaded')) return Promise.resolve();
+                stage.setAttribute('data-loaded', 'true');
+
+                stage.innerHTML = `
+                    <div class="stage-spinner" style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:#fff; z-index:0;">
+                        <div style="animation:spin 1s linear infinite; border-radius:9999px; height:2rem; width:2rem; border-top:2px solid #2980b9; border-bottom:2px solid #2980b9;"></div>
+                    </div>
+                    <iframe src="${src}" class="stage-iframe" style="width:100%; height:100%; border:0; position:relative; z-index:10; opacity:0; transition:opacity 0.7s;"></iframe>
+                `;
+
+                const iframe  = stage.querySelector('.stage-iframe');
+                const spinner = stage.querySelector('.stage-spinner');
+                return new Promise((resolve) => {
+                    let revealed = false;
+                    const reveal = () => {
+                        if (revealed) return;
+                        revealed = true;
+                        iframe.style.opacity = '1';
+                        if (spinner) spinner.style.display = 'none';
+                        resolve();
+                    };
+                    iframe.addEventListener('load', reveal);
+                    setTimeout(reveal, 10000); // safety net
+                });
+            }
+
+            /* ===== 5b. EAGER PRELOAD + HERO CEREMONY =====
+               The hero typewriter would otherwise compete with iframe loads
+               for the main thread. Solution: turn the gap into a deliberate
+               ceremony.
+
+                 1. Type "Loading. . ." into the hero slot.
+                 2. Mount every iframe in the document, one-per-rAF.
+                 3. Wait for them all to fire `load` (or 10s safety timeout).
+                 4. Reverse-typewrite "Loading. . ." away.
+                 5. Tiny human pause (300ms).
+                 6. Forward-typewrite the real hero line.
+
+               This makes the otherwise-hidden cost of eager loading legible
+               to the user as a deliberate part of the experience. */
+            const heroEl = document.getElementById('desc-act-0');
+            const heroText = heroEl ? heroEl.getAttribute('data-text') : '';
+            // Block the normal updateSlider typewriter from claiming slide 0
+            // (the ceremony will run instead).
+            typedSlides[0] = true;
+
+            const heroCeremony = (async () => {
+                if (!heroEl) return;
+
+                // ----- Progress bar setup -----
+                // Weight each iframe by approximate file size so the bar moves
+                // proportionally to actual bytes loaded, not just count of
+                // iframes done. Forge is the slowest by far, so it dominates.
+                const STAGE_WEIGHTS = {
+                    'forge_3d_plot.html':  47,
+                    'cnn_map.html':        21,
+                    'basin_plot.html':      6,
+                    'sierra_model.html':    2,
+                    // any unknown iframe falls back to weight=5
+                };
+                const BAR_WIDTH = 20;
+                const progressEl = document.getElementById('hero-progress');
+                const renderBar = (pct) => {
+                    if (!progressEl) return;
+                    const filled = Math.round((pct / 100) * BAR_WIDTH);
+                    const bar = '█'.repeat(filled) + '░'.repeat(BAR_WIDTH - filled);
+                    progressEl.textContent = `[${bar}] ${Math.round(pct)}%`;
+                };
+
+                // 1. Type "Loading. . ."
+                await typeIntoElement(heroEl, 'Loading. . .', 80);
+
+                // 1b. Reveal the progress bar (fade in).
+                if (progressEl) progressEl.style.opacity = '1';
+
+                // 2. Mount all iframes (in parallel, one start per rAF). Each
+                //    mountStage promise resolves when that iframe fires `load`,
+                //    at which point we add its weight to the running total.
+                const allStages = Array.from(document.querySelectorAll('.card-stage[data-iframe-src]:not([data-loaded])'));
+
+                // Compute total weight first (so percentages add to 100).
+                const stageWeights = allStages.map(s => {
+                    const src = s.getAttribute('data-iframe-src') || '';
+                    const key = Object.keys(STAGE_WEIGHTS).find(k => src.endsWith(k));
+                    return key ? STAGE_WEIGHTS[key] : 5;
+                });
+                const totalWeight = stageWeights.reduce((a, b) => a + b, 0) || 1;
+                let loadedWeight = 0;
+                renderBar(0);
+
+                const loadPromises = [];
+                await new Promise((resolveQueue) => {
+                    const mountNext = () => {
+                        const next = allStages.shift();
+                        if (!next) { resolveQueue(); return; }
+                        const idx = loadPromises.length;
+                        const p = mountStage(next).then(() => {
+                            loadedWeight += stageWeights[idx];
+                            renderBar((loadedWeight / totalWeight) * 100);
+                        });
+                        loadPromises.push(p);
+                        if (allStages.length) requestAnimationFrame(mountNext);
+                        else resolveQueue();
+                    };
+                    mountNext();
+                });
+
+                // 3. Wait for everything to finish loading.
+                await Promise.all(loadPromises);
+                renderBar(100); // ensure full
+
+                // 3b. Tiny pause so the user sees 100% land, then fade the bar out.
+                await new Promise(r => setTimeout(r, 250));
+                if (progressEl) progressEl.style.opacity = '0';
+
+                // 4. Erase "Loading. . ."
+                await reverseTypewriter(heroEl, 25);
+
+                // 5. Tiny human pause.
+                await new Promise(r => setTimeout(r, 300));
+
+                // 6. Type the real hero line — with color in place from the
+                //    first character. Uses the shared segment-typing helper
+                //    so the same logic also drives the act descriptions.
+                await typeSegmentsInto(
+                    heroEl,
+                    buildSegments(heroText, SLIDE_COLOR_SEGMENTS[0] || []),
+                    45
+                );
+            })();
+
+            // When the hero ceremony resolves, unlock navigation and re-sync
+            // the nav button visuals (they were dimmed while navReady was false).
+            heroCeremony.then(() => {
+                navReady = true;
+                updateSlider();
+            });
+
+            /* ===== 6. LIGHTBOX MODAL ===== */
+            const modal = document.getElementById('global-modal');
+            const modalContent = document.getElementById('modal-content');
+            const modalClose = document.getElementById('modal-close');
+
+            function openModal(trigger) {
+                forceHideTooltip();
+                const type = trigger.getAttribute('data-type');
+                const src  = trigger.getAttribute('data-src');
+                if (type === 'image') {
+                    modalContent.innerHTML = `<img src="${src}" class="max-w-full max-h-[85vh] rounded-xl shadow-2xl bg-white object-contain p-2">`;
+                } else if (type === 'iframe' || type === 'plot') {
+                    modalContent.innerHTML = `<div class="w-full h-[85vh] bg-white rounded-xl shadow-2xl overflow-hidden"><iframe src="${src}" class="w-full h-full border-0"></iframe></div>`;
+                }
+                modal.classList.remove('modal-inactive');
+                modal.classList.add('modal-active');
+            }
+            function closeModal() {
+                modal.classList.remove('modal-active');
+                modal.classList.add('modal-inactive');
+                setTimeout(() => { modalContent.innerHTML = ''; }, 300);
+            }
+            modalClose.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => { if (e.target === modal || e.target === modalContent) closeModal(); });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+            /* ===== 7. TOOLTIP ENGINE =====
+               Behavior contract:
+                 - On hover/tap of a `.tt-trigger` element, build the tooltip content.
+                 - SHRINK to fit if natural size exceeds viewport budget.
+                 - POSITION above the trigger (or below if no headroom),
+                   centered horizontally, then clamped to the viewport.
+                 - Measurement happens in rAF so the freshly-injected DOM
+                   is laid out before we read its dimensions. (Fixes the
+                   "first hover lands wrong, second hover snaps right" bug.)
+            */
+            const tooltip = document.getElementById('global-tooltip');
+            let activeTrigger = null;
+            let hoverTimeout = null;
+
+            const VIEWPORT_PADDING = 16;          // gap from viewport edges
+            const TRIGGER_GAP      = 12;          // gap between trigger and tooltip
+
+            // Tooltip is a *preview*, not a full-size view. The lightbox modal
+            // (click) handles full-screen. These caps keep the preview compact
+            // so it sits cleanly above the trigger without covering the prose.
+            const PREVIEW_MAX_W      = 480;       // px — preview width cap (images)
+            const PREVIEW_MAX_H_FRAC = 0.50;      // fraction of viewport height
+            // Hard upper bound for any tooltip, used as a final safety clamp:
+            const TT_W_BUDGET = 0.90;             // 90% of viewport width
+            const TT_H_BUDGET = 0.70;             // 70% of viewport height
+
+            function placeTooltip(trigger) {
+                if (!trigger) return;
+                const triggerRect = trigger.getBoundingClientRect();
+                const ttRect = tooltip.getBoundingClientRect();
+                const vpW = window.innerWidth;
+                const vpH = window.innerHeight;
+
+                // Prefer above; fall back to below if there's no headroom.
+                let top = triggerRect.top - ttRect.height - TRIGGER_GAP;
+                if (top < VIEWPORT_PADDING) top = triggerRect.bottom + TRIGGER_GAP;
+
+                // Center horizontally on trigger, then clamp to viewport.
+                let left = triggerRect.left + (triggerRect.width / 2) - (ttRect.width / 2);
+                if (left < VIEWPORT_PADDING) left = VIEWPORT_PADDING;
+                if (left + ttRect.width > vpW - VIEWPORT_PADDING) left = vpW - ttRect.width - VIEWPORT_PADDING;
+
+                // Final vertical clamp (in case both above AND below overflow on tiny viewports)
+                if (top + ttRect.height > vpH - VIEWPORT_PADDING) top = Math.max(VIEWPORT_PADDING, vpH - ttRect.height - VIEWPORT_PADDING);
+
+                tooltip.style.top  = top  + 'px';
+                tooltip.style.left = left + 'px';
+            }
+
+            // Two-pass placement: first paint, then re-measure on next frame
+            // once images / iframes have been laid out.
+            function placeTooltipDeferred(trigger) {
+                requestAnimationFrame(() => {
+                    placeTooltip(trigger);
+                    requestAnimationFrame(() => placeTooltip(trigger));
+                });
+            }
+
+            function showTooltip(trigger) {
+                clearTimeout(hoverTimeout);
+                if (activeTrigger === trigger && !tooltip.classList.contains('tooltip-hidden')) return;
+
+                const type = trigger.getAttribute('data-type');
+                const src  = trigger.getAttribute('data-src');
+
+                tooltip.classList.remove('pointer-events-none');
+                tooltip.classList.add('pointer-events-auto');
+
+                // Hard ceilings — any tooltip will fit inside these no matter what.
+                const hardMaxW = Math.floor(window.innerWidth  * TT_W_BUDGET);
+                const hardMaxH = Math.floor(window.innerHeight * TT_H_BUDGET);
+
+                if (type === 'image') {
+                    // Preview-sized image: capped width, capped height, preserves
+                    // aspect via object-fit. Browser does the resize for us.
+                    const previewW = Math.min(PREVIEW_MAX_W, hardMaxW);
+                    const previewH = Math.min(Math.floor(window.innerHeight * PREVIEW_MAX_H_FRAC), hardMaxH);
+
+                    tooltip.innerHTML = `
+                        <div class="bg-white rounded-xl shadow-2xl p-1" style="max-width:${previewW}px;">
+                            <img src="${src}" class="rounded-xl pointer-events-none block"
+                                 style="max-width:${previewW - 8}px; max-height:${previewH}px; width:auto; height:auto; object-fit:contain;">
+                        </div>`;
+                    activeTrigger = trigger;
+                    tooltip.classList.remove('tooltip-hidden');
+                    tooltip.classList.add('tooltip-visible');
+
+                    const img = tooltip.querySelector('img');
+                    placeTooltipDeferred(trigger);
+                    if (img && !img.complete) img.addEventListener('load', () => placeTooltip(trigger), { once: true });
+
+                } else if (type === 'plot' || type === 'iframe') {
+                    // Author-specified natural dimensions and a preferred scale.
+                    // We then clamp by hard viewport ceilings so it always fits.
+                    const reqScale = parseFloat(trigger.getAttribute('data-scale')) || (type === 'plot' ? 0.60 : 1.0);
+                    const natW = parseFloat(trigger.getAttribute('data-width'))  || 800;
+                    const natH = parseFloat(trigger.getAttribute('data-height')) || (type === 'plot' ? 500 : 600);
+
+                    // Final scale is the minimum of: author's intent, and what fits.
+                    const fitScale = Math.min(reqScale, hardMaxW / natW, hardMaxH / natH);
+                    const w = natW * fitScale;
+                    const h = natH * fitScale;
+
+                    tooltip.innerHTML = `
+                        <div id="tt-wrapper" style="width:${w}px; height:${h}px; overflow:hidden; border-radius:0.75rem; border:1px solid #e5e7eb; background:white;" class="shadow-2xl pointer-events-none">
+                            <iframe id="tt-iframe" src="${src}" scrolling="no"
+                                    style="width:${natW}px; height:${natH}px; transform:scale(${fitScale}); transform-origin:top left; border:none; pointer-events:none;"></iframe>
+                        </div>`;
+                    activeTrigger = trigger;
+                    tooltip.classList.remove('tooltip-hidden');
+                    tooltip.classList.add('tooltip-visible');
+                    placeTooltipDeferred(trigger);
+
+                    // For 'iframe' (table-style content) we measure the iframe's actual body
+                    // and resize the wrapper to fit. We re-clamp to viewport after measuring.
+                    if (type === 'iframe') {
+                        const iframe = tooltip.querySelector('#tt-iframe');
+                        iframe.onload = function() {
+                            try {
+                                const doc = iframe.contentWindow.document;
+                                iframe.style.width = '4000px';
+                                iframe.style.height = '0px';
+                                doc.body.style.display = 'inline-block';
+                                const exactW = doc.body.offsetWidth + 4;
+                                const exactH = doc.body.offsetHeight + 4;
+
+                                // Recompute fit-scale against the measured natural size
+                                const fitScale2 = Math.min(reqScale, hardMaxW / exactW, hardMaxH / exactH);
+
+                                iframe.style.width  = exactW + 'px';
+                                iframe.style.height = exactH + 'px';
+                                iframe.style.transform = `scale(${fitScale2})`;
+
+                                const wrapper = tooltip.querySelector('#tt-wrapper');
+                                wrapper.style.width  = (exactW * fitScale2) + 'px';
+                                wrapper.style.height = (exactH * fitScale2) + 'px';
+                                placeTooltip(trigger);
+                            } catch (e) {
+                                console.warn('Tooltip iframe measurement skipped (likely cross-origin or local file):', e);
+                            }
+                        };
+                    }
+                }
+            }
+
+            function queueHideTooltip() {
+                hoverTimeout = setTimeout(forceHideTooltip, 150);
+            }
+            function forceHideTooltip() {
+                tooltip.classList.add('pointer-events-none');
+                tooltip.classList.remove('pointer-events-auto');
+                tooltip.classList.remove('tooltip-visible');
+                tooltip.classList.add('tooltip-hidden');
+                activeTrigger = null;
+            }
+
+            /* ===== 8. TOOLTIP / MODAL EVENT WIRING ===== */
+            document.body.addEventListener('mouseenter', (e) => {
+                if (e.target.classList && e.target.classList.contains('tt-trigger') && window.matchMedia('(hover: hover)').matches) {
+                    showTooltip(e.target);
+                }
+            }, true);
+            document.body.addEventListener('mouseleave', (e) => {
+                if (e.target.classList && e.target.classList.contains('tt-trigger') && window.matchMedia('(hover: hover)').matches) {
+                    queueHideTooltip();
+                }
+            }, true);
+            tooltip.addEventListener('mouseenter', () => clearTimeout(hoverTimeout));
+            tooltip.addEventListener('mouseleave', queueHideTooltip);
+
+            document.body.addEventListener('click', (e) => {
+                if (e.target.classList && e.target.classList.contains('tt-trigger')) {
+                    e.stopPropagation();
+                    if (!window.matchMedia('(hover: hover)').matches) {
+                        // Mobile: tap once = preview, twice = open modal
+                        if (activeTrigger === e.target) openModal(e.target);
+                        else showTooltip(e.target);
+                    } else {
+                        // Desktop: click goes straight to modal
+                        openModal(e.target);
+                    }
+                } else if (activeTrigger && !tooltip.contains(e.target)) {
+                    forceHideTooltip();
+                }
+            });
+            tooltip.addEventListener('click', () => { if (activeTrigger) openModal(activeTrigger); });
+
+            btnLeft.addEventListener('click', forceHideTooltip);
+            btnRight.addEventListener('click', forceHideTooltip);
+            slides.forEach(s => s.addEventListener('scroll', forceHideTooltip, { passive: true }));
+            window.addEventListener('resize', () => { if (activeTrigger) placeTooltip(activeTrigger); });
+
+            /* ===== 9. INITIAL RENDER =====
+               Run last, so every helper (updateScrollHint, mountStage, etc.)
+               and every binding it depends on (`scrollHint`, etc.) is alive
+               by the time we call into them. */
+            updateSlider(true);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{{ define "navbar" }}
+  {{ partial "navigators/navbar.html" . }}
+{{ end }}
+
+{{ define "sidebar" }}{{ end }}
+{{ define "toc" }}{{ end }}
+
+{{ define "content" }}
+<div class="container pt-5 pb-4 mt-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-9 col-xxl-8">
+      <h1 class="mb-4">{{ .Title }}</h1>
+      <div class="content">
+        {{ .Content }}
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }}

@@ -1,0 +1,45 @@
+section:
+  name: Projects
+  id: projects
+  enable: true
+  weight: 2
+  showOnNavbar: true
+  # hideTitle: true
+
+buttons:
+- name: All
+  filter: "all"
+- name: Competition
+  filter: "competition"
+- name: Hobby
+  filter: "hobby"
+
+projects:
+- name: SPE Geothermal Datathon 2023
+  role: "2nd Place"
+  summary: "Analyzed hydraulic fracturing data to evaluate discrete fracture networks (DFN)."
+  tags: ["competition"]
+- name: UT PGE Energy AI Hackathon 2025
+  role: "1st Place"
+  summary: "Developed a regression model to predict the energy consumption of a hydraulic fracturing operation."
+  tags: ["competition"]
+  url: "/posts/2025/2025-02-18-pge-hackathon-workflow/" 
+- name: Geode Datathon 2025 - Geoscience Track
+  role: "2nd Place"
+  summary: "Developed a novel CNN-based image processing workflow that significantly improves the predictive power of the Nevada Play Fairway Analysis for geothermal exploration."
+  tags: ["competition"]
+  url: "/posts/2025/2025-08-30-mapping-geothermal-potential-with-data-analytics/"
+- name: Geode Datathon 2025 - Engineering Track
+  role: "2nd Place"
+  summary: "Analyzed the Utah FORGE EGS dataset by integrating multi-source data (tracers, fiber optics, microseismic) to build a holistic model of the fracture network."
+  tags: ["competition"]
+  url: "/posts/2025/2025-09-06-utah-forge-april-stim-work"
+- name: SPE E3S Energython 2026
+  role: "2nd Place"
+  summary: "Developed a full techno-economic digital twin for a 15MW natural gas power plant, bridging physics-based generation modeling with project finance. Presented a bankable on-site power strategy using modular natural gas engines, stochastic risk analysis, and IRR/DSCR optimization to industry judges."
+  tags: ["competition"]
+  url: "/posts/2026/2026-02-20-spe-amts-energython-workflow"
+- name: DC-ISM
+  role: "Lead Developer"
+  summary: "Developing a comprehensive Python-based Integrated Systems Model to conduct techno-economic and performance analysis of large-scale AI data center infrastructure."
+  tags: ["hobby"]

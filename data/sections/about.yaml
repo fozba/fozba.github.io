@@ -1,0 +1,60 @@
+# section information
+section:
+  name: About
+  id: about
+  enable: true
+  weight: 0
+  showOnNavbar: true
+  template: sections/about.html
+
+# your designation
+designation: PhD Student
+# your company information
+company:
+  name: Petroleum & Geosystems Engineering, UT Austin
+  url: "https://www.pge.utexas.edu/"
+
+# your resume. this file path should be relative to you "static" directory
+resume: "files/ozbayrak_fehmi_resume.pdf"
+
+# your portfolio page (internal link)
+portfolio: "/portfolio"
+
+# a summary about you
+summary: |
+
+  Hi, I am Fehmi! This site is my personal blog, where I will be logging my life and also demonstrating my professional work. The first page is my portfolio, where you can find my professional information. Posts is pretty much where I will be posting stuff.
+
+  My research focuses on reservoir engineering & geomechanics, specifically physics-based modeling and simulation, and data analytics & machine learning in geosciences. I am currently pursuing my PhD under the supervision of [Dr. Mukul Sharma](https://sharma.pge.utexas.edu/members) at UT Austin as a researcher of [Center for Injection and Seismicity Research](https://cisr.beg.utexas.edu/#researchers). My research involves reservoir engineering & geomechanics using physics-based numerical simulation and data analytics/machine learning for geosciences, with a particular focus on shallow wastewater injection in the Delaware Basin.
+
+  I completed my Bachelor's degree in Petroleum and Natural Gas Engineering from [Middle East Technical University, Turkey](https://www.metu.edu.tr/en). During my Bachelor's degree, I have also worked under the supervision of [Dr. Fulya Gokalp Yavuz](https://stat.metu.edu.tr/en/fulya-gokalp-yavuz) in [Data Science Lab](https://dslab-stat.metu.edu.tr/the-team/#page-content) to enhance my statistical data analysis & data science knowledge. Following that, I pursued my Master's Degree at [UT Austin](https://www.utexas.edu/), working under the supervision of [Dr. Michael Pyrcz](https://michaelpyrcz.com/) and [Dr. John Foster](https://johnfoster.pge.utexas.edu/). During my Master's, I focused on resampling and tree-based ensemble methods for spatial/dependent data, gaining extensive skills in data analytics, machine learning, and geostatistics. I also learned practical skills like working in *NIX environments, shell scripting, and using tools like awk, vim, and git. I organized a hackathon, taught a *NIX-based lecture on High Performance Computing, and presented my work at the annual consortium meeting.
+
+
+# give as many as you want. use font-awesome for the icons.
+socialLinks:
+- name: Email
+  icon: "fas fa-envelope"
+  url: "ozbayrakfehmi@gmail.com"
+
+- name: Github
+  icon: "fab fa-github"
+  url: "https://www.github.com/fozba"
+
+- name: LinkedIn
+  icon: "fab fa-linkedin"
+  url: "https://www.linkedin.com/in/fozbayrak"
+
+- name: Twitter
+  icon: "fab fa-twitter"
+  url: "https://www.x.com/fozba1"
+
+# Show your badges
+# You can show your verifiable certificates from https://www.credly.com.
+# You can also show a circular bar indicating the level of expertise on a certain skill
+
+
+# you can also provide color code instead of the color name
+# - type: soft-skill-indicator
+#   name: Example 1
+#   percentage: 75
+#   color: "#00adb5"

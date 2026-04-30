@@ -1,0 +1,89 @@
+baseURL: https://hugo-toha.github.io
+
+languageCode: en-us
+title: "fozba – blog"
+
+# Use Hugo modules to add theme
+
+module:
+  imports:
+  - path: github.com/hugo-toha/toha/v4
+  mounts:
+  - source: static
+    target: static
+  - source: static/files
+    target: static/files
+  - source: ./node_modules/flag-icon-css/flags
+    target: static/flags
+  - source: ./node_modules/@fontsource/mulish/files
+    target: static/files
+  - source: ./node_modules/katex/dist/fonts
+    target: static/fonts
+
+  # Fehmi
+  - source: assets/posts
+    target: static/posts
+
+
+# Allow raw html in markdown file
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  tableOfContents:
+    startLevel: 2
+    endLevel: 6
+    ordered: false
+
+# At least HTML and JSON are required for the main HTML content and
+# client-side JavaScript search
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+# Enable global emoji support
+enableEmoji: true
+
+# Site parameters
+params:
+  # GitHub repo URL of your site
+  gitRepo: https://github.com/hugo-toha/hugo-toha.github.io
+
+  topNavbar:
+    maxVisibleSections: 50
+
+  customMenus:
+    - name: Radar
+      url: /radar/
+      hideFromNavbar: false
+    - name: Bio
+      url: /bio/
+      hideFromNavbar: false
+
+  features:
+    # Enable portfolio section
+    portfolio:
+      enable: true
+
+    # Enable blog posts
+    blog:
+      enable: true
+
+    # Enable Table of contents in reading page
+    toc:
+      enable: true
+
+    darkMode:
+      enable: true
+
+    math:
+      enable: true
+
+  # Configure footer
+  footer:
+    enable: true
+
+
+

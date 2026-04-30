@@ -1,0 +1,59 @@
+# section information
+section:
+  name: Publications
+  id: publications
+  enable: true
+  weight: 6
+  showOnNavbar: true
+  # Can optionally hide the title in sections
+  # hideTitle: true
+
+### Uncomment for the buttons
+# filter buttons
+#buttons:
+#- name: All
+#  filter: "all"
+#- name: "Machine Learning"
+#  filter: "machinelearning"
+#- name: "Image Processing"
+#  filter: "image-processing"
+#- name: Security
+#  filter: "security"
+
+# your publications
+publications:
+- title: Spatial Bagging For Predictive Machine Learning Uncertainty Quantification
+  publishedIn:
+    name: Computers & Geosciences, Volume 203
+    date: September 2025
+    url: https://doi.org/10.1016/j.cageo.2025.105947
+  authors:
+  - name: Fehmi Ozbayrak
+    #url: https://example.com
+  - name: John T. Foster
+    url: https://johnfoster.pge.utexas.edu/index.html
+  - name: Michael J. Pyrcz
+    url: https://www.pge.utexas.edu/faculty-and-staff/michael-pyrcz/
+  paper:
+    summary: Uncertainty quantification is a critical component in the interpretation of spatial phenomena, particularly within the geosciences, where incomplete subsurface data leads to various possible scenarios. Building on our previous work, which introduced a spatial bagging technique for enhancing prediction accuracy, this study extends the method to uncertainty quantification by applying a widely-used UQ metric from geostatistics. Our approach employs a bootstrap method adjusted for effective sample size derived from spatial statistics, addressing the common issue of overfitting when dealing with dependent data. We demonstrate, through a series of synthetic datasets with varied noise levels and spatial structures, that our spatial bagging method not only outperforms standard bagging in prediction accuracy but also provides superior uncertainty quantification.
+    url: https://doi.org/10.1016/j.cageo.2025.105947
+  #categories: ["machinelearning","image-processing"]
+  #tags: ["Machine Learning", "Autonomous Driving", "Computer Vision"]
+
+- title: Spatial Bagging To Integrate Spatial Correlation Into Ensemble Machine Learning
+  publishedIn:
+    name: Computers & Geosciences, Volume 186
+    date: April 2024
+    url: https://doi.org/10.1016/j.cageo.2024.105558
+  authors:
+  - name: Fehmi Ozbayrak
+    #url: https://example.com
+  - name: John T. Foster
+    url: https://johnfoster.pge.utexas.edu/index.html
+  - name: Michael J. Pyrcz
+    url: https://www.pge.utexas.edu/faculty-and-staff/michael-pyrcz/
+  paper:
+    summary: We propose a novel spatial bagging workflow for predictive ensemble machine learning that improves on standard bagging models. Our proposed method integrates spatial bootstrap for bagging with the number of effective sample size for integration of the spatial context of the dataset. We benchmark the improved performance over standard machine learning bagging models with a large number of two-dimensional synthetic datasets with varying degrees of Gaussian noise. As data noise increases, spatial bagging consistently outperforms standard bagging, displaying an improved Mean Squared Error (MSE) and robustness against overfitting. Furthermore, our proposed method requires only the additional step of variogram calculation and modeling, and can be implemented with any predictive machine learning bagging model with minimal code modification.
+    url: https://doi.org/10.1016/j.cageo.2024.105558
+  #categories: ["machinelearning","image-processing"]
+  #tags: ["Machine Learning", "Autonomous Driving", "Computer Vision"]

@@ -1,0 +1,41 @@
+<article class="card">
+    <header class="card-header">
+        <h3 class="card-title">Nevada Play Fairway Analysis</h3>
+        <p class="card-subtitle">2nd Place | GEODE Geoscience Datathon. Deep learning for blind geothermal exploration.</p>
+        <p class="card-tags"><span>PyTorch</span><span>ArcGIS</span><span>CNN</span><span>GIS rasterization</span><span>geothermal</span></p>
+    </header>
+
+    <div class="card-stage" data-iframe-src="/portfolio/components/cnn_map.html">
+        <div class="card-stage-loader"><div></div></div>
+    </div>
+
+    <div class="card-prose">
+        <p>
+            For the
+            <a href="https://www.geode.energy/news/geode-datathons-call-for-participants" target="_blank" rel="noopener noreferrer" class="link">GEODE Datathon</a>,
+            I evaluated the Nevada Play Fairway dataset, an integrated synthesis of geological, geochemical, and geophysical signals used to identify blind geothermal systems.
+        </p>
+        <p>
+            I took a novel approach by reframing traditional spatial regression as a computer vision problem. After processing and rasterizing spatial features such as geodetic strain and Euclidean distance to faults in
+            <a href="https://www.esri.com/en-us/arcgis" target="_blank" rel="noopener noreferrer" class="link">ArcGIS</a>,
+            I built a
+            <span class="tt-trigger" data-type="image" data-src="/portfolio/assets/nevada_cnn_architecture.png">pixel-wise CNN architecture</span>
+            in PyTorch to predict overall site favorability.
+        </p>
+        <p>
+            By treating the stacked geospatial layers as a multi-channel image tensor, the model captured the non-linear, spatial relationships between faults and heat anomalies. Predictions agreed strongly with known training locations, validating the model's physical accuracy.
+        </p>
+        <p>
+            The real value, however, came from extrapolation. Examining the difference map, the network identified
+            <span class="tt-trigger" data-type="image" data-src="/portfolio/assets/nevada_prospective_zones.png">highly prospective new zones</span>
+            (the darker reds in the difference map) that standard linear methods undervalued; these zones remain geologically promising due to their proximity to local faults and permeability corridors.
+        </p>
+    </div>
+
+    <footer class="card-footer">
+        <a href="/portfolio/assets/nevada_presentation.pdf" target="_blank" class="card-button">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            View Full Project Presentation
+        </a>
+    </footer>
+</article>

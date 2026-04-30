@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 11.5px;
+    background: transparent;
+    margin: 0;
+    padding: 0.5rem 0;
+  }
+
+  .wrapper {
+    overflow-x: auto;
+  }
+
+  table {
+    border-collapse: collapse;
+    min-width: 2200px;
+    width: 100%;
+  }
+
+  th, td {
+    padding: 4px 8px;
+    border: 1px solid #b0bec5;
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  th:first-child, td:first-child {
+    text-align: left;
+    position: sticky;
+    left: 0;
+    z-index: 2;
+  }
+
+  /* Header row */
+  thead th {
+    background-color: #dce6f1;
+    font-weight: 700;
+    border-bottom: 2px solid #7a9fcc;
+  }
+
+  /* Row types */
+  .row-light td {
+    background-color: #eaf1fb;
+  }
+
+  .row-dark td {
+    background-color: #dce6f1;
+  }
+
+  /* Section divider rows (Total Rev, Total Opex, etc.) */
+  .row-total td {
+    background-color: #c6d5e8;
+    font-weight: 700;
+  }
+
+  /* Loan section */
+  .row-loan td {
+    background-color: #eaf1fb;
+  }
+
+  .row-loan-dark td {
+    background-color: #dce6f1;
+  }
+
+  /* EBITDA, MACRS, etc. */
+  .row-financial td {
+    background-color: #eaf1fb;
+  }
+
+  .row-financial-dark td {
+    background-color: #dce6f1;
+  }
+
+  /* LFCF row */
+  .row-lfcf td {
+    background-color: #c6d5e8;
+    font-weight: 700;
+  }
+
+  /* DSCR row - red values */
+  .row-dscr td {
+    background-color: #dce6f1;
+    color: #c0392b;
+    font-weight: 600;
+  }
+
+  .row-dscr td:first-child {
+    color: #1a1a2e;
+    font-weight: 700;
+  }
+
+  /* Negative values */
+  .neg {
+    color: #c0392b;
+  }
+
+  /* Sticky label column background per row type */
+  .row-light td:first-child { background-color: #eaf1fb; }
+  .row-dark td:first-child { background-color: #dce6f1; }
+  .row-total td:first-child { background-color: #c6d5e8; }
+  .row-loan td:first-child { background-color: #eaf1fb; }
+  .row-loan-dark td:first-child { background-color: #dce6f1; }
+  .row-financial td:first-child { background-color: #eaf1fb; }
+  .row-financial-dark td:first-child { background-color: #dce6f1; }
+  .row-lfcf td:first-child { background-color: #c6d5e8; }
+  .row-dscr td:first-child { background-color: #dce6f1; color: #1a1a2e; }
+</style>
+</head>
+<body>
+<div class="wrapper">
+<table>
+  <thead>
+    <tr>
+      <th>Year</th>
+      <th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th>1-Jan-27</th><th>1-Jan-28</th><th>1-Jan-29</th><th>1-Jan-30</th><th>1-Jan-31</th><th>1-Jan-32</th><th>1-Jan-33</th><th>1-Jan-34</th><th>1-Jan-35</th><th>1-Jan-36</th><th>1-Jan-37</th><th>1-Jan-38</th><th>1-Jan-39</th><th>1-Jan-40</th><th>1-Jan-41</th><th>1-Jan-42</th><th>1-Jan-43</th><th>1-Jan-44</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <!-- Revenue -->
+    <tr class="row-light">
+      <td>Energy Rev.</td>
+      <td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;3.85 M</td><td>&dollar;7.84 M</td><td>&dollar;8.08 M</td><td>&dollar;8.32 M</td><td>&dollar;8.57 M</td><td>&dollar;8.83 M</td><td>&dollar;9.09 M</td><td>&dollar;9.37 M</td><td>&dollar;9.65 M</td><td>&dollar;9.94 M</td><td>&dollar;10.23 M</td><td>&dollar;10.54 M</td><td>&dollar;10.86 M</td><td>&dollar;11.18 M</td><td>&dollar;11.52 M</td><td>&dollar;11.86 M</td>
+    </tr>
+    <tr class="row-dark">
+      <td>Capacity Rev.</td>
+      <td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;2.12 M</td><td>&dollar;4.31 M</td><td>&dollar;4.42 M</td><td>&dollar;4.53 M</td><td>&dollar;4.64 M</td><td>&dollar;4.76 M</td><td>&dollar;4.87 M</td><td>&dollar;5.00 M</td><td>&dollar;5.12 M</td><td>&dollar;5.25 M</td><td>&dollar;5.38 M</td><td>&dollar;5.51 M</td><td>&dollar;5.65 M</td><td>&dollar;5.79 M</td><td>&dollar;5.94 M</td><td>&dollar;6.09 M</td>
+    </tr>
+    <tr class="row-total">
+      <td>Total Rev.</td>
+      <td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;5.98 M</td><td>&dollar;12.15 M</td><td>&dollar;12.49 M</td><td>&dollar;12.85 M</td><td>&dollar;13.21 M</td><td>&dollar;13.58 M</td><td>&dollar;13.97 M</td><td>&dollar;14.36 M</td><td>&dollar;14.77 M</td><td>&dollar;15.18 M</td><td>&dollar;15.61 M</td><td>&dollar;16.06 M</td><td>&dollar;16.51 M</td><td>&dollar;16.98 M</td><td>&dollar;17.46 M</td><td>&dollar;17.95 M</td>
+    </tr>
+
+    <!-- OpEx -->
+    <tr class="row-light">
+      <td>Total Fuel Cost</td>
+      <td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;1.32 M</td><td>&dollar;2.67 M</td><td>&dollar;2.75 M</td><td>&dollar;2.83 M</td><td>&dollar;2.90 M</td><td>&dollar;2.99 M</td><td>&dollar;3.07 M</td><td>&dollar;3.16 M</td><td>&dollar;3.25 M</td><td>&dollar;3.34 M</td><td>&dollar;3.44 M</td><td>&dollar;3.54 M</td><td>&dollar;3.65 M</td><td>&dollar;3.75 M</td><td>&dollar;3.86 M</td><td>&dollar;3.98 M</td>
+    </tr>
+    <tr class="row-dark">
+      <td>Variable O&amp;M</td>
+      <td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;1.22 M</td><td>&dollar;2.47 M</td><td>&dollar;2.53 M</td><td>&dollar;2.59 M</td><td>&dollar;2.66 M</td><td>&dollar;2.72 M</td><td>&dollar;2.79 M</td><td>&dollar;2.86 M</td><td>&dollar;2.93 M</td><td>&dollar;3.00 M</td><td>&dollar;3.08 M</td><td>&dollar;3.16 M</td><td>&dollar;3.23 M</td><td>&dollar;3.32 M</td><td>&dollar;3.40 M</td><td>&dollar;3.48 M</td>
+    </tr>
+    <tr class="row-light">
+      <td>Staffing</td>
+      <td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.49 M</td><td>&dollar;0.99 M</td><td>&dollar;1.02 M</td><td>&dollar;1.05 M</td><td>&dollar;1.09 M</td><td>&dollar;1.12 M</td><td>&dollar;1.15 M</td><td>&dollar;1.19 M</td><td>&dollar;1.22 M</td><td>&dollar;1.26 M</td><td>&dollar;1.30 M</td><td>&dollar;1.34 M</td><td>&dollar;1.38 M</td><td>&dollar;1.42 M</td><td>&dollar;1.46 M</td><td>&dollar;1.50 M</td>
+    </tr>
+    <tr class="row-dark">
+      <td>Ins. &amp; Admin</td>
+      <td>&dollar;0.00 M</td><td>&dollar;0.31 M</td><td>&dollar;0.32 M</td><td>&dollar;0.33 M</td><td>&dollar;0.34 M</td><td>&dollar;0.34 M</td><td>&dollar;0.35 M</td><td>&dollar;0.36 M</td><td>&dollar;0.37 M</td><td>&dollar;0.38 M</td><td>&dollar;0.39 M</td><td>&dollar;0.40 M</td><td>&dollar;0.41 M</td><td>&dollar;0.42 M</td><td>&dollar;0.43 M</td><td>&dollar;0.44 M</td><td>&dollar;0.45 M</td><td>&dollar;0.46 M</td>
+    </tr>
+    <tr class="row-light">
+      <td>Property Tax</td>
+      <td>&dollar;0.00 M</td><td>&dollar;0.78 M</td><td>&dollar;0.78 M</td><td>&dollar;0.74 M</td><td>&dollar;0.70 M</td><td>&dollar;0.67 M</td><td>&dollar;0.63 M</td><td>&dollar;0.60 M</td><td>&dollar;0.57 M</td><td>&dollar;0.54 M</td><td>&dollar;0.51 M</td><td>&dollar;0.49 M</td><td>&dollar;0.46 M</td><td>&dollar;0.44 M</td><td>&dollar;0.42 M</td><td>&dollar;0.40 M</td><td>&dollar;0.38 M</td><td>&dollar;0.36 M</td>
+    </tr>
+    <tr class="row-total">
+      <td>Total Opex</td>
+      <td>&dollar;0.00 M</td><td>&dollar;1.08 M</td><td>&dollar;4.12 M</td><td>&dollar;7.20 M</td><td>&dollar;7.33 M</td><td>&dollar;7.48 M</td><td>&dollar;7.63 M</td><td>&dollar;7.79 M</td><td>&dollar;7.95 M</td><td>&dollar;8.13 M</td><td>&dollar;8.31 M</td><td>&dollar;8.49 M</td><td>&dollar;8.69 M</td><td>&dollar;8.89 M</td><td>&dollar;9.10 M</td><td>&dollar;9.32 M</td><td>&dollar;9.55 M</td><td>&dollar;9.79 M</td>
+    </tr>
+
+    <!-- Loan -->
+    <tr class="row-loan">
+      <td>Beginning Bal.</td>
+      <td>&dollar;0.00 M</td><td>&dollar;21.05 M</td><td>&dollar;22.84 M</td><td>&dollar;23.80 M</td><td>&dollar;22.96 M</td><td>&dollar;22.05 M</td><td>&dollar;21.05 M</td><td>&dollar;19.98 M</td><td>&dollar;18.81 M</td><td>&dollar;17.54 M</td><td>&dollar;16.17 M</td><td>&dollar;14.67 M</td><td>&dollar;13.05 M</td><td>&dollar;11.30 M</td><td>&dollar;9.39 M</td><td>&dollar;7.32 M</td><td>&dollar;5.08 M</td><td>&dollar;2.64 M</td>
+    </tr>
+    <tr class="row-loan-dark">
+      <td>Interest</td>
+      <td>&dollar;0.00 M</td><td>&dollar;1.79 M</td><td>&dollar;1.94 M</td><td>&dollar;2.02 M</td><td>&dollar;1.95 M</td><td>&dollar;1.87 M</td><td>&dollar;1.79 M</td><td>&dollar;1.70 M</td><td>&dollar;1.60 M</td><td>&dollar;1.49 M</td><td>&dollar;1.37 M</td><td>&dollar;1.25 M</td><td>&dollar;1.11 M</td><td>&dollar;0.96 M</td><td>&dollar;0.80 M</td><td>&dollar;0.62 M</td><td>&dollar;0.43 M</td><td>&dollar;0.22 M</td>
+    </tr>
+    <tr class="row-loan">
+      <td>Cap Int (IDC)</td>
+      <td>&dollar;0.00 M</td><td>&dollar;1.79 M</td><td>&dollar;0.97 M</td><td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.00 M</td>
+    </tr>
+    <tr class="row-loan-dark">
+      <td>Principal PMT</td>
+      <td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.84 M</td><td>&dollar;0.91 M</td><td>&dollar;0.99 M</td><td>&dollar;1.08 M</td><td>&dollar;1.17 M</td><td>&dollar;1.27 M</td><td>&dollar;1.38 M</td><td>&dollar;1.49 M</td><td>&dollar;1.62 M</td><td>&dollar;1.76 M</td><td>&dollar;1.91 M</td><td>&dollar;2.07 M</td><td>&dollar;2.24 M</td><td>&dollar;2.44 M</td><td>&dollar;2.64 M</td>
+    </tr>
+    <tr class="row-loan">
+      <td>End Balance</td>
+      <td>&dollar;21.05 M</td><td>&dollar;22.84 M</td><td>&dollar;23.80 M</td><td>&dollar;22.96 M</td><td>&dollar;22.05 M</td><td>&dollar;21.05 M</td><td>&dollar;19.98 M</td><td>&dollar;18.81 M</td><td>&dollar;17.54 M</td><td>&dollar;16.17 M</td><td>&dollar;14.67 M</td><td>&dollar;13.05 M</td><td>&dollar;11.30 M</td><td>&dollar;9.39 M</td><td>&dollar;7.32 M</td><td>&dollar;5.08 M</td><td>&dollar;2.64 M</td><td>&dollar;0.00 M</td>
+    </tr>
+
+    <!-- Financial -->
+    <tr class="row-financial">
+      <td>EBITDA</td>
+      <td>&dollar;0.00 M</td><td><span class="neg">-&dollar;1.08 M</span></td><td>&dollar;1.86 M</td><td>&dollar;4.95 M</td><td>&dollar;5.16 M</td><td>&dollar;5.37 M</td><td>&dollar;5.58 M</td><td>&dollar;5.79 M</td><td>&dollar;6.01 M</td><td>&dollar;6.23 M</td><td>&dollar;6.46 M</td><td>&dollar;6.69 M</td><td>&dollar;6.92 M</td><td>&dollar;7.16 M</td><td>&dollar;7.41 M</td><td>&dollar;7.65 M</td><td>&dollar;7.91 M</td><td>&dollar;8.16 M</td>
+    </tr>
+    <tr class="row-financial-dark">
+      <td>MACRS</td>
+      <td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;6.21 M</td><td>&dollar;9.93 M</td><td>&dollar;5.96 M</td><td>&dollar;3.57 M</td><td>&dollar;3.57 M</td><td>&dollar;1.79 M</td><td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.00 M</td>
+    </tr>
+    <tr class="row-financial">
+      <td>Taxable Income</td>
+      <td>&dollar;0.00 M</td><td><span class="neg">-&dollar;2.87 M</span></td><td><span class="neg">-&dollar;6.29 M</span></td><td><span class="neg">-&dollar;7.00 M</span></td><td><span class="neg">-&dollar;2.75 M</span></td><td><span class="neg">-&dollar;0.08 M</span></td><td>&dollar;0.22 M</td><td>&dollar;2.31 M</td><td>&dollar;4.41 M</td><td>&dollar;4.74 M</td><td>&dollar;5.09 M</td><td>&dollar;5.44 M</td><td>&dollar;5.81 M</td><td>&dollar;6.20 M</td><td>&dollar;6.61 M</td><td>&dollar;7.03 M</td><td>&dollar;7.47 M</td><td>&dollar;7.94 M</td>
+    </tr>
+    <tr class="row-financial-dark">
+      <td>Income Tax</td>
+      <td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.05 M</td><td>&dollar;0.49 M</td><td>&dollar;0.93 M</td><td>&dollar;1.00 M</td><td>&dollar;1.07 M</td><td>&dollar;1.14 M</td><td>&dollar;1.22 M</td><td>&dollar;1.30 M</td><td>&dollar;1.39 M</td><td>&dollar;1.48 M</td><td>&dollar;1.57 M</td><td>&dollar;1.67 M</td>
+    </tr>
+    <tr class="row-financial">
+      <td>Debt Service</td>
+      <td>&dollar;0.00 M</td><td>&dollar;0.00 M</td><td>&dollar;0.98 M</td><td>&dollar;2.87 M</td><td>&dollar;2.87 M</td><td>&dollar;2.87 M</td><td>&dollar;2.87 M</td><td>&dollar;2.87 M</td><td>&dollar;2.87 M</td><td>&dollar;2.87 M</td><td>&dollar;2.87 M</td><td>&dollar;2.87 M</td><td>&dollar;2.87 M</td><td>&dollar;2.87 M</td><td>&dollar;2.87 M</td><td>&dollar;2.87 M</td><td>&dollar;2.87 M</td><td>&dollar;2.87 M</td>
+    </tr>
+
+    <!-- LFCF -->
+    <tr class="row-lfcf">
+      <td>LFCF</td>
+      <td><span class="neg">-&dollar;11.33 M</span></td><td><span class="neg">-&dollar;1.08 M</span></td><td>&dollar;0.89 M</td><td>&dollar;2.09 M</td><td>&dollar;2.29 M</td><td>&dollar;2.50 M</td><td>&dollar;2.67 M</td><td>&dollar;2.44 M</td><td>&dollar;2.22 M</td><td>&dollar;2.37 M</td><td>&dollar;2.53 M</td><td>&dollar;2.68 M</td><td>&dollar;2.84 M</td><td>&dollar;2.99 M</td><td>&dollar;3.15 M</td><td>&dollar;3.31 M</td><td>&dollar;3.47 M</td><td>&dollar;3.63 M</td>
+    </tr>
+
+    <!-- DSCR -->
+    <tr class="row-dscr">
+      <td>DSCR</td>
+      <td></td><td></td><td>1.91</td><td>1.72</td><td>1.80</td><td>1.87</td><td>1.93</td><td>1.85</td><td>1.77</td><td>1.83</td><td>1.88</td><td>1.94</td><td>1.99</td><td>2.04</td><td>2.10</td><td>2.15</td><td>2.21</td><td>2.27</td>
+    </tr>
+
+  </tbody>
+</table>
+</div>
+</body>
+</html>

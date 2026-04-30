@@ -1,0 +1,64 @@
+# section information
+section:
+  name: Education
+  id: education
+  template: sections/education.html # Use "sections/education-alt.html for alternate template.
+  enable: true
+  weight: 5
+  showOnNavbar: true
+  # Can optionally hide the title in sections
+  # hideTitle: true
+
+degrees:
+- name: PhD in Petroleum & Geosystems Engineering
+  # icon: fa-microscope
+  timeframe: 2024-Ongoing
+  institution:
+    name: Hildebrand Department of Petroleum & Geosystems Engineering, The University of Texas at Austin
+    url: "https://www.pge.utexas.edu/"
+    logo: /images/education/UT_Austin_logo.svg # Path of the logo image
+    # darkLogo: /images/education/college-dark.png #(optional), Can optionally show a different logo for dark theme
+  # extracurricularActivities: #(optional)
+  # - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  # - Fusce eu augue ut odio porttitor pulvinar.
+  customSections:
+    - name: Areas of focus
+      content: Numerical reservoir simulation, reservoir geomechanics, deep learning
+    - name: Supervisor
+      content: '[Dr. Mukul Sharma](https://sharma.pge.utexas.edu/members)'
+
+- name: MSC in Petroleum & Geosystems Engineering
+  # icon: fa-microscope
+  timeframe: 2022-2024
+  institution:
+    name: Hildebrand Department of Petroleum & Geosystems Engineering, The University of Texas at Austin
+    url: "https://www.pge.utexas.edu/"
+    logo: /images/education/UT_Austin_logo.svg # Path of the logo image
+  grade: #(optional)
+    scale: CGPA
+    achieved: 3.61
+    outOf: 4
+  publications: #(optional)
+  - title: Spatial bagging to integrate spatial correlation into ensemble machine learning
+    url: "https://doi.org/10.1016/j.cageo.2024.105558"
+  - title: Spatial bagging for predictive machine learning uncertainty quantification
+    url: "https://doi.org/10.1016/j.cageo.2025.105947"
+  customSections:
+    - name: Areas of focus
+      content: Data Analytics & Machine Learning in geosciences, geostatistics
+    - name: Thesis
+      content: '[A novel spatial bagging algorithm for predictive ensemble machine learning](https://repositories.lib.utexas.edu/items/d283a111-de68-4b2c-abc3-1a3e43c48a41)'
+    - name: Supervisors
+      content: '[Dr. Michael Pyrcz](https://michaelpyrcz.com/), [Dr. John Foster](https://johnfoster.pge.utexas.edu/)'
+
+- name: BEng in Petroleum Engineering
+  # icon: fa-microscope
+  timeframe: 2018-2022
+  institution:
+    name: Department of Petroleum Engineering, Middle East Technical University
+    url: "https://pete.metu.edu.tr/en"
+    logo: /images/education/METU_logo.svg # Path of the logo image
+  grade: #(optional)
+    scale: CGPA
+    achieved: 3.27
+    outOf: 4

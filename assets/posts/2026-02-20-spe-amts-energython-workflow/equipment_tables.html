@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 13px;
+    background: transparent;
+    margin: 0;
+    padding: 0;
+  }
+
+  .tables-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 0.5rem 0;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th, td {
+    padding: 6px 10px;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  td:first-child, th:first-child {
+    text-align: left;
+  }
+
+  /* Header rows */
+  thead tr:first-child th {
+    background-color: #dce6f1;
+    font-weight: 600;
+    border: 1px solid #b0bec5;
+  }
+
+  thead tr:nth-child(2) th {
+    background-color: #dce6f1;
+    font-weight: 600;
+    border: 1px solid #b0bec5;
+  }
+
+  /* Body rows */
+  tbody tr td {
+    background-color: #eaf1fb;
+    border: 1px solid #c5d3e0;
+    color: #1a1a2e;
+  }
+
+  tbody tr:nth-child(even) td {
+    background-color: #dce6f1;
+  }
+
+  /* Name column underline like hyperlink */
+  tbody td:first-child {
+    text-decoration: underline;
+    color: #1a1a2e;
+  }
+
+  /* Bold for specific cells (cheapest CapEx in N+1) */
+  .bold {
+    font-weight: 700;
+  }
+
+  /* Red highlight */
+  .red {
+    color: #c0392b;
+    font-weight: 700;
+  }
+
+  /* Group header spanning */
+  .group-header {
+    background-color: #c6d5e8 !important;
+    text-align: center !important;
+    font-weight: 700;
+    border: 1px solid #b0bec5;
+  }
+
+  .sub-header {
+    background-color: #dce6f1;
+    font-weight: 600;
+    border: 1px solid #b0bec5;
+    text-align: right;
+  }
+
+  .sub-header:first-child {
+    text-align: left;
+  }
+</style>
+</head>
+<body>
+<div class="tables-wrapper">
+
+  <!-- Table 1: Configuration CapEx -->
+  <div style="overflow-x:auto;">
+    <table>
+      <thead>
+        <tr>
+          <th rowspan="2" class="sub-header" style="text-align:left;">Name</th>
+          <th rowspan="2" class="sub-header">Price<br>($M/unit)</th>
+          <th colspan="2" class="group-header">N Configuration</th>
+          <th colspan="2" class="group-header">N+1 Configuration</th>
+          <th colspan="2" class="group-header">N+2 Configuration</th>
+          <th colspan="2" class="group-header">2N Configuration</th>
+        </tr>
+        <tr>
+          <th class="sub-header">Units (N)</th>
+          <th class="sub-header">Total CapEx ($M)</th>
+          <th class="sub-header">Units (N+1)</th>
+          <th class="sub-header">Total CapEx ($M)</th>
+          <th class="sub-header">Units (N+2)</th>
+          <th class="sub-header">Total CapEx ($M)</th>
+          <th class="sub-header">Units (2N)</th>
+          <th class="sub-header">Total CapEx ($M)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Titan 130</td>
+          <td>10.925</td>
+          <td>2</td>
+          <td>21.85</td>
+          <td>3</td>
+          <td class="bold">32.78</td>
+          <td>4</td>
+          <td>43.70</td>
+          <td>4</td>
+          <td>43.70</td>
+        </tr>
+        <tr>
+          <td>W31SG</td>
+          <td>17.655</td>
+          <td>2</td>
+          <td>35.31</td>
+          <td>3</td>
+          <td class="bold">52.97</td>
+          <td>4</td>
+          <td>70.62</td>
+          <td>4</td>
+          <td>70.62</td>
+        </tr>
+        <tr>
+          <td>G3520H</td>
+          <td>1.725</td>
+          <td>7</td>
+          <td>12.08</td>
+          <td>8</td>
+          <td>13.80</td>
+          <td class="red">9</td>
+          <td class="red">15.53</td>
+          <td>14</td>
+          <td>24.15</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Table 2: Efficiency & Fuel -->
+  <div style="overflow-x:auto;">
+    <table>
+      <thead>
+        <tr>
+          <th class="sub-header" style="text-align:left;">Name</th>
+          <th class="sub-header">Net<br>Efficiency</th>
+          <th class="sub-header">Fuel Burn<br>(MMBtu/hr)</th>
+          <th class="sub-header">Δ Fuel<br>(MMBtu/hr)</th>
+          <th class="sub-header">Annual Fuel Penalty<br>($M/yr)</th>
+          <th class="sub-header">Project Fuel<br>Penalty ($M)</th>
+          <th class="sub-header">Power, Net<br>(MW)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Titan 130</td>
+          <td>0.354</td>
+          <td>144.58</td>
+          <td>45.39</td>
+          <td>0.60</td>
+          <td>8.95</td>
+          <td>11.92</td>
+        </tr>
+        <tr>
+          <td>W31SG</td>
+          <td>0.516</td>
+          <td>99.19</td>
+          <td>0.00</td>
+          <td>0.00</td>
+          <td>0.00</td>
+          <td>10.26</td>
+        </tr>
+        <tr>
+          <td>G3520H</td>
+          <td>0.421</td>
+          <td>121.57</td>
+          <td>22.38</td>
+          <td>0.29</td>
+          <td>4.41</td>
+          <td>2.25</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</body>
+</html>

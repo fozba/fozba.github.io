@@ -1,0 +1,38 @@
+<article class="card">
+    <header class="card-header">
+        <h3 class="card-title">Utah FORGE: April 2024 Stimulation Analysis</h3>
+        <p class="card-subtitle">2nd Place | GEODE Geoscience Datathon (Engineering Track). Multi-modal reservoir diagnostics for the world's first open-source EGS.</p>
+        <p class="card-tags"><span>Python</span><span>Plotly</span><span>DTS / fiber optics</span><span>microseismic</span><span>tracer analysis</span><span>EGS</span></p>
+    </header>
+
+    <div class="card-stage" data-iframe-src="/portfolio/components/forge_3d_plot.html">
+        <div class="card-stage-loader"><div></div></div>
+    </div>
+
+    <div class="card-prose">
+        <p>
+            For the Engineering track of the
+            <a href="https://www.geode.energy/news/geode-datathon-winners-announced" target="_blank" rel="noopener noreferrer" class="link">GEODE Datathon</a>,
+            my teammate and I analyzed the April 2024 stimulation and circulation test of
+            <a href="https://utahforge.com/" target="_blank" rel="noopener noreferrer" class="link">Utah FORGE</a>,
+            the world's first open-source enhanced geothermal system, over a single weekend. The dataset spanned distributed temperature sensing along well 16B, tracer concentrations across all stages, microseismic event catalogs, and full wellbore surveys. The challenge was open-ended: given all of this, what can you say about the reservoir, and what would you do next?
+        </p>
+        <p>
+            I integrated the four data streams into one geomechanical narrative. The
+            <span class="tt-trigger" data-type="image" data-src="/portfolio/assets/forge_dts.png">DTS Δ-T traces</span>
+            revealed persistent thermal signatures of cold-water flow at the perforation depths of 16B's Stages 2 and 4, indicating preferential flow paths created or enhanced during those stimulations.
+            <span class="tt-trigger" data-type="image" data-src="/portfolio/assets/forge_tracer.png">Tracer recovery</span>
+            showed correlated flow across most stages, except Stage 4, hinting at an isolated fracture network. Microseismic events binned by hour and projected in 3D against the wellbore geometry independently confirmed three dominant flow planes, including one in the depth interval where the fiber optic cable had failed. Two independent diagnostics, the same answer.
+        </p>
+        <p>
+            I closed with a re-stimulation proposal targeting the under-utilized rock between the dominant paths, with concrete recommendations on perturbed-stress analysis, oriented perforation design, and mechanical isolation strategy. The proposal addressed the central tension of the result: the very flow paths that proved the well pair worked are also the long-term liability for thermal short-circuiting.
+        </p>
+    </div>
+
+    <footer class="card-footer">
+        <a href="/portfolio/assets/forge_presentation.pdf" target="_blank" class="card-button">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            View Full Project Presentation
+        </a>
+    </footer>
+</article>

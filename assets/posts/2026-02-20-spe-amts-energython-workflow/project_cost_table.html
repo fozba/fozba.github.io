@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 12.5px;
+    background: transparent;
+    margin: 0;
+    padding: 0.5rem 0;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th, td {
+    padding: 5px 10px;
+    border: 1px solid #b0bec5;
+    vertical-align: middle;
+  }
+
+  /* Header row */
+  thead th {
+    background-color: #ffffff;
+    font-weight: 700;
+    text-align: center;
+    border-bottom: 2px solid #7a9c59;
+  }
+
+  thead th:first-child {
+    text-align: left;
+  }
+
+  /* Category label cells (Power Generation, Electrical BoP, etc.) */
+  .category {
+    font-weight: 700;
+    text-align: right;
+    background-color: #c6d9a0;
+    white-space: nowrap;
+    vertical-align: middle;
+    border: 1px solid #b0bec5;
+  }
+
+  /* Item name cells */
+  .item-name {
+    text-decoration: underline;
+    color: #1a1a2e;
+    text-align: left;
+  }
+
+  /* Light green rows */
+  .row-light td {
+    background-color: #ebf2e0;
+  }
+
+  /* Slightly darker green rows (alternating within group) */
+  .row-dark td {
+    background-color: #ddecc8;
+  }
+
+  /* Number columns */
+  .num {
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  /* Source column */
+  .source {
+    text-align: left;
+    color: #2c2c2c;
+  }
+
+  /* Total row */
+  .total-row td {
+    background-color: #7a9c59;
+    color: #ffffff;
+    font-weight: 700;
+    text-align: center;
+    font-size: 13px;
+    border: 1px solid #5a7a3a;
+  }
+
+  .total-row td.num {
+    text-align: right;
+  }
+
+  /* $/kW row */
+  .kw-row td {
+    background-color: #c6d9a0;
+    font-weight: 700;
+    text-align: center;
+    border: 1px solid #b0bec5;
+  }
+
+  .kw-row td.num {
+    text-align: right;
+  }
+</style>
+</head>
+<body>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="2" style="text-align:left;">Item</th>
+      <th>Qty</th>
+      <th>Unit</th>
+      <th>Unit Rate ($)</th>
+      <th>Total Cost ($)</th>
+      <th style="text-align:left;">Source / Logic</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <!-- Power Generation Modules -->
+    <tr class="row-light">
+      <td class="category" rowspan="3">Power<br>Generation<br>Modules</td>
+      <td class="item-name">CAT G3520H Generator Set (Skid)</td>
+      <td class="num">9</td>
+      <td class="num">Each</td>
+      <td class="num">$1,725,000</td>
+      <td class="num">$15,525,000</td>
+      <td class="source">Market Quote (Surplus Record, 2025 Avg).</td>
+    </tr>
+    <tr class="row-dark">
+      <td class="item-name">Sound Attenuated Enclosure (ISO)</td>
+      <td class="num">9</td>
+      <td class="num">Each</td>
+      <td class="num">$175,000</td>
+      <td class="num">$1,575,000</td>
+      <td class="source">MachineryTrader listing for 40' container w/ 85dBA rating.</td>
+    </tr>
+    <tr class="row-light">
+      <td class="item-name">SCR Emissions Package</td>
+      <td class="num">9</td>
+      <td class="num">Each</td>
+      <td class="num">$225,000</td>
+      <td class="num">$2,025,000</td>
+      <td class="source">EPA Retrofit Data ($100/kW) for NOx compliance.</td>
+    </tr>
+
+    <!-- Electrical BoP -->
+    <tr class="row-dark">
+      <td class="category" rowspan="5">Electrical<br>BoP</td>
+      <td class="item-name">15kV Switchgear Sections</td>
+      <td class="num">12</td>
+      <td class="num">Cell</td>
+      <td class="num">$75,000</td>
+      <td class="num">$900,000</td>
+      <td class="source">Siemens GM-SG Style Vacuum Breaker (Installed New).</td>
+    </tr>
+    <tr class="row-light">
+      <td class="item-name">Master Control Panel (Sync)</td>
+      <td class="num">1</td>
+      <td class="num">Lot</td>
+      <td class="num">$650,000</td>
+      <td class="num">$650,000</td>
+      <td class="source">Complex Logic for 9-Unit Paralleling (Est. based on CAT EMCP 4.4).</td>
+    </tr>
+    <tr class="row-dark">
+      <td class="item-name">MV Cabling & Trays</td>
+      <td class="num">3000</td>
+      <td class="num">Ft</td>
+      <td class="num">$150</td>
+      <td class="num">$450,000</td>
+      <td class="source">15kV Shielded Cable + Tray Install ($150/ft installed).</td>
+    </tr>
+    <tr class="row-light">
+      <td class="item-name">Step-Up Transformers (2.5 MVA)</td>
+      <td class="num">5</td>
+      <td class="num">Each</td>
+      <td class="num">$120,000</td>
+      <td class="num">$600,000</td>
+      <td class="source">Padmount, 13.8kV/480V. One per 2 engines + spare.</td>
+    </tr>
+    <tr class="row-dark">
+      <td class="item-name">Grid Connection Hardware</td>
+      <td class="num">1</td>
+      <td class="num">Lot</td>
+      <td class="num">$400,000</td>
+      <td class="num">$400,000</td>
+      <td class="source">Overhead line + disconnect switch to Data Center.</td>
+    </tr>
+
+    <!-- Mechanical BoP -->
+    <tr class="row-light">
+      <td class="category" rowspan="3">Mechanical<br>BoP</td>
+      <td class="item-name">Gas Fuel Train (Regulators)</td>
+      <td class="num">9</td>
+      <td class="num">Each</td>
+      <td class="num">$35,000</td>
+      <td class="num">$315,000</td>
+      <td class="source">High-pressure regulators per engine inlet.</td>
+    </tr>
+    <tr class="row-dark">
+      <td class="item-name">Lube Oil Storage System</td>
+      <td class="num">1</td>
+      <td class="num">Lot</td>
+      <td class="num">$150,000</td>
+      <td class="num">$150,000</td>
+      <td class="source">Central 5,000 gal tank + piping loop.</td>
+    </tr>
+    <tr class="row-light">
+      <td class="item-name">Gas Interconnection Lateral</td>
+      <td class="num">1</td>
+      <td class="num">Mile</td>
+      <td class="num">$1,000,000</td>
+      <td class="num">$1,000,000</td>
+      <td class="source">6" Lateral to Atmos/ET Trunk Line.</td>
+    </tr>
+
+    <!-- Civil & Site Works -->
+    <tr class="row-dark">
+      <td class="category" rowspan="4">Civil & Site<br>Works</td>
+      <td class="item-name">Concrete Equipment Pads</td>
+      <td class="num">9</td>
+      <td class="num">Each</td>
+      <td class="num">$25,000</td>
+      <td class="num">$225,000</td>
+      <td class="source">15 cy reinforced concrete per pad @ $1,500/cy.</td>
+    </tr>
+    <tr class="row-light">
+      <td class="item-name">Site Grading & Fencing</td>
+      <td class="num">4</td>
+      <td class="num">Acre</td>
+      <td class="num">$75,000</td>
+      <td class="num">$300,000</td>
+      <td class="source">Heavy grading + Anti-climb security fence.</td>
+    </tr>
+    <tr class="row-dark">
+      <td class="item-name">Land Acquisition</td>
+      <td class="num">4</td>
+      <td class="num">Acre</td>
+      <td class="num">$250,000</td>
+      <td class="num">$1,000,000</td>
+      <td class="source">Red Oak Industrial Park Listing (2025).</td>
+    </tr>
+    <tr class="row-light">
+      <td class="item-name">Spare Parts</td>
+      <td class="num">1</td>
+      <td class="num">Lot</td>
+      <td class="num">$250,000</td>
+      <td class="num">$250,000</td>
+      <td class="source">Critical spares for Day 1 reliability.</td>
+    </tr>
+
+    <!-- Soft Costs -->
+    <tr class="row-dark">
+      <td class="category" rowspan="3">Soft Costs</td>
+      <td class="item-name">Engineering & Permitting</td>
+      <td class="num">1</td>
+      <td class="num">Lot</td>
+      <td class="num">$1,500,000</td>
+      <td class="num">$1,500,000</td>
+      <td class="source">Air Permit (TCEQ) + Elect. Interconnect Study.</td>
+    </tr>
+    <tr class="row-light">
+      <td class="item-name">Construction Management</td>
+      <td class="num">1</td>
+      <td class="num">Lot</td>
+      <td class="num">5%</td>
+      <td class="num">$1,343,250</td>
+      <td class="source">5% of Hard Costs.</td>
+    </tr>
+    <tr class="row-dark">
+      <td class="item-name">Contingency (P50)</td>
+      <td class="num">1%</td>
+      <td class="num"></td>
+      <td class="num">10%</td>
+      <td class="num">$2,820,825</td>
+      <td class="source">Standard Project Finance Reserve.</td>
+    </tr>
+
+    <!-- Total -->
+    <tr class="total-row">
+      <td colspan="5"><strong>TOTAL PROJECT COST</strong></td>
+      <td class="num"><strong>$31,029,075</strong></td>
+      <td></td>
+    </tr>
+
+    <!-- $/kW -->
+    <tr class="kw-row">
+      <td colspan="5"><strong>$/kW (Installed)</strong></td>
+      <td class="num"><strong>$1,532</strong></td>
+      <td></td>
+    </tr>
+
+  </tbody>
+</table>
+
+</body>
+</html>

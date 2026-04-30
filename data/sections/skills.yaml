@@ -1,0 +1,44 @@
+section:
+  name: Skills
+  id: skills
+  enable: false
+  weight: 3
+  showOnNavbar: true
+  # hideTitle: true
+
+skills:
+- name: Python 
+  logo: /images/sections/skills/python_logo.svg
+  summary: "Using as the main programming language. +7 years of experience. Capable of deploying a diverse variety of data analytics, machine learning, and deep learning workflows using libraries like Numpy, Pandas, and Seaborn. Able to build modular codebases using an OOP approach."
+- name: ResFrac
+  logo: /images/sections/skills/ResFrac_logo.png
+  summary: "Capable of simulating different oil, gas and geothermal reservoirs with accurately implemented reservoir geomechanics, performing history matching and sensitivity analysis."
+  url: "https://www.resfrac.com/"
+- name: OpenFOAM
+  logo: /images/sections/skills/OpenFOAM_logo.svg
+  summary: "Utilized for physics-based reservoir engineering and geomechanics simulations using the Finite Volume Method (FVM)."
+- name: Paraview
+  logo: /images/sections/skills/paraview_logo.png
+  summary: "Using to visualize reservoir simulation applications. Capable of creating fine-tuned static and animated visuals, and using Python API."
+  url: "https://www.paraview.org"
+- name: Linux
+  logo: /images/sections/skills/tux.svg
+  summary: "5+ years experience with *nix systems, native to CLI & Shell scripting. Actively using various *nix tools such as awk and vim."
+- name: Git/GitHub
+  logo: /images/sections/skills/github_logo.png
+  summary: "Proficient with version control for collaborative and individual software development projects."
+- name: Power BI
+  logo: /images/sections/skills/Power_BI_logo.svg
+  summary: "Experience in creating interactive dashboards and business intelligence reports, including mobile app development."
+- name: Visual Basic Application (VBA)
+  logo: /images/sections/skills/excel_logo.png
+  summary: "Able to support any MS Excel workflow with sophisticated macros using VBA for various applications."
+- name: Julia
+  logo: /images/sections/skills/julia_logo.svg
+  summary: "Familiar with the Julia programming language for high-performance numerical analysis and computational science."
+- name: C
+  logo: /images/sections/skills/C_logo.svg
+  summary: "Knowledge of C for foundational programming and performance-critical tasks."
+- name: LaTeX
+  logo: /images/sections/skills/LaTeX_logo.svg
+  summary: "Experienced in creating professional and academic documents with complex formatting and typesetting."

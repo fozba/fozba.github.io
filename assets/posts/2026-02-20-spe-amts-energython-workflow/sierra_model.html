@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sierra Solutions: Live Finance Model</title>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<style>
+  :root {
+    --bg: transparent;
+    --fg: #1a1a2e;
+    --muted: #6b7280;
+    --border-soft: #b0bec5;
+    --border-hard: #7a9c59;
+    --header-bg: #c6d9a0;
+    --label-bg: #ebf2e0;
+    --val-bg: #ddecc8;
+    --val-bg-alt: #f0f5e8;
+    --gray: #c8c8c8;
+    --primary: #2980b9;
+    --good: #27ae60;
+    --bad: #c0392b;
+  }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 11px;
+    background: var(--bg);
+    margin: 0;
+    padding: 0.5rem 0;
+    color: var(--fg);
+  }
+
+  .layout { display: flex; flex-direction: column; gap: 0.75rem; }
+
+  .results {
+    display: flex; gap: 1rem; justify-content: center; align-items: center;
+    padding: 0.5rem;
+    background: #f8fafc;
+    border: 1px solid var(--border-soft);
+    border-radius: 6px;
+  }
+  .result-cell { text-align: center; padding: 0 1.25rem; }
+  .result-cell + .result-cell { border-left: 1px solid var(--border-soft); }
+  .result-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .result-value { font-size: 22px; font-weight: 700; color: var(--fg); margin-top: 2px; }
+  .result-value.pos { color: var(--good); }
+  .result-value.neg { color: var(--bad); }
+
+  .grid-layout {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    border: 1px solid var(--border-soft);
+    background: white;
+  }
+  .col { border-right: 2px solid var(--border-hard); }
+  .col:last-child { border-right: none; }
+  .col table { border-collapse: collapse; width: 100%; }
+  .col th {
+    background-color: var(--header-bg);
+    font-weight: 700; padding: 5px 8px;
+    text-align: left;
+    border-bottom: 2px solid var(--border-hard);
+    white-space: nowrap;
+  }
+  .col td {
+    padding: 3px 8px;
+    border-bottom: 1px solid #ddecc8;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+  td.label {
+    background-color: var(--label-bg);
+    color: var(--fg);
+    text-align: left;
+    font-size: 11px;
+  }
+  td.val { background-color: var(--val-bg); text-align: right; padding: 0; }
+  td.val-gray {
+    background-color: var(--gray);
+    text-align: right;
+    color: #555;
+    padding: 3px 8px;
+  }
+  td.val-derived {
+    background-color: #dbdbdb;
+    text-align: right;
+    color: #555;
+    font-style: italic;
+    padding: 3px 8px;
+    cursor: default;
+    user-select: none;
+  }
+  td.val input[type="number"] {
+    width: 100%;
+    box-sizing: border-box;
+    border: 0;
+    background: transparent;
+    text-align: right;
+    padding: 3px 8px;
+    font-family: inherit;
+    font-size: 11px;
+    color: var(--fg);
+  }
+  td.val input[type="number"]:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: -2px;
+    background: white;
+  }
+  .sub-header td {
+    background-color: var(--header-bg);
+    font-weight: 700; padding: 5px 8px;
+    border-bottom: 1px solid var(--border-hard);
+  }
+
+  .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .chart-card {
+    background: white;
+    border: 1px solid var(--border-soft);
+    border-radius: 4px;
+    padding: 0.25rem;
+  }
+  .chart-card > div { width: 100%; }
+
+  .reset-btn {
+    border: 1px solid var(--border-hard);
+    background: var(--label-bg);
+    color: var(--fg);
+    font-family: inherit;
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 1rem;
+  }
+  .reset-btn:hover { background: var(--val-bg); }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <div class="results">
+    <div class="result-cell">
+      <div class="result-label">Project IRR</div>
+      <div id="kpi-irr" class="result-value">–</div>
+    </div>
+    <div class="result-cell">
+      <div class="result-label">NPV @ 12%</div>
+      <div id="kpi-npv" class="result-value">–</div>
+    </div>
+    <div class="result-cell">
+      <div class="result-label">Initial Equity</div>
+      <div id="kpi-eq" class="result-value">–</div>
+    </div>
+    <div class="result-cell">
+      <div class="result-label">Min DSCR</div>
+      <div id="kpi-dscr" class="result-value">–</div>
+    </div>
+    <div class="result-cell">
+      <button class="reset-btn" onclick="resetParams()">Reset to base case</button>
+    </div>
+  </div>
+
+  <div class="grid-layout" id="paramGrid"></div>
+
+  <div class="chart-row">
+    <div class="chart-card"><div id="chartCashflow"></div></div>
+    <div class="chart-card"><div id="chartLoan"></div></div>
+  </div>
+
+</div>
+
+<script>
+function ppmt(rate, per, nper, pv) {
+    const pmt = -rate * pv / (1 - Math.pow(1 + rate, -nper));
+    const balanceBeforePer = pv * Math.pow(1 + rate, per - 1)
+        + pmt * (Math.pow(1 + rate, per - 1) - 1) / rate;
+    const ipmt = -balanceBeforePer * rate;
+    return pmt - ipmt;
+}
+function irr(cashflows) {
+    let r = 0.1;
+    for (let iter = 0; iter < 200; iter++) {
+        let npv = 0, dnpv = 0;
+        for (let t = 0; t < cashflows.length; t++) {
+            npv += cashflows[t] / Math.pow(1 + r, t);
+            if (t > 0) dnpv -= t * cashflows[t] / Math.pow(1 + r, t + 1);
+        }
+        if (Math.abs(npv) < 1e-9) return r;
+        if (Math.abs(dnpv) < 1e-15) return NaN;
+        const newR = r - npv / dnpv;
+        if (Math.abs(newR - r) < 1e-12) return newR;
+        r = (newR < -0.99) ? -0.5 : newR;
+    }
+    return r;
+}
+const MACRS_TABLE =[0, 0.20, 0.32, 0.192, 0.1152, 0.1152, 0.0576,
+                    0,0,0,0,0,0,0,0,0,0,0,0,0];
+
+function runModel(p) {
+    const weighted_hub = (p.waha_weight * p.waha_price) + ((1-p.waha_weight) * p.henry_price);
+    const total_uses = p.capex + p.dsra;
+    const initial_loan_draw = total_uses * p.debt_share;
+    const initial_equity_y0 = total_uses * (1 - p.debt_share);
+    const first_full_ops_year = Math.ceil(p.const_years) + 1;
+    const results =[];
+    let curr_loan_bal = initial_loan_draw;
+    let balloon_bal = 0;
+    for (let yr = 0; yr < 18; yr++) {
+        const rf = (yr > 0) ? Math.max(0, Math.min(1, yr - p.const_years)) : 0;
+        const ti = (rf > 0) ? (Math.max(yr - 1, p.const_years) + yr) / 2 : 0;
+        const rev_en = (p.gen_mwh * 1000 * p.en_rate * Math.pow(p.gas_esc, ti)) * rf;
+        const rev_cap = (p.mw_delivered * 1000 * p.cap_rate * 12 * Math.pow(p.ppa_esc, ti)) * rf;
+        const total_rev = rev_en + rev_cap;
+        const fuel = p.gen_mwh * (p.hr * Math.pow(p.degradation, ti))
+                     * ((weighted_hub * Math.pow(p.gas_esc, ti)) + p.transport_fee) * rf;
+        const var_om_cost = (p.gen_mwh * p.var_om * Math.pow(p.cpi_esc, ti)) * rf;
+        const staff = (p.staff_base * Math.pow(p.labor_esc, ti)) * rf;
+        const stat_on = (yr > 0) ? 1 : 0;
+        const ins = (rf > 0) ? p.ins_base * Math.pow(p.cpi_esc, ti) : p.ins_base * stat_on;
+        const adm = (rf > 0) ? p.adm_base * Math.pow(p.cpi_esc, ti) : p.adm_base * stat_on;
+        const tax_p = (p.capex * p.prop_tax_rate)
+                     * Math.pow(1 - p.tax_decline, Math.max(0, yr - 2)) * stat_on;
+        const ebitda = total_rev - (fuel + var_om_cost + staff + ins + adm + tax_p);
+        const interest = (yr > 0) ? curr_loan_bal * p.interest_rate : 0;
+        const idc = (yr > 0) ? interest * (1 - rf) : 0;
+        if (yr === Math.floor(p.const_years + 1)) balloon_bal = curr_loan_bal + idc;
+        let prin_pmt = 0;
+        if (yr >= first_full_ops_year) {
+            const amort_period = yr - (first_full_ops_year - 1);
+            if (amort_period <= 15) prin_pmt = -ppmt(p.interest_rate, amort_period, 15, balloon_bal);
+        }
+        const depr = (yr >= 2) ? p.capex * MACRS_TABLE[yr - 1] : 0;
+        const taxable_inc = ebitda - (interest - idc) - depr;
+        const tax_paid = Math.max(0, taxable_inc * p.tax_rate);
+        const debt_svc = prin_pmt + interest - idc;
+        const dscr = (debt_svc > 0.001) ? (ebitda - tax_paid) / debt_svc : null;
+        let lfcf = ebitda - tax_paid - debt_svc;
+        if (yr === 0) lfcf = -initial_equity_y0;
+        curr_loan_bal = curr_loan_bal + idc - prin_pmt;
+        results.push({ year: yr, rev: total_rev, ebitda, tax_paid, debt_svc, dscr, lfcf, loan_bal: curr_loan_bal });
+    }
+    const cashflows = results.map(r => r.lfcf);
+    const irrVal = irr(cashflows) * 100;
+    let npv = cashflows[0];
+    for (let i = 1; i < cashflows.length; i++) npv += cashflows[i] / Math.pow(1 + p.disc_rate, i);
+    
+    const dscrs = results.map(r => r.dscr).filter(v => v !== null);
+    const min_dscr = dscrs.length > 0 ? Math.min(...dscrs) : null;
+    
+    return { irr: irrVal, npv, initial_equity: initial_equity_y0, min_dscr, table: results };
+}
+
+const BASE_PARAMS = {
+    cap_rate: 22.50, en_rate: 0.055, var_om: 17.50,
+    waha_price: 1.50, henry_price: 6.00, waha_weight: 0.95, transport_fee: 0.60,
+    capex: 31029075.00, debt_share: 0.65, interest_rate: 0.085, tax_rate: 0.21,
+    dsra: 1355000.00, prop_tax_rate: 0.025, tax_decline: 0.05,
+    cpi_esc: 1.025, ppa_esc: 1.025, gas_esc: 1.03, labor_esc: 1.03,
+    mw_delivered: 15.00, gen_mwh: 132451.20, const_years: 1.4976,
+    degradation: 1.005, hr: 8.114,
+    staff_base: 923000.00, ins_base: 232718.0625, adm_base: 75000.00,
+    disc_rate: 0.12
+};
+let params = { ...BASE_PARAMS };
+
+const fmt = {
+    money:   v => '$' + v.toLocaleString('en-US', { maximumFractionDigits: 0 }),
+    money2:  v => '$' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+    plain:   v => v.toString(),
+    pct:     v => v.toString(),
+    decimal: v => v.toString()
+};
+
+const COLUMNS = [
+    { title: 'Project Inputs', rows:[
+        { type: 'input', key: 'const_years',  label: 'Construction (yrs)',   step: 0.1, ui: v => v, store: v => v },
+        { type: 'fixed', label: 'Operation period (yrs)', value: '15' },
+        { type: 'input', key: 'mw_delivered', label: 'Delivered Power (MW)', step: 0.5, ui: v => v, store: v => v },
+        { type: 'input', key: 'gen_mwh',      label: 'Gen MWh',              step: 1000, ui: v => v, store: v => v },
+        { type: 'input', key: 'disc_rate',    label: 'Discount Rate (frac)', step: 0.005, ui: v => v, store: v => v },
+    ]},
+    { title: 'Finance Model', rows:[
+        { type: 'sub-header', label: 'Investment' },
+        { type: 'input', key: 'debt_share',    label: 'Debt (frac)',          step: 0.05, ui: v => v, store: v => v },
+        { type: 'derived', label: 'Equity (frac)', compute: () => (1 - params.debt_share).toFixed(3) },
+        { type: 'input', key: 'interest_rate', label: 'Loan Interest (frac)', step: 0.005, ui: v => v, store: v => v },
+        { type: 'input', key: 'dsra',          label: 'DSRA ($)',             step: 50000, ui: v => v, store: v => v, format: 'money' },
+        { type: 'input', key: 'capex',         label: 'Hard Capex ($)',       step: 500000, ui: v => v, store: v => v, format: 'money' },
+        { type: 'derived', label: 'Initial Loan ($)', compute: () => fmt.money((params.capex + params.dsra) * params.debt_share) },
+        { type: 'sub-header', label: 'Property' },
+        { type: 'input', key: 'prop_tax_rate', label: 'Property Tax (frac)',  step: 0.005, ui: v => v, store: v => v },
+        { type: 'input', key: 'tax_decline',   label: 'Tax Decline (frac)',   step: 0.01,  ui: v => v, store: v => v },
+    ]},
+    { title: 'Fuel Supply / Escalators', rows:[
+        { type: 'input', key: 'waha_price',    label: 'Gas Waha ($/MMBtu)',   step: 0.1,  ui: v => v, store: v => v, format: 'money2' },
+        { type: 'input', key: 'henry_price',   label: 'Gas Henry ($/MMBtu)',  step: 0.1,  ui: v => v, store: v => v, format: 'money2' },
+        { type: 'input', key: 'waha_weight',   label: 'Waha Fraction',        step: 0.01, ui: v => v, store: v => v },
+        { type: 'derived', label: 'Henry Fraction', compute: () => (1 - params.waha_weight).toFixed(2) },
+        { type: 'input', key: 'transport_fee', label: 'Transport Fee ($/MMBtu)', step: 0.05, ui: v => v, store: v => v, format: 'money2' },
+        { type: 'sub-header', label: 'Escalators' },
+        { type: 'input', key: 'cpi_esc',  label: 'CPI (factor)',          step: 0.005, ui: v => v, store: v => v },
+        { type: 'input', key: 'ppa_esc',  label: 'PPA Escalator (factor)', step: 0.005, ui: v => v, store: v => v },
+        { type: 'input', key: 'gas_esc',  label: 'Gas Escalator (factor)', step: 0.005, ui: v => v, store: v => v },
+        { type: 'input', key: 'labor_esc',label: 'Wage Escalator (factor)',step: 0.005, ui: v => v, store: v => v },
+    ]},
+    { title: 'Revenue & OpEx', rows:[
+        { type: 'input', key: 'cap_rate',   label: 'Capacity Rate ($/kW-mo)', step: 0.5, ui: v => v, store: v => v, format: 'money2' },
+        { type: 'input', key: 'en_rate',    label: 'Energy Rate ($/kWh)',     step: 0.005, ui: v => v, store: v => v, format: 'money2' },
+        { type: 'input', key: 'tax_rate',   label: 'Income Tax (frac)',       step: 0.01, ui: v => v, store: v => v },
+        { type: 'input', key: 'ins_base',   label: 'Base Insurance ($)',      step: 5000, ui: v => v, store: v => v, format: 'money' },
+        { type: 'input', key: 'adm_base',   label: 'Base Admin ($)',          step: 5000, ui: v => v, store: v => v, format: 'money' },
+        { type: 'input', key: 'staff_base', label: 'Staffing Base ($)',       step: 25000, ui: v => v, store: v => v, format: 'money' },
+        { type: 'input', key: 'var_om',     label: 'Variable O&M ($/MWh)',    step: 0.5, ui: v => v, store: v => v, format: 'money2' },
+    ]},
+    { title: 'Power Generation', rows:[
+        { type: 'fixed', label: 'Active # of Turbines', value: '7' },
+        { type: 'fixed', label: 'Total # of Turbines',  value: '9' },
+        { type: 'fixed', label: 'Unit Net Power (MW)',  value: '2.25' },
+        { type: 'fixed', label: 'Capacity Factor',      value: '0.96' },
+        { type: 'input', key: 'hr',         label: 'Heat Rate (Btu/MWh)',  step: 0.1, ui: v => v, store: v => v },
+        { type: 'input', key: 'degradation',label: 'Degradation (factor)', step: 0.001, ui: v => v, store: v => v },
+    ]},
+];
+
+function buildGrid() {
+    const root = document.getElementById('paramGrid');
+    root.innerHTML = '';
+    COLUMNS.forEach(col => {
+        const colDiv = document.createElement('div');
+        colDiv.className = 'col';
+        const tbl = document.createElement('table');
+        tbl.innerHTML = `<thead><tr><th colspan="2">${col.title}</th></tr></thead>`;
+        const tbody = document.createElement('tbody');
+        col.rows.forEach(row => {
+            const tr = document.createElement('tr');
+            if (row.type === 'sub-header') {
+                tr.className = 'sub-header';
+                tr.innerHTML = `<td colspan="2">${row.label}</td>`;
+            } else if (row.type === 'fixed') {
+                tr.innerHTML = `<td class="label">${row.label}</td><td class="val-gray">${row.value}</td>`;
+            } else if (row.type === 'derived') {
+                tr.innerHTML = `<td class="label">${row.label}</td><td class="val-derived" data-derived="${row.label}">${row.compute()}</td>`;
+            } else if (row.type === 'input') {
+                const v = params[row.key];
+                const step = row.step ?? 0.01;
+                tr.innerHTML = `
+                    <td class="label">${row.label}</td>
+                    <td class="val"><input type="number" data-key="${row.key}" value="${v}" step="${step}"></td>`;
+            }
+            tbody.appendChild(tr);
+        });
+        tbl.appendChild(tbody);
+        colDiv.appendChild(tbl);
+        root.appendChild(colDiv);
+    });
+    root.querySelectorAll('input[data-key]').forEach(inp => {
+        inp.addEventListener('input', e => {
+            const key = e.target.dataset.key;
+            const v = parseFloat(e.target.value);
+            if (!isNaN(v)) {
+                params[key] = v;
+                refreshDerived();
+                recomputeAndRender();
+            }
+        });
+    });
+}
+
+function refreshDerived() {
+    document.querySelectorAll('[data-derived]').forEach(el => {
+        const label = el.dataset.derived;
+        const row = COLUMNS.flatMap(c => c.rows).find(r => r.type === 'derived' && r.label === label);
+        if (row) el.textContent = row.compute();
+    });
+}
+
+function resetParams() {
+    params = { ...BASE_PARAMS };
+    buildGrid();
+    recomputeAndRender();
+}
+
+function renderCashflow(table) {
+    const years = table.map(r => r.year);
+    const ebitda = table.map(r => r.ebitda / 1e6);
+    const debt   = table.map(r => -r.debt_svc / 1e6);
+    const tax    = table.map(r => -r.tax_paid / 1e6);
+    const lfcf   = table.map(r => r.lfcf / 1e6);
+
+    const traces =[
+        { x: years, y: ebitda, name: 'EBITDA',         type: 'bar', marker: { color: '#7a9c59' } },
+        { x: years, y: debt,   name: 'Debt service',   type: 'bar', marker: { color: '#b94a4a' } },
+        { x: years, y: tax,    name: 'Tax paid',       type: 'bar', marker: { color: '#d4a949' } },
+        { x: years, y: lfcf,   name: 'Levered cash flow', type: 'scatter', mode: 'lines+markers',
+          line: { color: '#2980b9', width: 2.5 }, marker: { size: 7 } }
+    ];
+    const layout = {
+        title: { text: 'Annual Cash Flow Composition', font: { size: 13 }, x: 0.02, xanchor: 'left' },
+        barmode: 'relative',
+        height: 240,
+        margin: { l: 50, r: 20, t: 35, b: 60 },
+        legend: { orientation: 'h', y: -0.35, x: 0.5, xanchor: 'center', font: { size: 10 } },
+        xaxis: { title: { text: 'Project year', font: { size: 10 } }, tickfont: { size: 10 } },
+        yaxis: { title: { text: 'USD (millions)', font: { size: 10 } }, tickfont: { size: 10 }, zeroline: true, zerolinecolor: '#999' },
+        plot_bgcolor: 'white', paper_bgcolor: 'white'
+    };
+    Plotly.react('chartCashflow', traces, layout, { displayModeBar: false, responsive: true });
+}
+
+function renderLoan(table) {
+    const years = table.map(r => r.year);
+    const bal = table.map(r => r.loan_bal / 1e6);
+    const traces =[{
+        x: years, y: bal, type: 'scatter', mode: 'lines',
+        fill: 'tozeroy', line: { color: '#7a9c59', width: 2 },
+        fillcolor: 'rgba(122, 156, 89, 0.20)', name: 'Loan balance'
+    }];
+    const layout = {
+        title: { text: 'Loan Balance Over Project Life', font: { size: 13 }, x: 0.02, xanchor: 'left' },
+        height: 240,
+        margin: { l: 50, r: 20, t: 35, b: 60 },
+        showlegend: false,
+        xaxis: { title: { text: 'Project year', font: { size: 10 } }, tickfont: { size: 10 } },
+        yaxis: { title: { text: 'Outstanding (millions $)', font: { size: 10 } }, tickfont: { size: 10 }, rangemode: 'tozero' },
+        plot_bgcolor: 'white', paper_bgcolor: 'white'
+    };
+    Plotly.react('chartLoan', traces, layout, { displayModeBar: false, responsive: true });
+}
+
+function recomputeAndRender() {
+    const res = runModel(params);
+    
+    const irrEl = document.getElementById('kpi-irr');
+    irrEl.textContent = isFinite(res.irr) ? res.irr.toFixed(2) + '%' : 'n/a';
+    irrEl.className = 'result-value ' + (res.irr >= 12 ? 'pos' : (res.irr < 0 ? 'neg' : ''));
+    
+    const npvEl = document.getElementById('kpi-npv');
+    npvEl.textContent = (res.npv >= 0 ? '$' : '–$') + Math.abs(res.npv).toLocaleString('en-US', { maximumFractionDigits: 0 });
+    npvEl.className = 'result-value ' + (res.npv >= 0 ? 'pos' : 'neg');
+    
+    document.getElementById('kpi-eq').textContent = '$' + res.initial_equity.toLocaleString('en-US', { maximumFractionDigits: 0 });
+    
+    const dscrEl = document.getElementById('kpi-dscr');
+    if (res.min_dscr !== null && isFinite(res.min_dscr)) {
+        dscrEl.textContent = res.min_dscr.toFixed(2) + 'x';
+        dscrEl.className = 'result-value ' + (res.min_dscr >= 1.2 ? 'pos' : (res.min_dscr < 1.0 ? 'neg' : ''));
+    } else {
+        dscrEl.textContent = 'n/a';
+        dscrEl.className = 'result-value';
+    }
+    
+    renderCashflow(res.table);
+    renderLoan(res.table);
+}
+
+buildGrid();
+recomputeAndRender();
+</script>
+</body>
+</html>
