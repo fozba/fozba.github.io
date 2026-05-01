@@ -29,7 +29,7 @@ jobs:
           npm install
           hugo --gc --minify --baseURL "https://fozba.github.io/"
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: ./public
   deploy:
