@@ -75,7 +75,7 @@ case "$(uname -m)" in
     hugo_arch="amd64"
     go_arch="amd64"
     hugo_checksum="fa3ea49e0ca3dcc1f50b6976be0f96c15c17bc4a14278d605281d185f3022857"
-    node_checksum="5467ee62d6af1411d46b6a10e3fb5cacc92734dbcef465fea14e7b90993001c9"
+    node_checksum="2f2c0da162318f0de47665410c7c8c2ed3d36c8f3105de4bbc61176c70a7cbf2"
     go_checksum="68097bd680839cbc9d464a0edce4f7c333975e27a90246890e9f1078c7e702ad"
     ;;
   aarch64 | arm64)
@@ -83,7 +83,7 @@ case "$(uname -m)" in
     hugo_arch="arm64"
     go_arch="arm64"
     hugo_checksum="46e37c68e6c66416182b46f5624c73f99e71a0aaf04ca511be4b952055837021"
-    node_checksum="224e569dbe7b0ea4628ce383d9d482494b57ee040566583f1c54072c86d1116b"
+    node_checksum="5f4ddab610c1ab2016b3c227cebdbf6d9495161487e4739c7b90090595f465f7"
     go_checksum="756274ea4b68fa5535eb9fe2559889287d725a8da63c6aae4d5f23778c229f4b"
     ;;
   *) die "unsupported CPU architecture: $(uname -m)" ;;

@@ -6,7 +6,7 @@ the active GitHub Pages workflow and the explicit Netlify settings where
 applicable:
 
 - Hugo Extended 0.146.4
-- Node 18.20.8 (the final Node 18 release used by the GitHub Pages workflow)
+- Node 24.20.0 LTS (the major version used by the GitHub Pages workflow)
 - npm 10.9.2
 - Go 1.24.2 (required for Hugo modules)
 
