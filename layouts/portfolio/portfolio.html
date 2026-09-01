@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07111f">
+  <title>Fehmi Özbayrak | Computational Energy Engineer</title>
+  <link rel="icon" href="/favicon.png" type="image/png">
+  <link rel="preload" href="/portfolio/fonts/inter-latin.woff2?v=20260901.3" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/portfolio/portfolio.css?v=20260901.3">
+  <link rel="stylesheet" href="/portfolio/css/sierra-model.css?v=20260901.3">
+  <script type="module" src="/portfolio/app.js?v=20260901.3"></script>
+</head>
+<body>
+  <a class="skip-link" href="#slide-1">Skip to projects</a>
+
+  <header class="context-header" aria-label="Current portfolio section">
+    <span>Portfolio</span><span aria-hidden="true"> - </span><span id="context-label">Introduction</span>
+  </header>
+
+  <nav class="slide-nav" aria-label="Portfolio sections">
+    <button id="nav-previous" class="nav-button" type="button" aria-label="Previous section" disabled>
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+    </button>
+    <button id="nav-next" class="nav-button" type="button" aria-label="Next section" aria-disabled="true" disabled>
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
+    </button>
+  </nav>
+
+  <div class="slide-nav__dots" role="group" aria-label="Choose a portfolio section">
+      <button class="slide-dot is-current" type="button" data-slide-target="0" aria-label="Introduction" aria-current="step"><span></span></button>
+      <button class="slide-dot" type="button" data-slide-target="1" aria-label="Doctoral research"><span></span></button>
+      <button class="slide-dot" type="button" data-slide-target="2" aria-label="Energy systems in practice"><span></span></button>
+      <button class="slide-dot" type="button" data-slide-target="3" aria-label="Technical sprints"><span></span></button>
+      <button class="slide-dot" type="button" data-slide-target="4" aria-label="Contact"><span></span></button>
+  </div>
+  <main id="portfolio-track" class="slide-track" style="--active-slide: 0">
+    <section class="slide slide--dark slide--hero" id="slide-0" data-slide-label="Introduction" aria-labelledby="hero-title">
+      <div class="hero-shell">
+        <h1 id="hero-title" tabindex="-1">Fehmi Özbayrak</h1>
+        <p class="hero-role">Computational Energy Engineer</p>
+        <div class="hero-statement typewriter-line" aria-label="I build pipelines that turn complexity into decisions humans can act on.">
+          <span id="hero-typewriter" data-text="I build pipelines that turn complexity into decisions humans can act on." aria-hidden="true"></span><span class="typing-cursor" aria-hidden="true">|</span>
+        </div>
+        <div id="load-panel" class="load-panel" aria-labelledby="load-label">
+          <span id="load-label" class="sr-only">Preparing interactive models</span>
+          <p id="download-progress" class="load-progress" role="progressbar" aria-valuemin="0" aria-valuemax="9" aria-valuenow="0" aria-valuetext="Downloading 0 of 9 interactive assets">
+            <span class="load-progress__ascii" aria-hidden="true">[............]</span>
+            <span id="download-status">Downloading (0/9): Interactive assets</span>
+          </p>
+          <p id="build-progress" class="load-progress" role="progressbar" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0" aria-valuetext="Waiting to initialize 4 interactive models">
+            <span class="load-progress__ascii" aria-hidden="true">[............]</span>
+            <span id="build-status">Initializing (0/4): Waiting for downloads</span>
+          </p>
+        </div>
+        <noscript>
+          <p class="noscript-note">Interactive models require JavaScript. Project summaries and fallback images remain available below.</p>
+        </noscript>
+      </div>
+    </section>
+
+    <section class="slide slide--light" id="slide-1" data-slide-label="Doctoral Research" aria-labelledby="act-1-title" inert>
+      <div class="act-shell">
+        <header class="act-header">
+          <h2 class="act-title" id="act-1-title" tabindex="-1">Doctoral Research</h2>
+          <p class="act-description typewriter-line" aria-label="I characterize and quantify the risks of human-induced geohazards through coupled-process numerical and data-driven models."><span data-slide-typewriter data-text="I characterize and quantify the risks of human-induced geohazards through coupled-process numerical and data-driven models.">I characterize and quantify <span class="act-problem">the risks of human-induced geohazards</span> through <span class="act-outcome">coupled-process numerical and data-driven models</span>.</span><span class="typing-cursor act-cursor" data-typewriter-cursor aria-hidden="true" hidden>|</span></p>
+        </header>
+
+        <article class="project-card" id="project-fracture-containment">
+          <header class="project-header">
+            <div>
+              <h3>Wastewater Injection and Fracture Containment</h3>
+              <p>Calibrated coupled flow-and-fracture modeling for shallow disposal wells in the Delaware Basin.</p>
+            </div>
+          </header>
+          <ul class="tag-list" aria-label="Methods and tools">
+            <li>ResFrac</li><li>OpenFOAM</li><li>Python</li><li>Well logs</li><li>Geomechanics</li>
+          </ul>
+          <figure class="visual-frame visual-frame--video">
+            <video src="/portfolio/assets/resfrac_simulation.mp4" autoplay loop muted playsinline controls preload="metadata" aria-label="Coupled fracture propagation simulation"></video>
+          </figure>
+          <div class="project-copy">
+            <p>I build coupled geomechanical models to investigate fracture initiation, pressure buildup, and vertical containment during produced-water disposal. The workflow integrates mechanical stratigraphy, well logs, injection histories, and pressure observations, then tests how operations and formation properties alter fracture behavior.</p>
+          </div>
+        </article>
+
+        <article class="project-card" id="project-basin">
+          <header class="project-header">
+            <div>
+              <h3>Integrated Basin Analysis</h3>
+              <p>An open, reproducible stratigraphic view of the Permian Basin from public formation records.</p>
+            </div>
+          </header>
+          <ul class="tag-list" aria-label="Methods and tools">
+            <li>Python</li><li>Texas RRC</li><li>Stratigraphy</li><li>Plotly</li>
+          </ul>
+          <section class="visual-frame visual-frame--plot" data-plot-shell="basin" aria-label="Interactive Permian Basin formation-top model">
+            <div class="visual-toolbar" data-plot-controls="basin"></div>
+            <div id="plot-basin" class="plot-host" data-plot-host="basin"></div>
+            <img class="plot-fallback" data-plot-fallback="basin" src="/portfolio/posters/basin.webp?v=20260901.3" alt="Static view of Permian Basin formation tops" loading="lazy">
+          </section>
+          <div class="project-copy">
+            <p>I am assembling a basin-scale structural baseline from <a class="link" href="https://www.rrc.texas.gov/oil-and-gas/" target="_blank" rel="noopener">Texas Railroad Commission records</a> rather than proprietary databases. The prototype extracts, standardizes, and quality-controls reported formation tops so assumptions and uncertainty remain visible from raw record to interpreted surface. Initial results reproduce the regional architecture shown in published <span class="tt-trigger" role="button" tabindex="0" data-preview-kind="image" data-preview-src="/portfolio/assets/permian_cross_sections.jpg" data-preview-title="Published Permian Basin cross-sections">cross-sections</span>.</p>
+          </div>
+        </article>
+
+        <article class="project-card" id="project-javelina">
+          <header class="project-header">
+            <div>
+              <h3>Basin-Scale Coupled Poromechanics</h3>
+              <p>A MOOSE-based software pipeline for two-way coupled flow and deformation across geological models.</p>
+            </div>
+          </header>
+          <ul class="tag-list" aria-label="Methods and tools">
+            <li>MOOSE</li><li>PorousFlow</li><li>Python</li><li>MPI</li><li>Verification</li>
+          </ul>
+          <figure class="visual-frame visual-frame--video visual-frame--javelina">
+            <video autoplay loop muted playsinline controls preload="metadata" poster="/portfolio/posters/javelina.webp" aria-label="Ten-year basin-scale MOOSE poromechanics simulation">
+              <source src="/portfolio/assets/basin_mock_10_years-720p.mp4" type="video/mp4" media="(max-width: 800px)">
+              <source src="/portfolio/assets/basin_mock_10_years.mp4" type="video/mp4">
+            </video>
+          </figure>
+          <div class="project-copy">
+            <p>I am building a MOOSE-based scientific software pipeline for two-way coupled poromechanics at field and basin scales. The framework, called JAVELINA, transforms geological surfaces, spatial property data, well trajectories, and operating schedules into reproducible PorousFlow simulations while keeping coordinate transforms, material assignment, source allocation, completions, and boundary conditions auditable.</p>
+            <p>JAVELINA supports serial and MPI execution and has been exercised against <span class="tt-trigger" role="button" tabindex="0" data-preview-kind="gallery" data-preview-template="javelina-verification-gallery" data-preview-title="Selected JAVELINA verification cases">six analytical, semi-analytical, and manufactured verification cases</span>. Its pipeline connects geological preprocessing, simulation, and post-processing without hiding the assumptions between them.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="slide slide--light" id="slide-2" data-slide-label="Energy Systems in Practice" aria-labelledby="act-2-title" inert>
+      <div class="act-shell">
+        <header class="act-header">
+          <h2 class="act-title" id="act-2-title" tabindex="-1">Energy Systems in Practice</h2>
+          <p class="act-description typewriter-line" aria-label="I engineer end-to-end pipelines that turn open-ended energy questions into technical and commercial decisions."><span data-slide-typewriter data-text="I engineer end-to-end pipelines that turn open-ended energy questions into technical and commercial decisions.">I engineer end-to-end pipelines that turn <span class="act-problem">open-ended energy questions</span> into <span class="act-outcome">technical and commercial decisions</span>.</span><span class="typing-cursor act-cursor" data-typewriter-cursor aria-hidden="true" hidden>|</span></p>
+        </header>
+
+        <article class="project-card" id="project-sierra">
+          <header class="project-header">
+            <div>
+              <h3>Sierra Solutions: Molecule to Megabyte</h3>
+              <p>Second place, North American SPE Energython — a 15 MW behind-the-meter natural-gas power concept for an AI data center.</p>
+            </div>
+          </header>
+          <ul class="tag-list" aria-label="Methods and tools">
+            <li>Python</li><li>Project finance</li><li>Monte Carlo</li><li>DCF</li><li>Power generation</li>
+          </ul>
+          <section class="visual-frame visual-frame--sierra" aria-label="Interactive Sierra techno-economic model">
+            <div id="sierra-demo" data-sierra-demo></div>
+          </section>
+          <div class="project-copy">
+            <p>I built a physics-and-finance model for a modular generation project near Red Oak, Texas. The <span class="tt-trigger" role="button" tabindex="0" data-preview-kind="image" data-preview-src="/portfolio/assets/project_map.png" data-preview-title="Sierra project location and infrastructure">site and fuel connection</span> were evaluated alongside <span class="tt-trigger" role="button" tabindex="0" data-preview-kind="document" data-preview-src="/portfolio/assets/equipment_tables.html" data-preview-title="Sierra equipment selection">equipment performance and N+2 redundancy</span>, construction, debt, tax, operating costs, and a 15-year revenue model.</p>
+            <p>After <span class="tt-trigger" role="button" tabindex="0" data-preview-kind="document" data-preview-src="/portfolio/assets/project_cost_table.html" data-preview-title="Sierra bottom-up project cost">building the project CAPEX</span>, I evaluated a base case delivering 15 MW firm capacity from 20.25 MW installed. The risk analysis stress-tested twelve uncertainty drivers across 10,000 scenarios through a <span class="tt-trigger" role="button" tabindex="0" data-preview-kind="plot" data-preview-id="monte-carlo" data-preview-title="Monte Carlo IRR distribution">P10–P50–P90 distribution</span> and an <span class="tt-trigger" role="button" tabindex="0" data-preview-kind="plot" data-preview-id="tornado" data-preview-title="IRR sensitivity tornado">IRR sensitivity tornado</span>.</p>
+          </div>
+          <footer class="project-footer">
+            <a class="primary-action" href="/portfolio/assets/sierra_pitch_deck.pdf" target="_blank" rel="noopener">View pitch deck <span aria-hidden="true">↗</span></a>
+          </footer>
+        </article>
+
+        <article class="project-card" id="project-dcism">
+          <header class="project-header">
+            <div>
+              <h3>AI Data Center Energy Systems Modeling</h3>
+              <p>A configuration-driven demand-side engine that translates compute infrastructure into hourly energy, cooling, water, cost, and flexibility requirements.</p>
+            </div>
+          </header>
+          <ul class="tag-list" aria-label="Methods and tools">
+            <li>Python</li><li>Techno-economics</li><li>Cooling physics</li><li>AI workloads</li><li>Optimization</li>
+          </ul>
+          <section class="visual-frame visual-frame--dcism" aria-label="Interactive DC-ISM facility and training-scale comparison">
+            <div class="dcism-demo" data-dcism-demo>
+              <header class="dcism-demo__header">
+                <div>
+                  <span class="dcism-demo__eyebrow">DC-ISM annual design study</span>
+                  <strong data-dcism-heading>Published model workloads · four facility templates</strong>
+                </div>
+                <span class="dcism-demo__status" data-dcism-status>DC-ISM roofline estimate</span>
+              </header>
+
+              <div class="dcism-demo__views" role="tablist" aria-label="DC-ISM model view">
+                <button id="dcism-training-tab" type="button" role="tab" aria-selected="true" aria-controls="dcism-training-panel" tabindex="0" data-dcism-view="training">Training time</button>
+                <button id="dcism-demand-tab" type="button" role="tab" aria-selected="false" aria-controls="dcism-demand-panel" tabindex="-1" data-dcism-view="demand">Annual energy system</button>
+              </div>
+
+              <div id="dcism-training-panel" class="dcism-training" role="tabpanel" aria-labelledby="dcism-training-tab" data-dcism-panel="training">
+                <div class="dcism-training__summary">
+                  <strong>Famous model workloads across facility templates</strong>
+                  <span>Four bars per model · logarithmic training-time axis</span>
+                </div>
+                <div class="dcism-plot dcism-plot--training" data-dcism-training-chart role="img" aria-label="Grouped bar chart of estimated training time for five published model workloads across four data-center facility templates"></div>
+                <p class="dcism-training__note">Each group compares the same published workload as if it ran on Meta RSC, the H100 reference, Colossus Scale, or Stargate Phase 1. Model scales come from the published <a href="https://arxiv.org/abs/2307.09288" target="_blank" rel="noopener">Llama 2</a>, <a href="https://arxiv.org/abs/2005.14165" target="_blank" rel="noopener">GPT-3</a>, <a href="https://ai.meta.com/blog/meta-llama-3-1/" target="_blank" rel="noopener">Llama 3.1</a>, and <a href="https://arxiv.org/abs/2412.19437" target="_blank" rel="noopener">DeepSeek-V3</a> materials. DC-ISM uses dense BF16 hardware capability, 40% model FLOPs utilization, and its coarse compute-and-communication roofline. OpenAI confirms <a href="https://openai.com/index/stargate-advances-with-partnership-with-oracle/" target="_blank" rel="noopener">GB200 delivery to Stargate I</a>; the 400,000-GPU template uses an <a href="https://cdn.openai.com/global-affairs/f9361fe7-e452-4c78-94dc-e6946c73c858/openai-south-korea-economic-blueprint-october-2025.pdf" target="_blank" rel="noopener">OpenAI public infrastructure scale reference</a>. It is a proxy, not a disclosed exact training topology.</p>
+              </div>
+
+              <div id="dcism-demand-panel" role="tabpanel" aria-labelledby="dcism-demand-tab" data-dcism-panel="demand" hidden>
+                <div class="dcism-demo__controls">
+                  <label>Facility preset
+                    <select data-dcism-facility>
+                      <option value="meta_rsc">Meta RSC</option>
+                      <option value="h100_reference" selected>H100 Reference</option>
+                      <option value="colossus_scale">Colossus Scale</option>
+                      <option value="stargate_phase_1">Stargate Phase 1</option>
+                    </select>
+                  </label>
+                  <label>Site climate
+                    <select data-dcism-site>
+                      <option value="permian_basin_tx">Permian Basin, TX</option>
+                      <option value="northern_virginia">Northern Virginia</option>
+                      <option value="reno_nv" selected>Reno, NV</option>
+                      <option value="phoenix_az">Phoenix, AZ</option>
+                      <option value="stockholm_se">Stockholm, Sweden</option>
+                    </select>
+                  </label>
+                  <label>Solar energy target
+                    <select data-dcism-solar-share>
+                      <option value="0.3">30% of annual demand</option>
+                      <option value="0.6" selected>60% of annual demand</option>
+                      <option value="0.9">90% of annual demand</option>
+                    </select>
+                  </label>
+                  <label>Battery duration
+                    <select data-dcism-battery-hours>
+                      <option value="0">No battery</option>
+                      <option value="2">2 hours</option>
+                      <option value="4" selected>4 hours</option>
+                    </select>
+                  </label>
+                </div>
+                <dl class="dcism-demo__metrics">
+                  <div><dt>Solar capacity</dt><dd data-dcism-value="solar-capacity">48.0 MWdc</dd></div>
+                  <div><dt>Solar generation</dt><dd data-dcism-value="solar-energy">113.2 GWh</dd></div>
+                  <div><dt>Renewable fraction</dt><dd data-dcism-value="renewable">42.0%</dd></div>
+                  <div><dt>Grid energy</dt><dd data-dcism-value="grid">109.4 GWh</dd></div>
+                </dl>
+                <div class="dcism-demo__chart-shell">
+                  <div class="dcism-demo__chart-head">
+                    <strong>A year of power</strong>
+                    <span data-dcism-summary>Daily energy · select a day for hourly dispatch</span>
+                  </div>
+                  <div class="dcism-plot dcism-plot--annual" data-dcism-energy-chart role="img" aria-label="Interactive annual data-center demand, solar generation, grid import, storage discharge, and solar curtailment"></div>
+                  <div class="dcism-demo__chart-head dcism-demo__chart-head--detail">
+                    <strong data-dcism-day-title>Hourly dispatch · July 15</strong>
+                    <span>Two synchronized views of the selected day</span>
+                  </div>
+                  <div class="dcism-day-grid">
+                    <section>
+                      <h4>Facility load composition</h4>
+                      <div class="dcism-plot dcism-plot--day" data-dcism-load-chart role="img" aria-label="Interactive hourly IT, cooling, electrical-loss, and house-load composition for the selected day"></div>
+                    </section>
+                    <section>
+                      <h4>Energy dispatch</h4>
+                      <div class="dcism-plot dcism-plot--day" data-dcism-day-chart role="img" aria-label="Interactive hourly solar, grid, battery, and facility demand for the selected day"></div>
+                    </section>
+                  </div>
+                </div>
+                <footer class="dcism-demo__footer">
+                  <span>8,760-hour dispatch</span><span>Direct liquid cooling</span><span data-dcism-battery>95.3 MWh battery</span><span data-dcism-curtailment>4.2 GWh curtailed</span>
+                </footer>
+              </div>
+
+            </div>
+          </section>
+          <div class="project-copy">
+            <p>I developed DC-ISM to connect AI workload states and hardware fleets to the facility and grid questions that energy planners need to answer. The Python engine decomposes hourly demand into IT, cooling, electrical, network, storage, and house loads, with PUE and water use emerging from the selected hardware, cooling architecture, redundancy, weather, and operating profile.</p>
+            <p>The broader workflow supports first-principles FLOPs accounting, coarse training-time estimation, measured-weather ingestion, tariffs and carbon accounting, sensitivity screening, correlated uncertainty, scenario-year analysis, supply-land screening, and risk-aware comparison across sites and designs. It exports a serializable <code>DemandCase</code> for supply-side tools. A 155-test suite, typed interfaces, explicit scope boundaries, and a limitations register keep assumptions and unsupported effects auditable.</p>
+          </div>
+        </article>
+
+        <article class="project-card" id="project-nevada">
+          <header class="project-header">
+            <div>
+              <h3>Nevada Play Fairway Analysis</h3>
+              <p>Second place, GEODE Geoscience Datathon — spatial machine learning for blind-geothermal exploration.</p>
+            </div>
+          </header>
+          <ul class="tag-list" aria-label="Methods and tools">
+            <li>PyTorch</li><li>ArcGIS</li><li>CNN</li><li>GIS rasterization</li><li>Geothermal</li>
+          </ul>
+          <section class="visual-frame visual-frame--plot" data-plot-shell="nevada" aria-label="Interactive Nevada geothermal favorability map">
+            <div class="visual-toolbar" data-plot-controls="nevada"></div>
+            <div id="plot-nevada" class="plot-host" data-plot-host="nevada"></div>
+            <img class="plot-fallback" data-plot-fallback="nevada" src="/portfolio/posters/nevada.webp?v=20260901.3" alt="Static comparison of predicted and reference Nevada geothermal favorability" loading="lazy">
+          </section>
+          <div class="project-copy">
+            <p>For a two-person competition team, I wrote the analysis code that transformed geodetic strain, gravity, permeability, temperature, earthquake-density, and fault-distance rasters into a <span class="tt-trigger" role="button" tabindex="0" data-preview-kind="image" data-preview-src="/portfolio/assets/nevada_cnn_architecture.png" data-preview-title="Nevada pixel-wise CNN architecture">spatial CNN workflow</span>.</p>
+            <p>The model reproduced and interrogated the supplied play-fairway patterns, while spatially separated development and evaluation regions highlighted <span class="tt-trigger" role="button" tabindex="0" data-preview-kind="image" data-preview-src="/portfolio/assets/nevada_prospective_zones.png" data-preview-title="Candidate Nevada follow-up areas">candidate areas for follow-up</span>. The result is an exploration hypothesis—not independent physical validation or a discovered resource.</p>
+          </div>
+          <footer class="project-footer">
+            <a class="primary-action" href="/portfolio/assets/nevada_presentation.pdf" target="_blank" rel="noopener">View project presentation <span aria-hidden="true">↗</span></a>
+          </footer>
+        </article>
+      </div>
+    </section>
+
+    <section class="slide slide--light" id="slide-3" data-slide-label="Technical Sprints" aria-labelledby="act-3-title" inert>
+      <div class="act-shell">
+        <header class="act-header">
+          <h2 class="act-title" id="act-3-title" tabindex="-1">Technical Sprints</h2>
+          <p class="act-description typewriter-line" aria-label="I answer severe time constraints with robust workflows."><span data-slide-typewriter data-text="I answer severe time constraints with robust workflows.">I answer <span class="act-problem">severe time constraints</span> with <span class="act-outcome">robust workflows</span>.</span><span class="typing-cursor act-cursor" data-typewriter-cursor aria-hidden="true" hidden>|</span></p>
+        </header>
+
+        <article class="project-card" id="project-forge">
+          <header class="project-header">
+            <div>
+              <h3>Utah FORGE Stimulation Analysis</h3>
+              <p>Second place, GEODE Engineering Datathon — multi-modal diagnostics for an enhanced geothermal system.</p>
+            </div>
+          </header>
+          <ul class="tag-list" aria-label="Methods and tools">
+            <li>Python</li><li>DTS</li><li>Microseismicity</li><li>Tracer analysis</li><li>EGS</li>
+          </ul>
+          <section class="visual-frame visual-frame--plot" data-plot-shell="forge" aria-label="Interactive Utah FORGE well and microseismic model">
+            <div class="visual-toolbar" data-plot-controls="forge"></div>
+            <div id="plot-forge" class="plot-host" data-plot-host="forge"></div>
+            <img class="plot-fallback" data-plot-fallback="forge" src="/portfolio/posters/forge.webp?v=20260901.3" alt="Static 3D view of Utah FORGE wells and microseismic events" loading="lazy">
+          </section>
+          <div class="project-copy">
+            <p>Over one weekend, my teammate and I integrated well surveys, stimulation records, <span class="tt-trigger" role="button" tabindex="0" data-preview-kind="image" data-preview-src="/portfolio/assets/dts_deltaT.png" data-preview-title="Distributed-temperature change by stage">distributed fiber-optic measurements</span>, <span class="tt-trigger" role="button" tabindex="0" data-preview-kind="image" data-preview-src="/portfolio/assets/tracer_plots.png" data-preview-title="Tracer recovery by stage">tracer recovery</span>, and microseismic events. I wrote the analysis code shown in our presentation and used the independent data streams to interpret stage-level connectivity and preferential flow paths.</p>
+            <p>We proposed a targeted restimulation program using perturbed-stress analysis, oriented perforations, isolation or diversion, and pulsed initiation. The inferred fracture geometries and stress-shadow explanation remain interpretations rather than ground truth.</p>
+          </div>
+          <footer class="project-footer">
+            <a class="primary-action" href="/portfolio/assets/forge_presentation.pdf" target="_blank" rel="noopener">View project presentation <span aria-hidden="true">↗</span></a>
+          </footer>
+        </article>
+
+        <article class="project-card" id="project-hackathon">
+          <header class="project-header">
+            <div>
+              <h3>Hydraulic-Fracturing Fuel Forecast</h3>
+              <p>First place, UT PGE Energy AI Hackathon — regression and uncertainty analysis under a 48-hour deadline.</p>
+            </div>
+          </header>
+          <ul class="tag-list" aria-label="Methods and tools">
+            <li>Python</li><li>Random forest</li><li>CatBoost encoding</li><li>Uncertainty</li><li>Team data science</li>
+          </ul>
+          <figure class="visual-frame visual-frame--image">
+            <img src="/portfolio/assets/hackathon.png" loading="lazy" alt="Energy AI Hackathon fuel-forecasting workflow and results">
+          </figure>
+          <div class="project-copy">
+            <p>As the five-person team’s main machine-learning architect, I built most of a random-forest regression pipeline for forecasting grid, diesel, and CNG requirements from duration, fleet, fuel, formation, and weather features.</p>
+            <p>We compared a compact twelve-feature CatBoost-derived representation with 1,082-feature one-hot encoding and calibrated ensemble uncertainty across one hundred repeated runs.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="slide slide--dark slide--contact" id="slide-4" data-slide-label="Contact" aria-labelledby="contact-title" inert>
+      <div class="contact-shell">
+        <h2 id="contact-title" tabindex="-1">Let's talk.</h2>
+        <p class="contact-line typewriter-line" aria-label="Reach out. I read everything."><span data-slide-typewriter data-text="Reach out. I read everything.">Reach out. I read everything.</span><span class="typing-cursor" data-typewriter-cursor aria-hidden="true" hidden>|</span></p>
+        <div class="contact-grid">
+          <a href="mailto:ozbayrakfehmi@gmail.com" aria-label="Email">
+            <svg aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l9 6 9-6M5 19h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2z"/></svg>
+            <span>Email</span>
+          </a>
+          <a href="https://www.linkedin.com/in/fozbayrak" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24"><path d="M20.45 20.45H16.9v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.21 0 22.23 0z"/></svg>
+            <span>LinkedIn</span>
+          </a>
+          <a href="https://github.com/fozba" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58 0-.29-.01-1.04-.02-2.05-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.21.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.5 1 .11-.78.42-1.31.76-1.61-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.11-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.65 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.62-5.49 5.92.43.37.81 1.1.81 2.22 0 1.6-.01 2.89-.01 3.29 0 .32.22.7.83.58A12 12 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            <span>GitHub</span>
+          </a>
+          <a href="https://scholar.google.com/citations?user=NdarxTgAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar">
+            <svg aria-hidden="true" fill="currentColor" viewBox="0 0 24 24"><path d="M5.242 13.769 0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5s-5.548 1.749-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/></svg>
+            <span>Scholar</span>
+          </a>
+        </div>
+        <p class="contact-colophon">FEHMİ ÖZBAYRAK</p>
+      </div>
+      <div class="hero-grid" aria-hidden="true"></div>
+    </section>
+  </main>
+
+  <p id="scroll-cue" class="scroll-cue" aria-hidden="true">Scroll to continue <span>↓</span></p>
+
+  <template id="javelina-verification-gallery">
+    <div class="verification-gallery">
+      <a href="/portfolio/assets/verification/mandel_cryer.pdf" target="_blank" rel="noopener">
+        <img src="/portfolio/assets/verification/mandel_cryer.webp" alt="Mandel-Cryer pressure verification plot" loading="lazy">
+        <span><strong>Mandel-Cryer</strong>Transient pressure response</span>
+      </a>
+      <a href="/portfolio/assets/verification/terzaghi_histories.pdf" target="_blank" rel="noopener">
+        <img src="/portfolio/assets/verification/terzaghi_histories.webp" alt="Terzaghi consolidation verification plots" loading="lazy">
+        <span><strong>Terzaghi</strong>Settlement and pressure histories</span>
+      </a>
+      <a href="/portfolio/assets/verification/geertsma.pdf" target="_blank" rel="noopener">
+        <img src="/portfolio/assets/verification/geertsma.webp" alt="Geertsma surface-displacement verification plot" loading="lazy">
+        <span><strong>Geertsma</strong>Surface displacement response</span>
+      </a>
+    </div>
+  </template>
+
+  <aside id="inline-preview" class="inline-preview" hidden aria-hidden="true">
+    <div id="inline-preview-content"></div>
+  </aside>
+
+  <dialog id="media-dialog" class="media-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-shell">
+      <header class="dialog-header">
+        <h2 id="dialog-title">Project detail</h2>
+        <button id="dialog-close" class="dialog-close" type="button" aria-label="Close dialog">×</button>
+      </header>
+      <div id="dialog-content" class="dialog-content"></div>
+    </div>
+  </dialog>
+
+  <div id="announcement" class="sr-only" aria-live="assertive"></div>
+</body>
+</html>

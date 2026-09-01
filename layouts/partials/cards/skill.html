@@ -15,7 +15,8 @@
           <h5 class="card-title">{{ .name }}</h5>
         {{ else if .icon }}
           {{ $iconName := .icon }}
-          <h5 class="card-title"><span class="{{ $iconName }}"> {{ .name }}</span></h5>
+          <span class="skill-card-icon {{ $iconName }}" aria-hidden="true"></span>
+          <h5 class="card-title">{{ .name }}</h5>
         {{ else }}
           <h5 class="card-title">{{ .name }}</h5>
         {{ end }}

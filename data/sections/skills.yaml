@@ -1,44 +1,72 @@
 section:
-  name: Skills
+  name: Technical Toolkit
   id: skills
-  enable: false
+  enable: true
   weight: 3
   showOnNavbar: true
-  # hideTitle: true
+  filter: true
+
+buttons:
+- name: All
+  filter: "all"
+- name: Modeling
+  filter: "modeling"
+- name: Computing
+  filter: "computing"
+- name: Data & ML
+  filter: "data-ml"
+- name: Decision Analysis
+  filter: "decision-analysis"
 
 skills:
-- name: Python 
+- name: Python Scientific Stack
   logo: /images/sections/skills/python_logo.svg
-  summary: "Using as the main programming language. +7 years of experience. Capable of deploying a diverse variety of data analytics, machine learning, and deep learning workflows using libraries like Numpy, Pandas, and Seaborn. Able to build modular codebases using an OOP approach."
+  summary: "Python, NumPy, and Pandas for numerical modeling, scientific software, and reproducible data workflows."
+  categories: ["computing", "data-ml"]
+
+- name: MOOSE & PorousFlow
+  logo: /images/sections/skills/moose_icon.png
+  summary: "Finite-element poromechanics case construction, numerical verification, result-quality checks, and serial or distributed execution."
+  url: "https://mooseframework.inl.gov/"
+  categories: ["modeling", "computing"]
+
 - name: ResFrac
   logo: /images/sections/skills/ResFrac_logo.png
-  summary: "Capable of simulating different oil, gas and geothermal reservoirs with accurately implemented reservoir geomechanics, performing history matching and sensitivity analysis."
+  summary: "Coupled reservoir, fracture, and geomechanical simulation for calibration, containment studies, and sensitivity analysis."
   url: "https://www.resfrac.com/"
-- name: OpenFOAM
-  logo: /images/sections/skills/OpenFOAM_logo.svg
-  summary: "Utilized for physics-based reservoir engineering and geomechanics simulations using the Finite Volume Method (FVM)."
-- name: Paraview
-  logo: /images/sections/skills/paraview_logo.png
-  summary: "Using to visualize reservoir simulation applications. Capable of creating fine-tuned static and animated visuals, and using Python API."
-  url: "https://www.paraview.org"
-- name: Linux
+  categories: ["modeling"]
+
+- name: Geostatistics & Machine Learning
+  icon: "fas fa-project-diagram"
+  summary: "Spatial statistics, variograms, ensemble learning, random forests, scikit-learn, and predictive uncertainty quantification."
+  categories: ["data-ml", "modeling"]
+
+- name: Plotly & Dash
+  icon: "fas fa-chart-area"
+  summary: "Interactive scientific visualization and engineering decision interfaces for model exploration and scenario comparison."
+  categories: ["computing", "data-ml", "decision-analysis"]
+
+- name: Linux, Shell & MPI
   logo: /images/sections/skills/tux.svg
-  summary: "5+ years experience with *nix systems, native to CLI & Shell scripting. Actively using various *nix tools such as awk and vim."
-- name: Git/GitHub
+  summary: "Linux and shell-based scientific workflows, batch execution, distributed MOOSE runs, and HPC-oriented analysis."
+  categories: ["computing"]
+
+- name: Git & Version Control
   logo: /images/sections/skills/github_logo.png
-  summary: "Proficient with version control for collaborative and individual software development projects."
-- name: Power BI
-  logo: /images/sections/skills/Power_BI_logo.svg
-  summary: "Experience in creating interactive dashboards and business intelligence reports, including mobile app development."
-- name: Visual Basic Application (VBA)
-  logo: /images/sections/skills/excel_logo.png
-  summary: "Able to support any MS Excel workflow with sophisticated macros using VBA for various applications."
-- name: Julia
+  summary: "Version-controlled research software, collaborative development, reproducible changes, and auditable technical documentation."
+  categories: ["computing"]
+
+- name: C/C++ & Julia
   logo: /images/sections/skills/julia_logo.svg
-  summary: "Familiar with the Julia programming language for high-performance numerical analysis and computational science."
-- name: C
-  logo: /images/sections/skills/C_logo.svg
-  summary: "Knowledge of C for foundational programming and performance-critical tasks."
-- name: LaTeX
-  logo: /images/sections/skills/LaTeX_logo.svg
-  summary: "Experienced in creating professional and academic documents with complex formatting and typesetting."
+  summary: "Programming for computational-engineering workflows, with Julia teaching support for high-performance computing."
+  categories: ["computing", "modeling"]
+
+- name: GIS & Raster Workflows
+  icon: "fas fa-layer-group"
+  summary: "Raster processing, spatial feature construction, mapping, and integration of geological and operational data."
+  categories: ["data-ml", "modeling"]
+
+- name: Pyomo, Finance & Risk
+  icon: "fas fa-chart-line"
+  summary: "Mathematical optimization, discounted cash flow, project finance, Monte Carlo analysis, and sensitivity screening."
+  categories: ["decision-analysis", "computing"]

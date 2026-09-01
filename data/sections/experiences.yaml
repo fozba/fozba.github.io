@@ -1,92 +1,80 @@
 section:
-  name: Experiences # Titre de la section (par défaut: "" )
-  id: experiences # url id/slug of section *Required*
+  name: Experiences
+  id: experiences
   enable: true
   weight: 4
   showOnNavbar: true
-  # Can optionally hide the title in sections
-  # hideTitle: true 
 
-# Your experiences
 experiences:
+- company:
+    name: UT Austin / Center for Integrated Seismicity Research
+    url: "https://cisr.beg.utexas.edu/"
+    location: Austin, Texas
+  positions:
+  - designation: Graduate Research Assistant
+    start: Summer 2024
+    responsibilities:
+    - Build and calibrate coupled reservoir-geomechanics models using well logs and injection and pressure histories to investigate fracture containment, pressure transmission, and induced-seismicity risk in the Delaware Basin.
+    - Design sensitivity studies that separate stress, operating, pressure, and leakoff controls while communicating calibration non-uniqueness and model limitations.
+    - Develop auditable scientific workflows for geological poromechanics, including verified MOOSE/PorousFlow case generation and serial/MPI execution.
+
 - company:
     name: Fervo Energy
     url: "https://fervoenergy.com/"
     location: Houston, Texas
     logo: /images/experiences/fervo_logo.png
-    # darkLogo: /images/experiences/company-dark.png #(optional), Can optionally show a different logo for dark theme
   positions:
   - designation: Reservoir Engineering Intern
     start: May 2025
     end: Aug 2025
     responsibilities:
-      - Architected and developed a modular Python platform for the rapid techno-economic forecasting of geothermal assets, integrating machine learning proxy models with a sophisticated physics engine.
-      - Engineered a robust, end-to-end machine learning workflow, including data pipeline development, physics-informed feature engineering, and the training and validation of proxy models to predict long-term reservoir performance.
-      - Integrated a Bayesian Optimization engine to automate the search for revenue-maximizing drilling schedules, leveraging the speed of the ML proxy models to turn the platform into a prescriptive strategic tool.
-      - Developed an interactive web-based GUI, enabling engineers and analysts to intuitively build, run, and visualize complex, multi-facility and multi-contract development scenarios.
-      - Established a professional software foundation with comprehensive documentation, a fully reproducible environment, and a documented API to ensure the platform's long-term maintainability and extensibility.
+    - Architected and implemented a modular Python platform for geothermal development planning, connecting configurable well schedules and surface-facility allocation to daily power forecasts, costs, and contract economics.
+    - Integrated a machine-learning proxy for production-temperature evolution to accelerate repeated schedule evaluation.
+    - Formulated doublet drilling start times as Pyomo optimization variables, maximizing project revenue subject to power-delivery constraints.
+    - Built interactive Plotly and Dash tools for constructing, running, and reviewing development scenarios.
+
 - company:
-    name: Hydraulic Fracturing & Sand Control Joint Industrial Partnership
-    url: "https://sharma.pge.utexas.edu/hfsc"
-    location: Austin, Texas
-  positions:
-  - designation: Graduate Research Assistant
-    start: 2024
-    # end: 
-    responsibilities:
-    - Physics-based reservoir engineering & geomechanics simulation using Finite Volume Method (OpenFOAM) for waterflooding and fracturing studies.
-    - Analysis of seismic and satellite data to identify fractures and ground deformations for applications in wastewater injection, geothermal energy, and hydraulic fracturing.
-    - Utilizing Distributed Acoustic Sensing (DAS) data to characterize fracture networks in geothermal reservoirs.
-- company:
-    name: DIRECT Consortium, The University of Texas at Austin
+    name: DiReCT Consortium, The University of Texas at Austin
     location: Austin, Texas
   positions:
   - designation: Graduate Research Assistant
     start: 2022
     end: 2024
     responsibilities:
-    - Conducting research in spatial statistics and interpretable predictive machine learning in geoscience.
-    - Working on ensemble machine learning, uncertainty analysis, big data analytics, image processing, and fractal analysis in spatial data.
-    - Current work involves uncertainty analysis with ensemble machine learning methods that consider the spatial context.
+    - Developed Spatial Bagging, an ensemble-learning method that uses geostatistical effective sample size to represent spatial dependence in bootstrap sampling.
+    - Led the software, experiments, and first-author writing for two peer-reviewed papers on spatial prediction and uncertainty quantification.
+    - Contributed as second author to a later Spatial Random Forest extension.
+
 - company:
-    name: Data Science Lab, Middle East Technical University
-    location: Turkey
+    name: The University of Texas at Austin
+    url: "https://www.pge.utexas.edu/"
+    location: Austin, Texas
   positions:
-  - designation: Undergraduate Researcher
-    start: 2020
-    end: 2022
+  - designation: Teaching Assistant, PGE 383/379 - High Performance Computing for Engineers
+    start: Spring 2024
+    end: Spring 2024
     responsibilities:
-    - Studied basic statistics, focusing on linear and nonlinear regression methods.
-    - Applied statistical methods to analyze COVID-19 and IRIS data.
-    - Developed projects using Un*x Shell scripting, Python, and LaTeX.
+    - Supported Julia programming laboratories and occasional office hours for approximately 30 students.
+
+- company:
+    name: Switch Energy Alliance UT Chapter
+    url: "https://switchon.org/"
+    location: Austin, Texas
+  positions:
+  - designation: President
+    start: 2026
+    responsibilities:
+    - Lead an eight-officer student organization and secured an approximately $3,000 budget while building undergraduate representation and cross-campus energy partnerships.
+  - designation: Vice President for External Affairs
+    start: 2024
+    end: 2025
+
 - company:
     name: Middle East Air Drilling Services
-    location: Turkey
+    location: Alaşehir, Türkiye
   positions:
-  - designation: Field Engineer Intern
+  - designation: Drilling Engineer Intern
     start: 2021
     end: 2021
     responsibilities:
-    - Participated in a geothermal well drilling project in Alasehir, Manisa.
-    - Performed daily field engineering activities, including cementing calculations, mud calculations, and mud pump calculations, among others.
-    - Assisted the rig crew with various tasks related to drilling operations.
-    - Learned about hoisting systems, power systems, drilling, acidizing, coiled-tubing and measurement while drilling (MVD).
-- company:
-    name: Polisan Holding
-    location: Turkey
-  positions:
-  - designation: R&D Intern
-    start: 2017
-    end: 2017
-    responsibilities:
-    - Worked in the R&D Department of a chemicals company, focusing on formaldehyde and urea production in Gebze, Kocaeli.
-    - Participated in regular laboratory activities and collaborated with colleagues to develop and analyze substances.
-- company:
-    name: Puxo Digital Agency
-    location: Turkey
-  positions:
-  - designation: Webpage Editor
-    start: 2015
-    end: 2015
-    responsibilities:
-    - Created and edited webpage content for clients, designed webpage templates in HTML and CSS, and performed translation tasks.
+    - Completed geothermal drilling field training around a ZJ-40 double mobile rig, performing mud and cement calculations and formation-evaluation exercises while documenting casing, cementing, MWD, and coiled-tubing operations.

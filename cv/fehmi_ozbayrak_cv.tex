@@ -1,0 +1,252 @@
+\documentclass[10pt,letterpaper]{article}
+
+\usepackage[letterpaper,top=0.48in,bottom=0.44in,left=0.66in,right=0.66in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage{xurl}
+\usepackage{hyperref}
+\input{glyphtounicode}
+\pdfgentounicode=1
+
+\DisableLigatures{encoding = *, family = * }
+\DeclareUnicodeCharacter{2014}{\textemdash}
+\DeclareUnicodeCharacter{2013}{\textendash}
+\DeclareUnicodeCharacter{00B7}{\textperiodcentered}
+\DeclareUnicodeCharacter{201C}{\textquotedblleft}
+\DeclareUnicodeCharacter{201D}{\textquotedblright}
+\DeclareUnicodeCharacter{2019}{\textquoteright}
+\definecolor{ink}{HTML}{18222C}
+\definecolor{accent}{HTML}{185A73}
+\definecolor{muted}{HTML}{485762}
+\hypersetup{
+  colorlinks=true,
+  urlcolor=accent,
+  linkcolor=accent,
+  pdfauthor={Fehmi Özbayrak},
+  pdftitle={Fehmi Özbayrak — Curriculum Vitae},
+  pdfsubject={Curriculum Vitae},
+  pdfkeywords={energy systems, reservoir engineering, geomechanics, scientific software, machine learning}
+}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\emergencystretch}{2em}
+\linespread{0.95}
+\color{ink}
+\raggedright
+
+\newcommand{\cvsection}[1]{%
+  \needspace{4\baselineskip}%
+  \vspace{5pt}%
+  {\fontsize{11.5}{13.2}\selectfont\bfseries\color{accent} #1}\par
+  \vspace{1.2pt}\color{accent}\hrule height 0.55pt\color{ink}\vspace{3pt}%
+}
+
+\newcommand{\cventry}[4]{%
+  \needspace{4\baselineskip}%
+  {\bfseries #1} \textemdash{} #2\par
+  {\color{muted}\itshape #3\if\relax\detokenize{#4}\relax\else{} · #4\fi}\par
+  \vspace{1pt}%
+}
+
+\newcommand{\cvproject}[2]{%
+  \needspace{3\baselineskip}%
+  {\bfseries #1}\hspace{0.35em}{\color{muted}#2}\par
+  \vspace{0.5pt}%
+}
+
+\newenvironment{cvitems}{%
+  \begin{itemize}[leftmargin=13pt,label=\textbullet,itemsep=1.2pt,topsep=1pt,parsep=0pt,partopsep=0pt]
+}{\end{itemize}\vspace{1.5pt}}
+
+\newenvironment{compactitems}{%
+  \begin{itemize}[leftmargin=13pt,label=\textbullet,itemsep=0.8pt,topsep=1pt,parsep=0pt,partopsep=0pt]
+}{\end{itemize}\vspace{1pt}}
+
+\begin{document}
+
+\begin{center}
+  {\fontsize{22}{25}\selectfont\bfseries Fehmi Özbayrak}\par
+  \vspace{2pt}
+  {\fontsize{11.5}{13}\selectfont\color{accent} Curriculum Vitae · Ph.D. Student in Petroleum and Geosystems Engineering}\par
+  \vspace{4pt}
+  Austin, Texas · \href{tel:+15129208349}{+1 512-920-8349} ·
+  \href{mailto:ozbayrakfehmi@gmail.com}{ozbayrakfehmi@gmail.com}\par
+  \href{https://www.linkedin.com/in/fozbayrak}{LinkedIn} ·
+  \href{https://github.com/fozba}{GitHub} ·
+  \href{https://scholar.google.com/citations?user=NdarxTgAAAAJ}{Google Scholar} ·
+  \href{https://fozba.github.io/portfolio}{Portfolio}
+\end{center}
+
+\cvsection{Research Profile}
+Computational energy researcher connecting reservoir engineering and geomechanics, scientific software, spatial machine learning, uncertainty quantification, and techno-economic analysis. Research spans produced-water disposal and induced seismicity, geological poromechanics, geothermal development, and data-center energy systems.
+
+\cvsection{Education}
+\cventry{Ph.D. Student, Petroleum and Geosystems Engineering}{The University of Texas at Austin}{Austin, Texas}{Expected Aug 2027}
+Advisor: Dr. Mukul M. Sharma. Tentative dissertation: \emph{Multiscale Geomechanics of Produced-Water Disposal in the Delaware Basin: Fracture Containment, Ground Deformation, and Induced Seismicity}. Cumulative UT M.S./Ph.D. GPA: 3.61/4.00.
+
+\vspace{3pt}
+\cventry{MSc, Petroleum and Geosystems Engineering}{The University of Texas at Austin}{Austin, Texas}{May 2024}
+Thesis: \emph{A novel spatial bagging algorithm for predictive ensemble machine learning}. Co-advisors: Dr. John T. Foster and Dr. Michael J. Pyrcz.
+
+\vspace{3pt}
+\cventry{BEng, Petroleum and Natural Gas Engineering}{Middle East Technical University}{Ankara, Türkiye}{Feb 2022}
+GPA: 3.21/4.00.
+
+\cvsection{Research and Professional Experience}
+\cventry{Graduate Research Assistant}{UT Austin / Center for Integrated Seismicity Research}{Austin, Texas}{Summer 2024–Present}
+\begin{cvitems}
+  \item Build and calibrate coupled reservoir-geomechanics models using well logs and injection and pressure histories to investigate fracture containment, pressure transmission, surface deformation, and induced-seismicity risk from produced-water disposal.
+  \item Design sensitivity studies that separate stress, operating, pressure, and leakoff controls while communicating calibration non-uniqueness and model limitations.
+  \item Develop auditable geological-poromechanics workflows and verification cases for MOOSE/PorousFlow simulation.
+\end{cvitems}
+
+\cventry{Reservoir Engineering Intern}{Fervo Energy}{Houston, Texas}{May–Aug 2025}
+\begin{cvitems}
+  \item Architected and implemented a modular Python platform for geothermal development planning, connecting configurable well schedules and surface-facility allocation to daily power forecasts, costs, and contract economics.
+  \item Integrated a machine-learning proxy for production-temperature evolution to accelerate repeated schedule evaluation.
+  \item Formulated drilling start times as Pyomo optimization variables and maximized project revenue subject to power-delivery constraints; built interactive Plotly and Dash analysis tools.
+\end{cvitems}
+
+\cventry{Graduate Research Assistant}{DiReCT Consortium, The University of Texas at Austin}{Austin, Texas}{2022–2024}
+\begin{cvitems}
+  \item Developed Spatial Bagging, an ensemble-learning method that uses geostatistical effective sample size to incorporate spatial dependence into bootstrap sampling.
+  \item Led software, experiments, and first-author writing for two peer-reviewed papers on spatial prediction and uncertainty quantification; coauthored a later Spatial Random Forest extension.
+\end{cvitems}
+
+\cventry{Drilling Engineer Intern}{Middle East Air Drilling Services}{Alaşehir, Türkiye}{2021}
+\begin{cvitems}
+  \item Completed geothermal drilling field training around a ZJ-40 double mobile rig, performing mud and cement calculations and formation-evaluation exercises while documenting casing, cementing, MWD, and coiled-tubing operations.
+\end{cvitems}
+
+\cventry{Undergraduate Researcher}{Middle East Technical University}{Ankara, Türkiye}{Poster presented Dec 2021}
+\begin{cvitems}
+  \item Created synthetic permanent-downhole-gauge data, introduced noise and outliers, and compared nonlinear regression and wavelet-based denoising methods; presented the work at the ADIMODTÜ Project Poster Presentation.
+\end{cvitems}
+
+\newpage
+
+\cvsection{Research Software and Selected Research Projects}
+\cvproject{JAVELINA — Auditable Geological Poromechanics Workflow}{2026}
+\begin{cvitems}
+  \item Developed a declarative Python workflow that converts geological surfaces, meshes, material data, and well schedules into auditable MOOSE/PorousFlow cases for serial and MPI execution.
+  \item Implemented completion intersection, conservative signed-source allocation, provenance tracking, and automated result-quality reporting.
+  \item Verified generated operators against six analytical, semi-analytical, and manufactured benchmarks, with near-second-order spatial convergence and 1.196\% maximum peak-normalized error. The project remains unpublished.
+\end{cvitems}
+
+\cvproject{Data Center Integrated Systems Model (DC-ISM)}{2025–2026}
+\begin{cvitems}
+  \item Built a modular, configuration-driven Python demand-side engine that maps AI workload states and hardware fleets to hourly IT, cooling, electrical, water, PUE, cost, carbon, and flexibility profiles.
+  \item Implemented measured-weather ingestion, tariffs, sensitivity screening, correlated uncertainty propagation, scenario-year bootstrapping, supply-land screening, and risk-aware design comparison.
+  \item Defined typed interfaces, explicit scope boundaries, a limitations register, and a 155-test suite to keep assumptions and unsupported effects auditable. The project remains private.
+\end{cvitems}
+
+\cvproject{Spatial Bagging for Prediction and Uncertainty Quantification}{2022–2025}
+\begin{cvitems}
+  \item Developed an ensemble-learning algorithm that adjusts bootstrap sample size using geostatistical effective sample size so spatial dependence is represented rather than treated as independent data.
+  \item Evaluated prediction and uncertainty behavior across synthetic two-dimensional datasets spanning spatial-correlation and noise regimes; released the \href{https://github.com/fozba/spatialbootstrap}{public Python implementation} and published two first-author papers.
+\end{cvitems}
+
+\cvproject{Delaware Mountain Group Fracture-Containment Study}{2024–Present}
+\begin{cvitems}
+  \item Built and calibrated a coupled flow-and-fracture model against multi-year injection history and daily pressure observations from Delaware Basin disposal wells.
+  \item Designed sensitivity studies across stress stratigraphy, injection rate and intermittency, pressure, and leakoff to distinguish controls on vertical containment, pressure buildup, and lateral fracture growth. Manuscript in preparation.
+\end{cvitems}
+
+\cvproject{Sierra Solutions — Gas-to-Data-Center Investment Model}{2026}
+\begin{cvitems}
+  \item Built a 15-year physics-and-finance model for a 15 MW firm / 20.25 MW installed behind-the-meter natural-gas power concept serving an AI data center, integrating redundancy, fuel logistics, contracts, debt, and project economics.
+  \item Evaluated 10,000 Monte Carlo scenarios across 12 risk drivers and presented a base case with 14.47\% levered IRR, \$2.32 million NPV at 12\%, and 1.72x minimum DSCR; earned second place in the North American SPE Energython as a solo entrant.
+\end{cvitems}
+
+\cvsection{Technical Competition Projects}
+\cvproject{Utah FORGE — Engineering Analysis, GEODE Engineering Datathon}{2nd place · 2025 · Two-person team}
+\begin{compactitems}
+  \item Wrote the analysis code integrating tracer, distributed fiber-optic temperature, strain and acoustic data, microseismicity, well surveys, and stimulation records to infer stage-level connectivity and preferential flow paths.
+  \item Proposed a targeted restimulation program using perturbed-stress interpretation, oriented perforations, isolation and diversion, and pulsed initiation; recommendations were not represented as implemented results.
+\end{compactitems}
+
+\cvproject{Nevada Blind-Geothermal Exploration — GEODE Geosciences Datathon}{2nd place · 2025 · Two-person team}
+\begin{compactitems}
+  \item Built a spatial CNN workflow using strain, gravity, permeability, modeled temperature, earthquake-density, and fault-distance rasters to reproduce and interrogate play-fairway favorability patterns.
+  \item Used geographically separated development and validation regions to identify candidate zones for follow-up without presenting them as physically validated discoveries.
+\end{compactitems}
+
+\cvproject{Hydraulic-Fracturing Fuel Forecast — UT PGE Energy AI Hackathon}{1st place · 2025 · Five-person team}
+\begin{compactitems}
+  \item Served as the main machine-learning architect and built most of a random-forest regression workflow forecasting grid, diesel, and CNG requirements from operational, fleet, fuel, formation, and weather features.
+  \item Compared 12 CatBoost-derived features with 1,082 one-hot features and calibrated ensemble uncertainty across 100 repeated runs.
+\end{compactitems}
+
+\cvproject{Missing-Well Production Forecasting — UT Energy AI Hackathon}{Best Presentation · 2026 · Team Chain}
+\begin{compactitems}
+  \item Served as the main machine-learning engineer for a field-scale workflow predicting oil, water, and gas production for wells omitted from the supplied dataset.
+\end{compactitems}
+
+\cvproject{Utah FORGE Microseismic Analysis — SPE Geothermal Datathon}{2nd place · 2023 · Four-person team}
+\begin{compactitems}
+  \item Applied bootstrap ensemble clustering to microseismic events, clustering each resampled realization and aggregating the results to interpret event structure.
+\end{compactitems}
+
+\cvsection{Peer-Reviewed Publications}
+\begin{enumerate}[leftmargin=18pt,label={\arabic*.},itemsep=3pt,topsep=1pt,parsep=0pt]
+  \item \textbf{Özbayrak, F.}, Foster, J. T., and Pyrcz, M. J. (2025). ``Spatial bagging for predictive machine learning uncertainty quantification.'' \emph{Computers \& Geosciences}, 203, 105947. \href{https://doi.org/10.1016/j.cageo.2025.105947}{doi:10.1016/j.cageo.2025.105947}. First and corresponding author.
+  \item Merzoug, A., \textbf{Özbayrak, F.}, Foster, J. T., and Pyrcz, M. J. (2025). ``Beyond random forest: how spatial bagging and spatial random forest dominate for subsurface applications?'' \emph{Computational Geosciences}, 29, article 52. \href{https://doi.org/10.1007/s10596-025-10388-0}{doi:10.1007/s10596-025-10388-0}.
+  \item \textbf{Özbayrak, F.}, Foster, J. T., and Pyrcz, M. J. (2024). ``Spatial bagging to integrate spatial correlation into ensemble machine learning.'' \emph{Computers \& Geosciences}, 186, 105558. \href{https://doi.org/10.1016/j.cageo.2024.105558}{doi:10.1016/j.cageo.2024.105558}. First and corresponding author.
+\end{enumerate}
+
+\cvsection{Manuscripts in Preparation}
+\begin{compactitems}
+  \item \textbf{Özbayrak, F.} ``JAVELINA: an accessible, quality-transparent workflow for geological poromechanics with MOOSE.'' Manuscript in preparation; not submitted.
+  \item \textbf{Özbayrak, F.} et al. ``Induced fracture geometry and vertical containment during shallow wastewater injection in the Delaware Mountain Group: A calibrated geomechanical modeling study.'' Manuscript in preparation; title and author order subject to coauthor review.
+\end{compactitems}
+
+\cvsection{Awards and Honors}
+\begin{compactitems}
+  \item Second Place, North America SPE Asset Management Technical Section Energython — Sierra Solutions, solo entry, 2026.
+  \item Judges' Selection Award for Best Presentation, UT Energy AI Hackathon — Team Chain, 2026.
+  \item First Place, UT PGE Energy AI Hackathon — Data Comrades, five-person team, 2025.
+  \item Second Place, GEODE Engineering Datathon — Operation Hotspot, two-person team, 2025.
+  \item Second Place, GEODE Geosciences Datathon — Operation Hotspot, two-person team, 2025.
+  \item Second Place, SPE Geothermal Datathon — Team NDT, four-person team, 2023.
+\end{compactitems}
+
+\cvsection{Selected Technical Presentations}
+\begin{compactitems}
+  \item ``Sierra Solutions,'' North America SPE Asset Management Technical Section Energython Final, Jan 2026.
+  \item Utah FORGE engineering analysis and Nevada blind-geothermal exploration, GEODE Datathon, 2025.
+  \item Hydraulic-fracturing fuel forecasting, UT PGE Energy AI Hackathon, 2025.
+  \item \textbf{Özbayrak, F.} and Gökalp Yavuz, F. ``Denoising and Outlier Removal from Permanent Downhole Gauge Using Nonlinear Regression Methods,'' ADIMODTÜ Project Poster Presentation, 2021. \href{https://hdl.handle.net/11511/97232}{hdl:11511/97232}.
+\end{compactitems}
+
+\cvsection{Teaching}
+\cventry{Teaching Assistant, PGE 383/379 — High Performance Computing for Engineers}{The University of Texas at Austin}{Austin, Texas}{Spring 2024}
+Supported Julia programming laboratories and occasional office hours for approximately 30 students in Dr. John T. Foster's course.
+
+\cvsection{Leadership and Service}
+\cventry{President}{Switch Energy Alliance UT Chapter}{Austin, Texas}{2026–Present}
+Lead an eight-officer student organization and secured an approximately \$3,000 budget while building undergraduate representation and cross-campus energy partnerships.
+
+\vspace{3pt}
+\cventry{Vice President for External Affairs}{Switch Energy Alliance UT Chapter}{Austin, Texas}{2024–2025}
+
+\vspace{3pt}
+\cventry{Challenge Co-Architect}{Fourth Annual UT PGE Energy AI Hackathon}{Austin, Texas}{2024 event cycle}
+Co-architected the challenge with Elnara Rustamzade and supported teams and event logistics for approximately 160 students across 25 teams.
+
+\cvsection{Technical Skills}
+\textbf{Programming and software:} Python, C/C++, Julia, NumPy, Pandas, scikit-learn, Pyomo, Plotly, Dash, Git, Linux/shell, MPI, LaTeX.\par
+\vspace{2pt}
+\textbf{Subsurface and computational methods:} Reservoir simulation, coupled flow-and-fracture modeling, finite-element poromechanics, MOOSE/PorousFlow, ResFrac, history matching, calibration, numerical verification, sensitivity analysis.\par
+\vspace{2pt}
+\textbf{Data and uncertainty:} Geostatistics, spatial statistics, ensemble machine learning, random forests, raster/GIS workflows, uncertainty quantification, Monte Carlo analysis, tracer/fiber-optic/microseismic interpretation.\par
+\vspace{2pt}
+\textbf{Energy systems:} Geothermal systems, techno-economic modeling, project finance, mathematical optimization, hourly facility-demand modeling, data-center cooling, water, PUE, tariffs, and siting analysis.
+
+\end{document}

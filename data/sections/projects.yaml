@@ -4,42 +4,75 @@ section:
   enable: true
   weight: 2
   showOnNavbar: true
-  # hideTitle: true
 
 buttons:
 - name: All
   filter: "all"
-- name: Competition
-  filter: "competition"
-- name: Hobby
-  filter: "hobby"
+- name: Research & Software
+  filter: "research"
+- name: Energy Systems
+  filter: "energy-systems"
+- name: Geothermal
+  filter: "geothermal"
+- name: Machine Learning
+  filter: "machine-learning"
 
 projects:
-- name: SPE Geothermal Datathon 2023
-  role: "2nd Place"
-  summary: "Analyzed hydraulic fracturing data to evaluate discrete fracture networks (DFN)."
-  tags: ["competition"]
-- name: UT PGE Energy AI Hackathon 2025
-  role: "1st Place"
-  summary: "Developed a regression model to predict the energy consumption of a hydraulic fracturing operation."
-  tags: ["competition"]
-  url: "/posts/2025/2025-02-18-pge-hackathon-workflow/" 
-- name: Geode Datathon 2025 - Geoscience Track
-  role: "2nd Place"
-  summary: "Developed a novel CNN-based image processing workflow that significantly improves the predictive power of the Nevada Play Fairway Analysis for geothermal exploration."
-  tags: ["competition"]
-  url: "/posts/2025/2025-08-30-mapping-geothermal-potential-with-data-analytics/"
-- name: Geode Datathon 2025 - Engineering Track
-  role: "2nd Place"
-  summary: "Analyzed the Utah FORGE EGS dataset by integrating multi-source data (tracers, fiber optics, microseismic) to build a holistic model of the fracture network."
-  tags: ["competition"]
-  url: "/posts/2025/2025-09-06-utah-forge-april-stim-work"
-- name: SPE E3S Energython 2026
-  role: "2nd Place"
-  summary: "Developed a full techno-economic digital twin for a 15MW natural gas power plant, bridging physics-based generation modeling with project finance. Presented a bankable on-site power strategy using modular natural gas engines, stochastic risk analysis, and IRR/DSCR optimization to industry judges."
-  tags: ["competition"]
+- name: JAVELINA
+  role: "Scientific Software"
+  timeline: "2026"
+  summary: "Developed a declarative Python workflow that converts geological surfaces and well schedules into auditable MOOSE/PorousFlow poromechanics cases for serial and MPI execution. Verified generated operators against six analytical, semi-analytical, and manufactured benchmarks, with a 1.196% maximum peak-normalized error."
+  tags: ["research", "software", "geomechanics"]
+
+- name: Data Center Integrated Systems Model (DC-ISM)
+  role: "Independent Project"
+  timeline: "2025-2026"
+  summary: "Built a configuration-driven Python demand-side engine that maps AI workloads and hardware fleets to hourly energy, cooling, water, PUE, tariff, carbon, siting, and flexibility outputs. The system includes explicit interfaces and limitations, uncertainty and sensitivity workflows, and a 155-test suite."
+  tags: ["research", "software", "energy-systems"]
+
+- name: Spatial Bagging
+  role: "Research Software"
+  timeline: "2022-2025"
+  summary: "Developed an ensemble-learning method that uses geostatistical effective sample size to account for spatial dependence in bootstrap sampling. Led the software, experiments, and first-author writing for two peer-reviewed papers on prediction and uncertainty quantification."
+  tags: ["research", "software", "machine-learning"]
+  repo: "https://github.com/fozba/spatialbootstrap"
+
+- name: Sierra Solutions - SPE Energython
+  role: "2nd Place, Solo Entry"
+  timeline: "2026"
+  summary: "Built a 15-year physics-and-finance model for a 15 MW behind-the-meter natural-gas power concept serving an AI data center. Evaluated 10,000 Monte Carlo scenarios across 12 risk drivers and presented a base case with 14.47% levered IRR and 1.72x minimum DSCR."
+  tags: ["competition", "energy-systems", "project-finance"]
   url: "/posts/2026/2026-02-20-spe-amts-energython-workflow"
-- name: DC-ISM
-  role: "Lead Developer"
-  summary: "Developing a comprehensive Python-based Integrated Systems Model to conduct techno-economic and performance analysis of large-scale AI data center infrastructure."
-  tags: ["hobby"]
+
+- name: GEODE Engineering Datathon - Utah FORGE
+  role: "2nd Place, Two-Person Team"
+  timeline: "2025"
+  summary: "Wrote the analysis code integrating tracer, distributed fiber-optic temperature, strain and acoustic data, microseismicity, well surveys, and stimulation records to infer stage-level connectivity and preferential flow paths."
+  tags: ["competition", "geothermal", "data-integration"]
+  url: "/posts/2025/2025-09-06-utah-forge-april-stim-work"
+
+- name: GEODE Geosciences Datathon - Nevada
+  role: "2nd Place, Two-Person Team"
+  timeline: "2025"
+  summary: "Built a spatial CNN workflow using strain, gravity, permeability, modeled temperature, earthquake-density, and fault-distance rasters, with geographically separated development and validation regions, to identify candidate blind-geothermal zones for follow-up."
+  tags: ["competition", "geothermal", "machine-learning"]
+  url: "/posts/2025/2025-08-30-mapping-geothermal-potential-with-data-analytics/"
+
+- name: UT PGE Energy AI Hackathon
+  role: "1st Place, Five-Person Team"
+  timeline: "2025"
+  summary: "Served as the main machine-learning architect for a random-forest regression workflow forecasting grid, diesel, and CNG requirements for hydraulic-fracturing operations. Compared compact CatBoost-derived encoding with one-hot encoding and calibrated ensemble uncertainty across repeated runs."
+  tags: ["competition", "energy-systems", "machine-learning"]
+  url: "/posts/2025/2025-02-18-pge-hackathon-workflow/"
+
+- name: UT Energy AI Hackathon - Team Chain
+  role: "Judges' Selection Award for Best Presentation"
+  timeline: "2026"
+  summary: "Served as the main machine-learning engineer for a field-scale workflow that predicted oil, water, and gas production for wells omitted from the supplied dataset."
+  tags: ["competition", "machine-learning", "subsurface"]
+
+- name: SPE Geothermal Datathon - Utah FORGE
+  role: "2nd Place, Four-Person Team"
+  timeline: "2023"
+  summary: "Applied bootstrap ensemble clustering to Utah FORGE microseismic events, clustering each resampled realization and aggregating the results to interpret event structure."
+  tags: ["competition", "geothermal", "machine-learning"]

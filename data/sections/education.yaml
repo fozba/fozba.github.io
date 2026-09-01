@@ -1,64 +1,47 @@
-# section information
 section:
   name: Education
   id: education
-  template: sections/education.html # Use "sections/education-alt.html for alternate template.
+  template: sections/education.html
   enable: true
   weight: 5
   showOnNavbar: true
-  # Can optionally hide the title in sections
-  # hideTitle: true
 
 degrees:
-- name: PhD in Petroleum & Geosystems Engineering
-  # icon: fa-microscope
-  timeframe: 2024-Ongoing
+- name: Ph.D. in Petroleum and Geosystems Engineering
+  timeframe: Jun 2024–Expected Aug 2027
   institution:
-    name: Hildebrand Department of Petroleum & Geosystems Engineering, The University of Texas at Austin
+    name: Hildebrand Department of Petroleum and Geosystems Engineering, The University of Texas at Austin
     url: "https://www.pge.utexas.edu/"
-    logo: /images/education/UT_Austin_logo.svg # Path of the logo image
-    # darkLogo: /images/education/college-dark.png #(optional), Can optionally show a different logo for dark theme
-  # extracurricularActivities: #(optional)
-  # - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  # - Fusce eu augue ut odio porttitor pulvinar.
+    logo: /images/education/UT_Austin_logo.svg
   customSections:
-    - name: Areas of focus
-      content: Numerical reservoir simulation, reservoir geomechanics, deep learning
-    - name: Supervisor
+    - name: Research focus
+      content: Coupled reservoir geomechanics, poromechanics, induced geohazards, and basin-scale numerical modeling
+    - name: Advisor
       content: '[Dr. Mukul Sharma](https://sharma.pge.utexas.edu/members)'
+    - name: UT cumulative GPA
+      content: 3.61 / 4.00 across M.S. and Ph.D. coursework
 
-- name: MSC in Petroleum & Geosystems Engineering
-  # icon: fa-microscope
-  timeframe: 2022-2024
+- name: MSc in Petroleum and Geosystems Engineering
+  timeframe: 2022–May 2024
   institution:
-    name: Hildebrand Department of Petroleum & Geosystems Engineering, The University of Texas at Austin
+    name: Hildebrand Department of Petroleum and Geosystems Engineering, The University of Texas at Austin
     url: "https://www.pge.utexas.edu/"
-    logo: /images/education/UT_Austin_logo.svg # Path of the logo image
-  grade: #(optional)
-    scale: CGPA
-    achieved: 3.61
-    outOf: 4
-  publications: #(optional)
-  - title: Spatial bagging to integrate spatial correlation into ensemble machine learning
-    url: "https://doi.org/10.1016/j.cageo.2024.105558"
-  - title: Spatial bagging for predictive machine learning uncertainty quantification
-    url: "https://doi.org/10.1016/j.cageo.2025.105947"
+    logo: /images/education/UT_Austin_logo.svg
   customSections:
-    - name: Areas of focus
-      content: Data Analytics & Machine Learning in geosciences, geostatistics
+    - name: Research focus
+      content: Geostatistics, spatial machine learning, and uncertainty quantification
     - name: Thesis
       content: '[A novel spatial bagging algorithm for predictive ensemble machine learning](https://repositories.lib.utexas.edu/items/d283a111-de68-4b2c-abc3-1a3e43c48a41)'
-    - name: Supervisors
+    - name: Advisors
       content: '[Dr. Michael Pyrcz](https://michaelpyrcz.com/), [Dr. John Foster](https://johnfoster.pge.utexas.edu/)'
 
-- name: BEng in Petroleum Engineering
-  # icon: fa-microscope
-  timeframe: 2018-2022
+- name: BEng in Petroleum and Natural Gas Engineering
+  timeframe: 2018–Feb 2022
   institution:
     name: Department of Petroleum Engineering, Middle East Technical University
     url: "https://pete.metu.edu.tr/en"
-    logo: /images/education/METU_logo.svg # Path of the logo image
-  grade: #(optional)
+    logo: /images/education/METU_logo.svg
+  grade:
     scale: CGPA
-    achieved: 3.27
+    achieved: 3.21
     outOf: 4

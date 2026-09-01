@@ -1,4 +1,4 @@
 ---
 title: "Portfolio"
-layout: "portfolio-standalone"
+layout: "portfolio"
 ---
