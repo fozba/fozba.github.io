@@ -5,11 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#07111f">
   <title>Fehmi Özbayrak | Computational Energy Engineer</title>
-  <link rel="icon" href="/favicon.png" type="image/png">
-  <link rel="preload" href="/portfolio/fonts/inter-latin.woff2?v=20260901.3" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/portfolio/portfolio.css?v=20260901.3">
-  <link rel="stylesheet" href="/portfolio/css/sierra-model.css?v=20260901.3">
-  <script type="module" src="/portfolio/app.js?v=20260901.3"></script>
+  <link rel="preload" href="/portfolio/fonts/inter-latin.woff2?v=20260901.5" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/portfolio/portfolio.css?v=20260901.5">
+  <link rel="stylesheet" href="/portfolio/css/sierra-model.css?v=20260901.5">
+  <script type="module" src="/portfolio/app.js?v=20260901.5"></script>
 </head>
 <body>
   <a class="skip-link" href="#slide-1">Skip to projects</a>
@@ -70,7 +69,7 @@
           <header class="project-header">
             <div>
               <h3>Wastewater Injection and Fracture Containment</h3>
-              <p>Calibrated coupled flow-and-fracture modeling for shallow disposal wells in the Delaware Basin.</p>
+              <p>Calibrated coupled flow-and-fracture modeling to quantify pressure buildup, fracture growth, and vertical containment around shallow Delaware Basin disposal wells.</p>
             </div>
           </header>
           <ul class="tag-list" aria-label="Methods and tools">
@@ -80,7 +79,8 @@
             <video src="/portfolio/assets/resfrac_simulation.mp4" autoplay loop muted playsinline controls preload="metadata" aria-label="Coupled fracture propagation simulation"></video>
           </figure>
           <div class="project-copy">
-            <p>I build coupled geomechanical models to investigate fracture initiation, pressure buildup, and vertical containment during produced-water disposal. The workflow integrates mechanical stratigraphy, well logs, injection histories, and pressure observations, then tests how operations and formation properties alter fracture behavior.</p>
+            <p>I build coupled geomechanical models to investigate fracture initiation, pressure buildup, and vertical containment during produced-water disposal. The workflow integrates mechanical stratigraphy, well logs, injection and pressure histories, and completion geometry, then calibrates uncertain rock and fracture properties against field observations.</p>
+            <p>I use the calibrated models to compare operating scenarios, identify the formations and mechanical contrasts controlling fracture height, and distinguish localized fracture response from broader pressure transmission. The objective is to turn well-scale simulation results into auditable constraints on disposal performance and induced-geohazard risk.</p>
           </div>
         </article>
 
@@ -97,7 +97,7 @@
           <section class="visual-frame visual-frame--plot" data-plot-shell="basin" aria-label="Interactive Permian Basin formation-top model">
             <div class="visual-toolbar" data-plot-controls="basin"></div>
             <div id="plot-basin" class="plot-host" data-plot-host="basin"></div>
-            <img class="plot-fallback" data-plot-fallback="basin" src="/portfolio/posters/basin.webp?v=20260901.3" alt="Static view of Permian Basin formation tops" loading="lazy">
+            <img class="plot-fallback" data-plot-fallback="basin" src="/portfolio/posters/basin.webp?v=20260901.5" alt="Static view of Permian Basin formation tops" loading="lazy">
           </section>
           <div class="project-copy">
             <p>I am assembling a basin-scale structural baseline from <a class="link" href="https://www.rrc.texas.gov/oil-and-gas/" target="_blank" rel="noopener">Texas Railroad Commission records</a> rather than proprietary databases. The prototype extracts, standardizes, and quality-controls reported formation tops so assumptions and uncertainty remain visible from raw record to interpreted surface. Initial results reproduce the regional architecture shown in published <span class="tt-trigger" role="button" tabindex="0" data-preview-kind="image" data-preview-src="/portfolio/assets/permian_cross_sections.jpg" data-preview-title="Published Permian Basin cross-sections">cross-sections</span>.</p>
@@ -112,7 +112,7 @@
             </div>
           </header>
           <ul class="tag-list" aria-label="Methods and tools">
-            <li>MOOSE</li><li>PorousFlow</li><li>Python</li><li>MPI</li><li>Verification</li>
+            <li><a href="https://mooseframework.inl.gov/" target="_blank" rel="noopener">MOOSE</a></li><li>PorousFlow</li><li>Python</li><li>MPI</li><li>Verification</li>
           </ul>
           <figure class="visual-frame visual-frame--video visual-frame--javelina">
             <video autoplay loop muted playsinline controls preload="metadata" poster="/portfolio/posters/javelina.webp" aria-label="Ten-year basin-scale MOOSE poromechanics simulation">
@@ -139,7 +139,7 @@
           <header class="project-header">
             <div>
               <h3>Sierra Solutions: Molecule to Megabyte</h3>
-              <p>Second place, North American SPE Energython — a 15 MW behind-the-meter natural-gas power concept for an AI data center.</p>
+              <p>Second place, North American <a class="link" href="https://jpt.spe.org/spe-asset-management-technical-section-to-host-energy-economics-symposium" target="_blank" rel="noopener">SPE Energython</a> — a 15 MW behind-the-meter natural-gas power concept for an AI data center.</p>
             </div>
           </header>
           <ul class="tag-list" aria-label="Methods and tools">
@@ -260,7 +260,7 @@
             </div>
           </section>
           <div class="project-copy">
-            <p>I developed DC-ISM to connect AI workload states and hardware fleets to the facility and grid questions that energy planners need to answer. The Python engine decomposes hourly demand into IT, cooling, electrical, network, storage, and house loads, with PUE and water use emerging from the selected hardware, cooling architecture, redundancy, weather, and operating profile.</p>
+            <p>I am developing DC-ISM to connect AI workload states and hardware fleets to the facility and grid questions that energy planners need to answer. The Python engine decomposes hourly demand into IT, cooling, electrical, network, storage, and house loads, with PUE and water use emerging from the selected hardware, cooling architecture, redundancy, weather, and operating profile.</p>
             <p>The broader workflow supports first-principles FLOPs accounting, coarse training-time estimation, measured-weather ingestion, tariffs and carbon accounting, sensitivity screening, correlated uncertainty, scenario-year analysis, supply-land screening, and risk-aware comparison across sites and designs. It exports a serializable <code>DemandCase</code> for supply-side tools. A 155-test suite, typed interfaces, explicit scope boundaries, and a limitations register keep assumptions and unsupported effects auditable.</p>
           </div>
         </article>
@@ -269,7 +269,7 @@
           <header class="project-header">
             <div>
               <h3>Nevada Play Fairway Analysis</h3>
-              <p>Second place, GEODE Geoscience Datathon — spatial machine learning for blind-geothermal exploration.</p>
+              <p>Second place, <a class="link" href="https://www.geode.energy/news/geode-datathon-winners-announced" target="_blank" rel="noopener">GEODE Geoscience Datathon</a> — spatial machine learning for blind-geothermal exploration.</p>
             </div>
           </header>
           <ul class="tag-list" aria-label="Methods and tools">
@@ -278,7 +278,7 @@
           <section class="visual-frame visual-frame--plot" data-plot-shell="nevada" aria-label="Interactive Nevada geothermal favorability map">
             <div class="visual-toolbar" data-plot-controls="nevada"></div>
             <div id="plot-nevada" class="plot-host" data-plot-host="nevada"></div>
-            <img class="plot-fallback" data-plot-fallback="nevada" src="/portfolio/posters/nevada.webp?v=20260901.3" alt="Static comparison of predicted and reference Nevada geothermal favorability" loading="lazy">
+            <img class="plot-fallback" data-plot-fallback="nevada" src="/portfolio/posters/nevada.webp?v=20260901.5" alt="Static comparison of predicted and reference Nevada geothermal favorability" loading="lazy">
           </section>
           <div class="project-copy">
             <p>For a two-person competition team, I wrote the analysis code that transformed geodetic strain, gravity, permeability, temperature, earthquake-density, and fault-distance rasters into a <span class="tt-trigger" role="button" tabindex="0" data-preview-kind="image" data-preview-src="/portfolio/assets/nevada_cnn_architecture.png" data-preview-title="Nevada pixel-wise CNN architecture">spatial CNN workflow</span>.</p>
@@ -302,7 +302,7 @@
           <header class="project-header">
             <div>
               <h3>Utah FORGE Stimulation Analysis</h3>
-              <p>Second place, GEODE Engineering Datathon — multi-modal diagnostics for an enhanced geothermal system.</p>
+              <p>Second place, <a class="link" href="https://www.geode.energy/news/geode-datathon-winners-announced" target="_blank" rel="noopener">GEODE Engineering Datathon</a> — multi-modal diagnostics for an enhanced geothermal system.</p>
             </div>
           </header>
           <ul class="tag-list" aria-label="Methods and tools">
@@ -311,7 +311,7 @@
           <section class="visual-frame visual-frame--plot" data-plot-shell="forge" aria-label="Interactive Utah FORGE well and microseismic model">
             <div class="visual-toolbar" data-plot-controls="forge"></div>
             <div id="plot-forge" class="plot-host" data-plot-host="forge"></div>
-            <img class="plot-fallback" data-plot-fallback="forge" src="/portfolio/posters/forge.webp?v=20260901.3" alt="Static 3D view of Utah FORGE wells and microseismic events" loading="lazy">
+            <img class="plot-fallback" data-plot-fallback="forge" src="/portfolio/posters/forge.webp?v=20260901.5" alt="Static 3D view of Utah FORGE wells and microseismic events" loading="lazy">
           </section>
           <div class="project-copy">
             <p>Over one weekend, my teammate and I integrated well surveys, stimulation records, <span class="tt-trigger" role="button" tabindex="0" data-preview-kind="image" data-preview-src="/portfolio/assets/dts_deltaT.png" data-preview-title="Distributed-temperature change by stage">distributed fiber-optic measurements</span>, <span class="tt-trigger" role="button" tabindex="0" data-preview-kind="image" data-preview-src="/portfolio/assets/tracer_plots.png" data-preview-title="Tracer recovery by stage">tracer recovery</span>, and microseismic events. I wrote the analysis code shown in our presentation and used the independent data streams to interpret stage-level connectivity and preferential flow paths.</p>
@@ -326,7 +326,7 @@
           <header class="project-header">
             <div>
               <h3>Hydraulic-Fracturing Fuel Forecast</h3>
-              <p>First place, UT PGE Energy AI Hackathon — regression and uncertainty analysis under a 48-hour deadline.</p>
+              <p>First place, <a class="link" href="https://www.pge.utexas.edu/pge-news/ut-pge-hosts-5th-annual-energy-ai-hackathon/" target="_blank" rel="noopener">UT PGE Energy AI Hackathon</a> — regression and uncertainty analysis under a 48-hour deadline.</p>
             </div>
           </header>
           <ul class="tag-list" aria-label="Methods and tools">
@@ -367,7 +367,6 @@
         </div>
         <p class="contact-colophon">FEHMİ ÖZBAYRAK</p>
       </div>
-      <div class="hero-grid" aria-hidden="true"></div>
     </section>
   </main>
 

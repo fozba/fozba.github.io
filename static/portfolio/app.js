@@ -1,6 +1,6 @@
 const PLOTLY_URL = 'https://cdn.plot.ly/plotly-3.4.0.min.js'
 const PLOTLY_INTEGRITY = 'sha256-KEmPoupLpFyGMyGAiOsiNDbKDKAvxXAn/W+oQa0ZAfk='
-const ASSET_VERSION = '20260901.3'
+const ASSET_VERSION = '20260901.5'
 const versionedAsset = path => `${path}?v=${ASSET_VERSION}`
 const DATA_MODULE_URL = versionedAsset('/portfolio/js/plot-data.js')
 const SIERRA_MODULE_URL = versionedAsset('/portfolio/js/sierra-model.js')
@@ -392,16 +392,36 @@ function makeFullscreenButton (shell, host) {
   button.className = 'fullscreen-button'
   button.textContent = 'Full screen'
   button.setAttribute('aria-pressed', 'false')
-  button.addEventListener('click', () => {
+  button.addEventListener('click', async () => {
     const opening = !shell.classList.contains('is-fullscreen')
-    if (opening) openFullscreenPlot(shell, host, button)
-    else closeFullscreenPlot()
+    if (opening) await openFullscreenPlot(shell, host, button)
+    else await closeFullscreenPlot()
   })
   return button
 }
 
-function openFullscreenPlot (shell, host, button) {
-  if (appState.fullscreenShell) closeFullscreenPlot({ restoreFocus: false })
+function preserveEmbeddedPlotScrolling (shell, host) {
+  if (host.dataset.pageScrollBound === 'true') return
+  host.dataset.pageScrollBound = 'true'
+  host.addEventListener('wheel', event => {
+    if (shell.classList.contains('is-fullscreen') || event.ctrlKey) return
+    const slide = shell.closest('.slide')
+    if (!slide) return
+    event.preventDefault()
+    slide.scrollTop += event.deltaY
+  }, { capture: true, passive: false })
+}
+
+async function setFullscreenPlotNavigation (host, enabled) {
+  if (!host?.data || !host?.layout || !appState.plotly) return
+  const spec = await getPlotSpec(host.dataset.plotId)
+  const figure = createPlotFigure(spec)
+  const config = { ...plotConfig(figure), scrollZoom: enabled }
+  await appState.plotly.react(host, host.data, host.layout, config)
+}
+
+async function openFullscreenPlot (shell, host, button) {
+  if (appState.fullscreenShell) await closeFullscreenPlot({ restoreFocus: false })
   appState.fullscreenOrigin = {
     parent: shell.parentNode,
     nextSibling: shell.nextSibling
@@ -414,12 +434,15 @@ function openFullscreenPlot (shell, host, button) {
   appState.fullscreenShell = shell
   button.textContent = 'Exit full screen'
   button.setAttribute('aria-pressed', 'true')
-  window.requestAnimationFrame(() => appState.plotly?.Plots.resize(host))
+  await setFullscreenPlotNavigation(host, true)
+  appState.plotly?.Plots.resize(host)
 }
 
-function closeFullscreenPlot ({ restoreFocus = true } = {}) {
+async function closeFullscreenPlot ({ restoreFocus = true } = {}) {
   const shell = appState.fullscreenShell
   if (!shell) return
+  const host = shell.querySelector('[data-plot-host]')
+  await setFullscreenPlotNavigation(host, false)
   shell.classList.remove('is-fullscreen')
   shell.removeAttribute('role')
   shell.removeAttribute('aria-modal')
@@ -435,7 +458,6 @@ function closeFullscreenPlot ({ restoreFocus = true } = {}) {
     button.setAttribute('aria-pressed', 'false')
     if (restoreFocus) button.focus()
   }
-  const host = shell.querySelector('[data-plot-host]')
   window.requestAnimationFrame(() => appState.plotly?.Plots.resize(host))
 }
 
@@ -454,9 +476,8 @@ function makeTraceMenu (id, host, traces, controls = {}) {
   const actions = document.createElement('div')
   actions.className = 'plot-menu__actions'
   const allButton = document.createElement('button')
-  const clearButton = document.createElement('button')
-  const clearLabel = controls.actions?.includes('reset') ? 'Reset' : 'Clear'
-  for (const [button, label] of [[allButton, 'Show all'], [clearButton, clearLabel]]) {
+  const hideButton = document.createElement('button')
+  for (const [button, label] of [[allButton, 'Show all'], [hideButton, 'Hide all']]) {
     button.type = 'button'
     button.className = 'plot-control'
     button.textContent = label
@@ -494,14 +515,21 @@ function makeTraceMenu (id, host, traces, controls = {}) {
     list.appendChild(groupElement)
   })
 
-  function setVisibility (checkbox, visible) {
+  async function setVisibility (checkbox, visible) {
     checkbox.checked = visible
     const index = Number(checkbox.dataset.traceIndex)
     if (typeof appState.plotModule?.setTraceVisibility === 'function') {
-      appState.plotModule.setTraceVisibility(host, index, visible, appState.plotly)
+      await appState.plotModule.setTraceVisibility(host, index, visible, appState.plotly)
     } else {
-      appState.plotly.restyle(host, { visible }, [index])
+      await appState.plotly.restyle(host, { visible }, [index])
     }
+  }
+
+  async function setAllVisibility (visible) {
+    const checkboxes = Array.from(list.querySelectorAll('input'))
+    const indices = checkboxes.map(input => Number(input.dataset.traceIndex))
+    checkboxes.forEach(input => { input.checked = visible })
+    await appState.plotly.restyle(host, { visible: indices.map(() => visible) }, indices)
   }
 
   list.addEventListener('change', event => {
@@ -511,14 +539,8 @@ function makeTraceMenu (id, host, traces, controls = {}) {
     const query = search.value.trim().toLowerCase()
     list.querySelectorAll('label').forEach(label => { label.hidden = !label.dataset.filterText.includes(query) })
   })
-  allButton.addEventListener('click', () => list.querySelectorAll('input').forEach(input => setVisibility(input, true)))
-  clearButton.addEventListener('click', () => {
-    if (controls.actions?.includes('reset')) {
-      list.querySelectorAll('input').forEach(input => setVisibility(input, true))
-    } else {
-      list.querySelectorAll('input').forEach(input => setVisibility(input, false))
-    }
-  })
+  allButton.addEventListener('click', () => setAllVisibility(true))
+  hideButton.addEventListener('click', () => setAllVisibility(false))
 
   panel.append(search, actions, list)
   details.append(summary, panel)
@@ -559,6 +581,8 @@ function setupPlotControls (id, host, spec, figure) {
   const toolbar = document.querySelector(`[data-plot-controls="${id}"]`)
   if (!shell || !toolbar) return
   toolbar.replaceChildren()
+
+  if (id === 'basin' || id === 'forge') preserveEmbeddedPlotScrolling(shell, host)
 
   if (id === 'nevada') toolbar.appendChild(makeLayerButtons(host, spec, figure))
   else toolbar.appendChild(makeTraceMenu(id, host, figure.data, spec.controls))
