@@ -347,8 +347,6 @@ body[data-slide-theme="light"] .nav-button { color: var(--ink); background: rgb(
   font-size: .72rem;
 }
 
-.tag-list a { color: inherit; text-decoration: underline; text-underline-offset: .16em; }
-
 .visual-frame {
   position: relative;
   width: 100%;
