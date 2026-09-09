@@ -1,6 +1,6 @@
 const PLOTLY_URL = 'https://cdn.plot.ly/plotly-3.4.0.min.js'
 const PLOTLY_INTEGRITY = 'sha256-KEmPoupLpFyGMyGAiOsiNDbKDKAvxXAn/W+oQa0ZAfk='
-const ASSET_VERSION = '20260901.5'
+const ASSET_VERSION = '20260909.1'
 const versionedAsset = path => `${path}?v=${ASSET_VERSION}`
 const DATA_MODULE_URL = versionedAsset('/portfolio/js/plot-data.js')
 const SIERRA_MODULE_URL = versionedAsset('/portfolio/js/sierra-model.js')

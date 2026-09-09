@@ -3,6 +3,12 @@ import { readFile } from "node:fs/promises";
 
 const modulePath = new URL("../../static/portfolio/js/sierra-model.js", import.meta.url);
 const source = await readFile(modulePath, "utf8");
+assert.match(
+  source,
+  /value="\$\{params\[item\.key\]\}" step="\$\{item\.step\}"/,
+  "assumption inputs use their configured spinner increments",
+);
+assert.doesNotMatch(source, /step="any"/, "assumption inputs do not use the browser's fallback increment");
 const moduleUrl = `data:text/javascript;base64,${Buffer.from(source).toString("base64")}`;
 const {
   SIERRA_BASE_PARAMS,

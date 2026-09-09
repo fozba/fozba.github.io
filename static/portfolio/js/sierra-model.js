@@ -305,7 +305,7 @@ function fieldMarkup(item, params, prefix) {
     return `<div class="sierra-field">
       <label for="${id}">${escapeHtml(item.label)}</label>
       <input id="${id}" name="${item.key}" type="number" inputmode="decimal"
-        value="${params[item.key]}" step="any" data-step="${item.step}"${min}${max}
+        value="${params[item.key]}" step="${item.step}"${min}${max}
         aria-describedby="${id}-unit">
       <span class="sierra-field__hint" id="${id}-unit">${escapeHtml(item.unit)}</span>
     </div>`;
