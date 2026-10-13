@@ -38,9 +38,9 @@ projects:
   repo: "https://github.com/fozba/spatialbootstrap"
 
 - name: Sierra Solutions - SPE Energython
-  role: "2nd Place, Solo Entry"
+  role: "International Champion (1st Place), Solo Entry"
   timeline: "2026"
-  summary: "Built a 15-year physics-and-finance model for a 15 MW behind-the-meter natural-gas power concept serving an AI data center. Evaluated 10,000 Monte Carlo scenarios across 12 risk drivers and presented a base case with 14.47% levered IRR and 1.72x minimum DSCR."
+  summary: "Won the SPE Energython 2026 International Finals, first among 13 finalist teams from seven countries, after placing 2nd in the North American round. Built a 15-year physics-and-finance model for a 15.75 MW behind-the-meter natural-gas power concept serving an AI data center, with 10,000 Monte Carlo scenarios across 13 risks and a base case of 19.98% equity IRR, $6.92M NPV, and 1.50x minimum DSCR."
   tags: ["competition", "energy-systems", "project-finance"]
   url: "/posts/2026/2026-02-20-spe-amts-energython-workflow"
 

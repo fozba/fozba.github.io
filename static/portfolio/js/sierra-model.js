@@ -1,10 +1,15 @@
-/** Mobile-first Sierra Solutions finance model.
+/** Mobile-first Sierra Solutions finance model (Energython 2026 International Finals version).
  *
  * API:
  *   const controller = mountSierra(host, window.Plotly)
  *   controller.reset() / recompute() / resize() / destroy() / getParams()
  *
  * The parent owns Plotly. No runtime is imported or embedded here.
+ *
+ * Finals model: heat rate on HHV basis, capacity billed on 15.75 MW firm,
+ * tax-loss carryforward, DSRA sized at 6 months of debt service and released
+ * at loan maturity, depreciation basis incl. capitalized interest less land,
+ * 75/25 debt/equity with a 13-year loan (2-year tail inside the 15-year contract).
  */
 
 const ASSET_VERSION = new URL(import.meta.url).searchParams.get("v");
@@ -24,29 +29,34 @@ const TURBINE_CONFIGURATION = Object.freeze({
   redundantUnits: 2,
 });
 
+const HHV_LHV = 1.108;
+const LAND_COST = 1000000;
+const MODEL_YEARS = 18;
+
 const BASE_PARAMS = Object.freeze({
   cap_rate: 22.5,
   en_rate: 0.055,
   var_om: 17.5,
-  waha_price: 1.5,
-  henry_price: 6,
+  waha_price: 1.15,
+  henry_price: 4,
   waha_weight: 0.95,
   transport_fee: 0.6,
   capex: 31029075,
-  debt_share: 0.65,
+  debt_share: 0.75,
   interest_rate: 0.085,
+  loan_tenor: 13,
   tax_rate: 0.21,
-  dsra: 1355000,
+  dsra_months: 6,
   prop_tax_rate: 0.025,
   tax_decline: 0.05,
   cpi_esc: 1.025,
   ppa_esc: 1.025,
   gas_esc: 1.03,
   labor_esc: 1.03,
-  mw_delivered: 15,
+  mw_delivered: 15.75,
   const_years: 1.4976043805612593,
   degradation: 1.005,
-  hr: 8.114,
+  hr: 8.114 * HHV_LHV,
   staff_base: 923000,
   ins_base: 232718.0625,
   adm_base: 75000,
@@ -65,7 +75,7 @@ const GROUPS = Object.freeze([
     fields: [
       field("const_years", "Construction period", 0.1, "years", 0.1, 5),
       fixed("Operation period", "15 years"),
-      derived("Delivered power", (p) => `${p.mw_delivered.toFixed(2)} MW`),
+      derived("Firm power (billed)", (p) => `${p.mw_delivered.toFixed(2)} MW`),
       derived("Annual generation", (p) => `${formatNumber(deriveGeneration(p).annualGenerationMwh, 1)} MWh`),
       field("disc_rate", "Discount rate", 0.005, "fraction", 0, 1),
     ],
@@ -77,9 +87,10 @@ const GROUPS = Object.freeze([
       field("debt_share", "Debt share", 0.05, "fraction", 0, 1),
       derived("Equity share", (p) => (1 - p.debt_share).toFixed(3)),
       field("interest_rate", "Loan interest", 0.005, "fraction", 0, 1),
-      field("dsra", "Debt-service reserve", 50000, "USD", 0),
+      field("loan_tenor", "Loan tenor", 1, "years", 1, 15),
+      field("dsra_months", "Debt-service reserve", 1, "months of payments", 0, 12),
       field("capex", "Hard CAPEX", 500000, "USD", 0),
-      derived("Initial loan", (p) => formatMoney((p.capex + p.dsra) * p.debt_share)),
+      derived("Initial loan", (p) => formatMoney((p.capex + sizeDsra(p)) * p.debt_share)),
       field("prop_tax_rate", "Property-tax rate", 0.005, "fraction", 0, 1),
       field("tax_decline", "Property-tax decline", 0.01, "fraction", 0, 1),
     ],
@@ -113,11 +124,11 @@ const GROUPS = Object.freeze([
   {
     title: "Power generation",
     fields: [
-      derived("Active turbines", (p) => String(deriveGeneration(p).activeTurbines)),
-      derived("Total turbines (N+2)", (p) => String(deriveGeneration(p).totalTurbines)),
+      derived("Active engines", (p) => String(deriveGeneration(p).activeTurbines)),
+      derived("Total engines (N+2)", (p) => String(deriveGeneration(p).totalTurbines)),
       fixed("Unit net power", "2.25 MW"),
       fixed("Capacity factor", "0.96"),
-      field("hr", "Heat rate", 0.1, "MMBtu/MWh", 0),
+      field("hr", "Heat rate (HHV)", 0.1, "MMBtu/MWh", 0),
       field("degradation", "Heat-rate degradation", 0.001, "factor", 0.5, 2),
     ],
   },
@@ -150,7 +161,7 @@ function formatNumber(value, maximumFractionDigits = 0) {
 }
 
 function deriveGeneration(p) {
-  const activeTurbines = Math.ceil(p.mw_delivered / TURBINE_CONFIGURATION.unitNetPowerMw);
+  const activeTurbines = Math.ceil(p.mw_delivered / TURBINE_CONFIGURATION.unitNetPowerMw - 1e-9);
   return {
     activeTurbines,
     totalTurbines: activeTurbines + TURBINE_CONFIGURATION.redundantUnits,
@@ -203,19 +214,22 @@ function irr(cashflows) {
   return rate;
 }
 
-export function runSierraModel(inputParams) {
-  const generation = deriveGeneration(inputParams);
-  const p = { ...inputParams, gen_mwh: generation.annualGenerationMwh };
+/** One pass of the cash-flow waterfall for a given DSRA size. */
+function cashflowPass(p, dsra) {
   const weightedHub = p.waha_weight * p.waha_price + (1 - p.waha_weight) * p.henry_price;
-  const totalUses = p.capex + p.dsra;
+  const totalUses = p.capex + dsra;
   const initialLoanDraw = totalUses * p.debt_share;
   const initialEquity = totalUses * (1 - p.debt_share);
   const firstFullOperationsYear = Math.ceil(p.const_years) + 1;
+  const tenor = Math.max(1, Math.round(p.loan_tenor));
+  const lastDebtServiceYear = Math.min(firstFullOperationsYear + tenor - 1, MODEL_YEARS - 1);
   const table = [];
   let currentLoanBalance = initialLoanDraw;
   let balloonBalance = 0;
+  let lossBank = 0;
+  let capitalizedInterest = 0;
 
-  for (let year = 0; year < 18; year += 1) {
+  for (let year = 0; year < MODEL_YEARS; year += 1) {
     const rampFactor = year > 0 ? Math.max(0, Math.min(1, year - p.const_years)) : 0;
     const timeIndex = rampFactor > 0
       ? (Math.max(year - 1, p.const_years) + year) / 2
@@ -229,47 +243,75 @@ export function runSierraModel(inputParams) {
     const variableOperations = p.gen_mwh * p.var_om * Math.pow(p.cpi_esc, timeIndex) * rampFactor;
     const staff = p.staff_base * Math.pow(p.labor_esc, timeIndex) * rampFactor;
     const statutoryOn = year > 0 ? 1 : 0;
-    const insurance = rampFactor > 0
-      ? p.ins_base * Math.pow(p.cpi_esc, timeIndex)
-      : p.ins_base * statutoryOn;
-    const administration = rampFactor > 0
-      ? p.adm_base * Math.pow(p.cpi_esc, timeIndex)
-      : p.adm_base * statutoryOn;
+    const insuranceAndAdmin = (p.ins_base + p.adm_base)
+      * (rampFactor > 0 ? Math.pow(p.cpi_esc, timeIndex) : statutoryOn);
     const propertyTax = p.capex * p.prop_tax_rate
       * Math.pow(1 - p.tax_decline, Math.max(0, year - 2)) * statutoryOn;
-    const ebitda = totalRevenue
-      - (fuel + variableOperations + staff + insurance + administration + propertyTax);
+    const operatingCost = fuel + variableOperations + staff + insuranceAndAdmin + propertyTax;
+    const ebitda = totalRevenue - operatingCost;
     const interest = year > 0 ? currentLoanBalance * p.interest_rate : 0;
     const interestDuringConstruction = year > 0 ? interest * (1 - rampFactor) : 0;
+    capitalizedInterest += interestDuringConstruction;
     if (year === Math.floor(p.const_years + 1)) {
       balloonBalance = currentLoanBalance + interestDuringConstruction;
     }
-    let principalPayment = 0;
-    if (year >= firstFullOperationsYear) {
-      const amortizationPeriod = year - (firstFullOperationsYear - 1);
-      if (amortizationPeriod <= 15) {
-        principalPayment = -ppmt(p.interest_rate, amortizationPeriod, 15, balloonBalance);
-      }
-    }
-    const depreciation = year >= 2 ? p.capex * MACRS_TABLE[year - 1] : 0;
+    const amortizationPeriod = year - firstFullOperationsYear + 1;
+    const principalPayment = year >= firstFullOperationsYear && amortizationPeriod <= tenor
+      ? -ppmt(p.interest_rate, amortizationPeriod, tenor, balloonBalance)
+      : 0;
+    const depreciableBasis = p.capex + capitalizedInterest - LAND_COST;
+    const depreciation = year >= 2 && year - 1 < MACRS_TABLE.length
+      ? depreciableBasis * MACRS_TABLE[year - 1]
+      : 0;
     const taxableIncome = ebitda - (interest - interestDuringConstruction) - depreciation;
-    const taxPaid = Math.max(0, taxableIncome * p.tax_rate);
+    let taxPaid = 0;
+    if (taxableIncome < 0) {
+      lossBank += -taxableIncome;
+    } else {
+      const lossUsed = Math.min(lossBank, 0.8 * taxableIncome);
+      lossBank -= lossUsed;
+      taxPaid = (taxableIncome - lossUsed) * p.tax_rate;
+    }
     const debtService = principalPayment + interest - interestDuringConstruction;
-    const dscr = debtService > 0.001 ? (ebitda - taxPaid) / debtService : null;
-    let leveredCashFlow = ebitda - taxPaid - debtService;
-    if (year === 0) leveredCashFlow = -initialEquity;
+    const cashAvailable = ebitda - taxPaid;
+    const dscr = debtService > 0.001 && year >= firstFullOperationsYear ? cashAvailable / debtService : null;
+    let leveredCashFlow = year === 0 ? -initialEquity : cashAvailable - debtService;
+    if (year === lastDebtServiceYear) leveredCashFlow += dsra;
     currentLoanBalance = currentLoanBalance + interestDuringConstruction - principalPayment;
     table.push({
       year,
       revenue: totalRevenue,
+      operatingCost,
       ebitda,
       taxPaid,
       debtService,
+      cashAvailable,
       dscr,
       leveredCashFlow,
       loanBalance: currentLoanBalance,
     });
   }
+  return { table, initialEquity, initialLoanDraw, firstFullOperationsYear, tenor, capitalizedInterest };
+}
+
+/** DSRA sized at `dsra_months` of level debt service (iterated, since the reserve is itself financed). */
+function sizeDsra(inputParams) {
+  const p = { ...inputParams, gen_mwh: deriveGeneration(inputParams).annualGenerationMwh };
+  let dsra = 1355000;
+  for (let pass = 0; pass < 6; pass += 1) {
+    const { table } = cashflowPass(p, dsra);
+    const levelDebtService = Math.max(...table.map((row) => row.debtService));
+    dsra = levelDebtService * p.dsra_months / 12;
+  }
+  return dsra;
+}
+
+export function runSierraModel(inputParams) {
+  const generation = deriveGeneration(inputParams);
+  const p = { ...inputParams, gen_mwh: generation.annualGenerationMwh };
+  const dsra = sizeDsra(inputParams);
+  const pass = cashflowPass(p, dsra);
+  const { table, initialEquity, initialLoanDraw, firstFullOperationsYear, tenor } = pass;
 
   const cashflows = table.map((row) => row.leveredCashFlow);
   const irrValue = irr(cashflows) * 100;
@@ -278,11 +320,23 @@ export function runSierraModel(inputParams) {
     npv += cashflows[index] / Math.pow(1 + p.disc_rate, index);
   }
   const dscrs = table.map((row) => row.dscr).filter((value) => value !== null);
+  const openingBalance = table[firstFullOperationsYear - 1].loanBalance;
+  let discountedCash = 0;
+  for (let year = firstFullOperationsYear; year < Math.min(MODEL_YEARS, firstFullOperationsYear + tenor); year += 1) {
+    discountedCash += table[year].cashAvailable / Math.pow(1 + p.interest_rate, year - firstFullOperationsYear + 1);
+  }
+  const positive = cashflows.filter((value) => value > 0).reduce((sum, value) => sum + value, 0);
+  const negative = -cashflows.filter((value) => value < 0).reduce((sum, value) => sum + value, 0);
   return {
     irr: irrValue,
     npv,
     initialEquity,
+    initialLoan: initialLoanDraw,
+    dsra,
+    capitalizedInterest: pass.capitalizedInterest,
     minDscr: dscrs.length ? Math.min(...dscrs) : null,
+    llcr: openingBalance > 0 ? discountedCash / openingBalance : null,
+    moic: negative > 0 ? positive / negative : null,
     generation,
     table,
   };
@@ -326,7 +380,7 @@ function legendMarkup(items) {
 
 function kpiMarkup(className = "sierra-kpis") {
   return `<dl class="${className}" aria-live="polite" aria-atomic="true">
-    <div><dt>Project IRR</dt><dd data-sierra-kpi="irr">—</dd></div>
+    <div><dt>Equity IRR</dt><dd data-sierra-kpi="irr">—</dd></div>
     <div><dt>NPV</dt><dd data-sierra-kpi="npv">—</dd></div>
     <div><dt>Initial equity</dt><dd data-sierra-kpi="equity">—</dd></div>
     <div><dt>Minimum DSCR</dt><dd data-sierra-kpi="dscr">—</dd></div>
@@ -362,7 +416,7 @@ function modelMarkup(params, prefix) {
         <p class="sierra-chart__summary" data-sierra-summary="loan"></p>
       </section>
     </div>
-    <p class="sierra-model__note">Illustrative project-finance model. Results respond to assumptions and are not investment advice.</p>
+    <p class="sierra-model__note">Illustrative project-finance model (Energython 2026 International Finals version). Results respond to assumptions and are not investment advice.</p>
     <dialog class="sierra-settings" data-sierra-settings aria-labelledby="${prefix}-settings-title">
       <div class="sierra-settings__header">
         <div>
@@ -563,12 +617,12 @@ export function mountSierra(host, Plotly = globalThis.Plotly) {
     setKpi(host, "irr", Number.isFinite(result.irr) ? `${result.irr.toFixed(2)}%` : "n/a", result.irr >= 12 ? "good" : result.irr < 0 ? "bad" : "");
     setKpi(host, "npv", `${result.npv < 0 ? "−" : ""}${formatMoney(Math.abs(result.npv))}`, result.npv >= 0 ? "good" : "bad");
     setKpi(host, "equity", formatMoney(result.initialEquity));
-    setKpi(host, "dscr", result.minDscr === null || !Number.isFinite(result.minDscr) ? "n/a" : `${result.minDscr.toFixed(2)}×`, result.minDscr >= 1.2 ? "good" : result.minDscr < 1 ? "bad" : "");
+    setKpi(host, "dscr", result.minDscr === null || !Number.isFinite(result.minDscr) ? "n/a" : `${result.minDscr.toFixed(2)}×`, result.minDscr >= 1.25 ? "good" : result.minDscr < 1 ? "bad" : "");
     updateDerived(host, params);
 
     const positiveCashflows = result.table.filter((row) => row.leveredCashFlow > 0).length;
     host.querySelector('[data-sierra-summary="cashflow"]').textContent =
-      `${positiveCashflows} of ${result.table.length} modeled years have positive levered cash flow; project IRR is ${Number.isFinite(result.irr) ? `${result.irr.toFixed(2)}%` : "not available"}.`;
+      `${positiveCashflows} of ${result.table.length} modeled years have positive levered cash flow; equity IRR is ${Number.isFinite(result.irr) ? `${result.irr.toFixed(2)}%` : "not available"}.`;
     const peakLoan = Math.max(...result.table.map((row) => row.loanBalance));
     const endingLoan = result.table.at(-1).loanBalance;
     host.querySelector('[data-sierra-summary="loan"]').textContent =
@@ -650,7 +704,7 @@ export function mountSierra(host, Plotly = globalThis.Plotly) {
     recompute,
     resize,
     destroy,
-    getParams: () => ({ ...params, ...deriveGeneration(params) }),
+    getParams: () => ({ ...params, ...deriveGeneration(params), dsra: sizeDsra(params) }),
   };
 }
 

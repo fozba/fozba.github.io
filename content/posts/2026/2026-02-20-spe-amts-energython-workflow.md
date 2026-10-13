@@ -12,6 +12,10 @@ menu:
     weight: -100
 ---
 
+{{< alert type="success" >}}
+Update (October 2026): Sierra Solutions won first place at the SPE Energython 2026 International Finals! See the [update at the end of this post](#update-october-2026).
+{{< /alert >}}
+
 _If you are just skimming the blog for my projects, you can jump to [here](#blog-special-interactive-model) for an interactive demo of this work._
 
 A couple of months ago, I have seen a VERY interesting competition going on: [SPE AMTS Energython](https://jpt.spe.org/spe-asset-management-technical-section-to-host-energy-economics-symposium). This competition was about designing a gas power plant to power a 10-20 MW datacenter from ground up, calculate things like CAPEX, OPEX, NPV etc., and present it to a group of judges to "sell" your ideas - pretty much like a "Shark Tank". Importantly, this was a US-wide competition, and the first 2 winning teams were said to be going to compete in the global competition afterwards, in October. 
@@ -225,3 +229,11 @@ It forced me to bridge the gap between engineering reality and financial viabili
 I already gave a spoiler of making it to the finals, but what I didn't share this far (if you made it this far, many thanks for reading, and please feel free to reach if you want to talk about this work in any way) is that **I actually earned the 2nd place** for this work. Of course, if you come here from the "Projects" section in my main page, you have seen it... But... Well, yeah.
 
 See you in October!
+
+## Update: October 2026
+
+Well, October came. Sierra Solutions went to the International Finals, competing against 13 finalist teams from seven countries in front of a judging panel at ConocoPhillips headquarters, and **won first place**!
+
+Before the finals, I went back to the model and tightened it: the heat rate is now on the HHV basis that gas is actually billed on, capacity is billed on the full 15.75 MW firm output, tax losses carry forward, the debt-service reserve is sized at six months of payments, the structure moved to 75/25 debt to equity with a 13-year loan, and the gas prices are re-based on 2019-2025 Waha history. The finals base case came out at a 19.98% equity IRR, a $6.92M NPV, and a 1.50x minimum DSCR.
+
+The numbers and the interactive demo in this post are from the regional round; the interactive model on my [portfolio](/portfolio/) runs the finals version.
